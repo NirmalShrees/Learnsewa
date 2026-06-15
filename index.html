@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepVerse - Elite Loksewa & IQ Prep Center</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            900: '#1e3a8a'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Smooth page transition views */
+        .page-view {
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            display: none;
+        }
+
+        .page-view.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            display: block;
+        }
+
+        /* Custom Scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .float-emoji { animation: float 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row">
+
+    <!-- ==========================================
+         DESKTOP SIDEBAR (Left Column on wide view)
+         ========================================== -->
+    <aside class="hidden md:flex flex-col w-72 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800/80 min-h-screen sticky top-0 self-start z-30 shadow-xs">
+        <!-- Logo Header -->
+        <div class="p-6 flex items-center gap-3 border-b border-slate-100 dark:border-slate-800/50">
+            <div class="w-11 h-11 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                <i class="fa-solid fa-graduation-cap text-xl"></i>
+            </div>
+            <div>
+                <h1 class="font-extrabold text-slate-950 dark:text-white tracking-tight text-lg">PrepVerse</h1>
+                <span class="text-[10px] bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 font-bold px-1.5 py-0.5 rounded-md">LOKSEWA PRO</span>
+            </div>
+        </div>
+
+        <!-- Navigation System -->
+        <nav class="flex-1 px-4 py-6 space-y-1">
+            <button onclick="switchTab('home')" id="desk-nav-home" class="w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-blue-600 bg-blue-50/50 dark:bg-blue-950/20 border-r-4 border-blue-600 transition-all">
+                <i class="fa-solid fa-house text-lg w-5 text-center"></i> Dashboard
+            </button>
+            <button onclick="switchTab('courses')" id="desk-nav-courses" class="w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+                <i class="fa-solid fa-book-open text-lg w-5 text-center"></i> Syllabi & Courses
+            </button>
+            <button onclick="switchTab('tests')" id="desk-nav-tests" class="w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+                <i class="fa-solid fa-clipboard-list text-lg w-5 text-center"></i> Mock Exams
+            </button>
+            <button onclick="switchTab('community')" id="desk-nav-community" class="w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+                <i class="fa-solid fa-users text-lg w-5 text-center"></i> Community Hub
+            </button>
+            <button onclick="switchTab('profile')" id="desk-nav-profile" class="w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">
+                <i class="fa-solid fa-user text-lg w-5 text-center"></i> User Profile
+            </button>
+        </nav>
+
+        <!-- Dynamic Countdown Widget -->
+        <div class="mx-4 my-2 p-4 bg-amber-50/60 dark:bg-slate-800/40 rounded-2xl border border-amber-200/50 dark:border-slate-800">
+            <span class="text-[9px] uppercase tracking-wider font-extrabold text-amber-700 dark:text-amber-400">Exam Countdown</span>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">Section Officer Prelims</p>
+            <div class="flex items-center gap-1.5 mt-2">
+                <span class="text-lg font-black text-amber-600">42</span>
+                <span class="text-[10px] text-slate-500 font-semibold">Days remaining</span>
+            </div>
+        </div>
+
+        <!-- Pro Feature Upgrade banner -->
+        <div class="p-4 m-4 bg-gradient-to-br from-slate-900 to-indigo-950 rounded-2xl text-white relative overflow-hidden shadow-lg border border-slate-800/80">
+            <div class="absolute right-2 bottom-2 text-white/5"><i class="fa-solid fa-gem text-5xl"></i></div>
+            <h4 class="text-xs font-extrabold text-amber-400">Unlock Full Library</h4>
+            <p class="text-[10px] text-slate-300 mt-1 leading-relaxed">Instant access to 10,000+ past Loksewa GK & IQ questions.</p>
+            <button onclick="openProPlansModal()" class="mt-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] py-2 rounded-lg transition">Go Pro Plan</button>
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN INTERACTION FLOW FRAME 
+         ========================================== -->
+    <main class="flex-1 flex flex-col min-w-0 max-w-6xl mx-auto w-full relative pb-28 md:pb-8">
+
+        <!-- ==========================================
+             SYSTEM TOP NAVIGATION HEADLINES
+             ========================================== -->
+        <header class="bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md px-5 py-4 sticky top-0 z-40 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-transparent md:border-slate-100 dark:md:border-slate-800/80">
+            <!-- Mobile System Clock Status Strip -->
+            <div class="flex justify-between items-center w-full md:hidden text-xs font-bold text-slate-700 dark:text-slate-300">
+                <span>9:41</span>
+                <!-- Dynamic Island Simulation -->
+                <div class="w-20 h-4 bg-black rounded-full absolute left-1/2 -translate-x-1/2 top-2"></div>
+                <div class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-signal text-[9px]"></i>
+                    <i class="fa-solid fa-wifi text-[9px]"></i>
+                    <i class="fa-solid fa-battery-full text-xs"></i>
+                </div>
+            </div>
+
+            <!-- Main Interactive Header Segment -->
+            <div class="hidden md:flex items-center justify-between w-full">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-950 dark:text-white tracking-tight" id="header-title-text">Dashboard Overview</h2>
+                    <p class="text-xs text-slate-400 font-medium">Track your study streaks, syllabus compliance, and rank metrics.</p>
+                </div>
+                
+                <!-- Profile Control Bar -->
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3 bg-white dark:bg-slate-900 px-4 py-2 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="text-right">
+                            <span class="block text-xs font-black text-slate-900 dark:text-white" id="header-user-name">Arjun Sharma</span>
+                            <span class="block text-[9px] text-emerald-500 font-bold" id="header-user-xp">XP: 1,840 • Level 4</span>
+                        </div>
+                        <img id="header-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Arjun Avatar" class="w-9 h-9 rounded-full object-cover border-2 border-blue-500">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==========================================
+             TAB AREA PAGES INJECTION FRAME
+             ========================================== -->
+        <div class="flex-grow px-5 pt-3">
+
+            <!-- ---------------------------------------
+                 TAB 1: DASHBOARD VIEW
+                 --------------------------------------- -->
+            <section id="view-home" class="page-view active space-y-6">
+                <!-- Mobile Dynamic Avatar Welcome -->
+                <div class="flex md:hidden justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800/60 shadow-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-14 h-14 bg-sky-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-3xl shrink-0 relative border border-blue-100 dark:border-slate-750">
+                            🦉
+                            <span class="absolute -top-1 -right-1 bg-amber-500 text-[8px] font-extrabold px-1.5 py-0.2 rounded-full text-white shadow-xs">PRO</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Welcome back,</span>
+                            <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-1">
+                                <span id="welcome-name">Arjun</span>! <span class="animate-bounce text-sm">👋</span>
+                            </h2>
+                            <p class="text-[10px] text-slate-400" id="welcome-bio">🎯 Aiming for Section Officer 2026</p>
+                        </div>
+                    </div>
+                    <!-- Direct Mobile avatar trigger for Profile edits -->
+                    <button onclick="switchTab('profile')" class="w-11 h-11 rounded-full overflow-hidden border-2 border-blue-500 shadow-sm shrink-0">
+                        <img id="welcome-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Arjun" class="w-full h-full object-cover">
+                    </button>
+                </div>
+
+                <!-- Daily Statistics & Syllabus Widgets - EXACTLY side-by-side on mobile (image_a0eb3f.png comparison) -->
+                <div class="grid grid-cols-2 gap-3 md:gap-4">
+                    <!-- Daily Streak Metric Widget -->
+                    <div class="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl p-3 md:p-5 text-white shadow-lg shadow-blue-500/10 flex flex-col justify-between overflow-hidden">
+                        <div>
+                            <span class="text-[9px] md:text-[11px] font-bold uppercase tracking-wider opacity-85 block">Daily Streak</span>
+                            <div class="flex items-center gap-1.5 mt-1.5">
+                                <span class="text-2xl md:text-4xl text-orange-400 drop-shadow-md shrink-0">🔥</span>
+                                <div class="flex items-baseline">
+                                    <span class="text-2xl md:text-4xl font-black" id="dashboard-streak-count">7</span>
+                                    <span class="text-[9px] md:text-xs ml-1 font-semibold opacity-90">Days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 md:mt-6">
+                            <p class="text-[8px] md:text-[10px] font-medium opacity-90 mb-2 truncate">Great going! Keep it up.</p>
+                            <!-- Weekly Checkboxes Strip (Miniatured for space) -->
+                            <div class="flex justify-between items-center text-[7px] md:text-[9px] font-bold bg-white/10 p-1 md:p-2 rounded-xl backdrop-blur-md border border-white/10">
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>M</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>T</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>W</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>T</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>F</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-emerald-400 text-white flex items-center justify-center rounded-full"><i class="fa-solid fa-check text-[5px] md:text-[7px]"></i></span>S</div>
+                                <div class="flex flex-col items-center gap-0.5"><span class="w-3.5 h-3.5 md:w-4 md:h-4 bg-orange-400 text-white flex items-center justify-center rounded-full text-[6px] md:text-[8px] font-black">S</span>S</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Syllabus Completed Widget -->
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-3 md:p-5 shadow-xs border border-slate-100 dark:border-slate-800/80 flex flex-col items-center justify-between text-center min-h-[140px] md:min-h-[175px]">
+                        <span class="text-[9px] md:text-xs font-bold text-slate-700 dark:text-slate-300 block">Syllabus Completed</span>
+                        <div class="relative w-16 h-16 md:w-24 md:h-24 flex items-center justify-center my-1">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-slate-100 dark:text-slate-800" stroke-width="3.2" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="text-blue-600" id="radial-progress-bar" stroke-dasharray="42, 100" stroke-width="3.2" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div class="absolute text-center">
+                                <span class="text-base md:text-2xl font-black text-slate-850 dark:text-white" id="dashboard-syllabus-completed">42%</span>
+                            </div>
+                        </div>
+                        <p class="text-[7px] md:text-[10px] text-slate-400 font-medium px-1">Keep going, you're almost there!</p>
+                    </div>
+                </div>
+
+                <!-- Live continuous Loksewa News/Notifications ticker -->
+                <div class="bg-red-50 dark:bg-red-950/30 p-3 rounded-2xl border border-red-100 dark:border-red-950/60 overflow-hidden relative flex items-center">
+                    <span class="text-sm shrink-0 mr-3 z-10 bg-red-50 dark:bg-slate-950 px-1">📢 Notice:</span>
+                    <div class="relative w-full overflow-hidden whitespace-nowrap">
+                        <div class="inline-block animate-marquee text-xs text-red-800 dark:text-red-400 font-bold">
+                            💥 PSC Alert: New vacancy announcements released for Section Officer, Nayab Subba, and Kharidar posts. Complete your draft forms immediately! • 🗓️ Exam center locations announced for GK & Spatial IQ tests. • 🏆 Join the daily 1v1 battle challenge arena today to secure double performance points. •
+                        </div>
+                        <div class="absolute top-0 inline-block animate-marquee text-xs text-red-800 dark:text-red-400 font-bold" style="animation-delay: 12.5s;">
+                            💥 PSC Alert: New vacancy announcements released for Section Officer, Nayab Subba, and Kharidar posts. Complete your draft forms immediately! • 🗓️ Exam center locations announced for GK & Spatial IQ tests. • 🏆 Join the daily 1v1 battle challenge arena today to secure double performance points. •
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continue Your Preparation Carousel -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Continue Your Preparation</h3>
+                        <button onclick="switchTab('courses')" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">View All</button>
+                    </div>
+
+                    <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2 snap-x" id="home-courses-carousel">
+                        <!-- Nepal History Card -->
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 shadow-xs border border-slate-100 dark:border-slate-800/80 min-w-[170px] max-w-[170px] flex flex-col snap-start">
+                            <div class="h-24 bg-orange-50 dark:bg-orange-950/20 rounded-xl relative overflow-hidden flex items-center justify-center text-3xl">
+                                🏛️
+                                <span class="absolute top-2 right-2 bg-white/95 dark:bg-slate-800 w-5 h-5 rounded-md flex items-center justify-center text-[10px] text-slate-600 dark:text-slate-300 shadow-xs"><i class="fa-regular fa-file-lines"></i></span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white mt-2.5 truncate">History of Nepal</h4>
+                            <span class="text-[9px] text-slate-400 mt-0.5">12 Chapters • 180 Topics</span>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex-1 mr-2">
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-orange-500 h-full w-[68%]"></div>
+                                    </div>
+                                    <span class="text-[9px] text-orange-500 font-bold mt-1 block">68% Completed</span>
+                                </div>
+                                <button onclick="switchTab('courses')" class="w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded-lg flex items-center justify-center shadow-xs shrink-0"><i class="fa-solid fa-arrow-right text-[9px]"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Current Affairs Card -->
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 shadow-xs border border-slate-100 dark:border-slate-800/80 min-w-[170px] max-w-[170px] flex flex-col snap-start">
+                            <div class="h-24 bg-emerald-50 dark:bg-emerald-950/20 rounded-xl relative overflow-hidden flex items-center justify-center text-3xl">
+                                🌍
+                                <span class="absolute top-2 right-2 bg-white/95 dark:bg-slate-800 w-5 h-5 rounded-md flex items-center justify-center text-[10px] text-slate-600 dark:text-slate-300 shadow-xs"><i class="fa-regular fa-bookmark"></i></span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white mt-2.5 truncate">Current Affairs</h4>
+                            <span class="text-[9px] text-slate-400 mt-0.5">Daily Updates • Top News</span>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex-1 mr-2">
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-emerald-500 h-full w-[75%]"></div>
+                                    </div>
+                                    <span class="text-[9px] text-emerald-500 font-bold mt-1 block">75% Completed</span>
+                                </div>
+                                <button onclick="switchTab('courses')" class="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg flex items-center justify-center shadow-xs shrink-0"><i class="fa-solid fa-arrow-right text-[9px]"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Live Mock Test Card -->
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 shadow-xs border border-slate-100 dark:border-slate-800/80 min-w-[170px] max-w-[170px] flex flex-col snap-start">
+                            <div class="h-24 bg-blue-50 dark:bg-blue-950/20 rounded-xl relative overflow-hidden flex items-center justify-center text-3xl">
+                                ⏱️
+                                <span class="absolute top-2 right-2 bg-white/95 dark:bg-slate-800 w-5 h-5 rounded-md flex items-center justify-center text-[10px] text-slate-600 dark:text-slate-300 shadow-xs"><i class="fa-regular fa-calendar"></i></span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white mt-2.5 truncate">Live Mock Test</h4>
+                            <span class="text-[9px] text-slate-400 mt-0.5">20 Tests Available</span>
+                            <div class="mt-4 flex items-center justify-between">
+                                <div class="flex-1 mr-2">
+                                    <div class="w-full bg-slate-100 dark:bg-slate-800 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-blue-600 h-full w-[60%]"></div>
+                                    </div>
+                                    <span class="text-[9px] text-blue-600 font-bold mt-1 block">60% Completed</span>
+                                </div>
+                                <button onclick="switchTab('tests')" class="w-6 h-6 bg-blue-600 hover:bg-blue-750 text-white rounded-lg flex items-center justify-center shadow-xs shrink-0"><i class="fa-solid fa-arrow-right text-[9px]"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Tools Interactive Options Grid -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">Study Tools</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div onclick="switchTab('courses')" class="flex flex-col items-center group cursor-pointer">
+                            <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-950/30 group-hover:scale-110 group-hover:bg-indigo-100 transition rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 shadow-xs">
+                                <i class="fa-solid fa-file-lines text-lg"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-1.5 text-center">Notes</span>
+                        </div>
+                        <div onclick="triggerStudyTool('flashcards')" class="flex flex-col items-center group cursor-pointer">
+                            <div class="w-12 h-12 bg-rose-50 dark:bg-rose-950/30 group-hover:scale-110 group-hover:bg-rose-100 transition rounded-2xl flex items-center justify-center text-rose-500 dark:text-rose-400 shadow-xs">
+                                <i class="fa-solid fa-clone text-lg"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-1.5 text-center">Flashcards</span>
+                        </div>
+                        <div onclick="switchTab('tests')" class="flex flex-col items-center group cursor-pointer">
+                            <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950/30 group-hover:scale-110 group-hover:bg-emerald-100 transition rounded-2xl flex items-center justify-center text-emerald-500 dark:text-emerald-400 shadow-xs">
+                                <i class="fa-solid fa-chart-simple text-lg"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-1.5 text-center">Performance</span>
+                        </div>
+                        <div onclick="triggerStudyTool('bookmarks')" class="flex flex-col items-center group cursor-pointer">
+                            <div class="w-12 h-12 bg-orange-50 dark:bg-orange-950/30 group-hover:scale-110 group-hover:bg-orange-100 transition rounded-2xl flex items-center justify-center text-orange-500 dark:text-orange-400 shadow-xs">
+                                <i class="fa-solid fa-bookmark text-lg"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-1.5 text-center">Bookmarks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Promo Interactive Banner -->
+                <div class="bg-gradient-to-r from-blue-900 via-indigo-950 to-blue-900 rounded-3xl p-5 relative overflow-hidden shadow-md">
+                    <div class="absolute inset-0 opacity-15">
+                        <div class="absolute top-2 left-6 w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+                        <div class="absolute bottom-5 right-20 w-3 h-3 bg-white transform rotate-45"></div>
+                    </div>
+                    <div class="flex justify-between items-center relative z-10">
+                        <div class="max-w-[70%]">
+                            <h4 class="text-sm font-extrabold text-white">Interactive Loksewa Quiz</h4>
+                            <p class="text-[10px] text-slate-300 mt-1 leading-relaxed">Boost your scores by attempting our active daily challenge matchup.</p>
+                            <button onclick="switchTab('tests')" class="mt-3 bg-white text-indigo-950 hover:bg-slate-100 font-extrabold text-[10.5px] py-2 px-4 rounded-xl transition flex items-center gap-1.5">
+                                Start Rapid Quiz <i class="fa-solid fa-bolt text-amber-500 text-[10px]"></i>
+                            </button>
+                        </div>
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/20 shrink-0">
+                            <span class="text-3xl float-emoji">🏆</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------
+                 TAB 2: SYLLABI & COURSES HUB
+                 --------------------------------------- -->
+            <section id="view-courses" class="page-view space-y-6">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------
+                 TAB 3: INTERACTIVE TESTING SUITE & SIMULATOR
+                 --------------------------------------- -->
+            <section id="view-tests" class="page-view space-y-6">
+                <!-- User Accuracy Overview -->
+                <div class="bg-gradient-to-br from-indigo-900 to-indigo-950 text-white rounded-3xl p-5 shadow-md flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-indigo-300">Exam Diagnostic Core</span>
+                        <h4 class="text-2xl font-black mt-1">Score Matrix</h4>
+                        <p class="text-[10px] text-slate-300 mt-0.5 font-medium">Attempt active simulator sets to increase Loksewa readiness.</p>
+                    </div>
+                    <div class="bg-white/10 px-4 py-2.5 rounded-2xl border border-white/10 text-right shrink-0">
+                        <span class="text-[9px] text-slate-200 block uppercase font-bold">Accuracy</span>
+                        <span class="text-base font-black text-emerald-400" id="diagnostic-accuracy">89.4%</span>
+                    </div>
+                </div>
+
+                <!-- Live Test Type Selector Tabs -->
+                <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-2xl">
+                    <button id="test-tab-gk" onclick="switchTestSection('gk')" class="flex-1 py-2 text-xs font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-blue-600 dark:text-white shadow-xs">
+                        🌍 GK Drill
+                    </button>
+                    <button id="test-tab-iq" onclick="switchTestSection('iq')" class="flex-1 py-2 text-xs font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400">
+                        🧩 IQ Drill
+                    </button>
+                    <button id="test-tab-battle" onclick="switchTestSection('battle')" class="flex-1 py-2 text-xs font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400">
+                        ⚔️ 1v1 Battle
+                    </button>
+                </div>
+
+                <!-- GK Quiz Simulator Section -->
+                <div id="quiz-simulator-box" class="bg-blue-50 dark:bg-slate-900/60 p-5 rounded-3xl border border-blue-200/40 dark:border-slate-800 relative">
+                    <!-- Initial Welcome Screen -->
+                    <div id="quiz-screen-start" class="text-center space-y-3 py-4">
+                        <span class="text-4xl">🚀</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white">Active General Knowledge Matchup</h4>
+                        <p class="text-[10px] text-slate-500 max-w-sm mx-auto">Complete 3 timed questions on Nepal's geography and constitution to earn +50 XP and grow your streak!</p>
+                        <button onclick="startInteractiveQuiz('gk')" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs py-2 px-5 rounded-xl shadow-xs transition">
+                            Begin GK Drill
+                        </button>
+                    </div>
+
+                    <!-- Question Play Screen -->
+                    <div id="quiz-screen-play" class="hidden space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-blue-600 uppercase" id="quiz-question-number">Question 1 of 3</span>
+                            <span class="text-[10px] font-extrabold text-slate-400 bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded-md" id="quiz-timer">Time: 20s</span>
+                        </div>
+                        <h5 class="text-xs font-black text-slate-900 dark:text-white mt-1" id="quiz-question-text">Loading question text?</h5>
+                        
+                        <!-- Options List -->
+                        <div class="space-y-2 mt-3" id="quiz-options-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Results Screen -->
+                    <div id="quiz-screen-results" class="hidden text-center space-y-3 py-4">
+                        <span class="text-4xl" id="quiz-result-emoji">🎉</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white" id="quiz-result-headline">Outstanding!</h4>
+                        <p class="text-[10px] text-slate-500" id="quiz-result-detail">You answered all questions correctly.</p>
+                        <div class="flex justify-center gap-4">
+                            <button onclick="resetQuiz()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs py-2 px-4 rounded-xl">Try Again</button>
+                            <button onclick="claimQuizRewards()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-xs transition">Claim +50 XP</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IQ Quiz Simulator Section (Hidden by Default) -->
+                <div id="iq-simulator-box" class="hidden bg-purple-50 dark:bg-slate-900/60 p-5 rounded-3xl border border-purple-200/40 dark:border-slate-800 relative">
+                    <div id="iq-screen-start" class="text-center space-y-3 py-4">
+                        <span class="text-4xl">🧠</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white">Active Intelligence Quotient (IQ) Challenge</h4>
+                        <p class="text-[10px] text-slate-500 max-w-sm mx-auto">Challenge your pattern recognition, spatial orientation, and logical arithmetic matrices. 3 high-yield questions!</p>
+                        <button onclick="startInteractiveQuiz('iq')" class="bg-purple-600 hover:bg-purple-550 text-white font-extrabold text-xs py-2 px-5 rounded-xl shadow-xs transition">
+                            Begin IQ Matrix
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1v1 Battle Arena Section (Hidden by Default) -->
+                <div id="battle-simulator-box" class="hidden bg-orange-50 dark:bg-slate-900/60 p-5 rounded-3xl border border-orange-200/40 dark:border-slate-800 relative">
+                    <div id="battle-screen-start" class="text-center space-y-3 py-4">
+                        <span class="text-4xl animate-pulse-slow">⚔️</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white">1v1 Real-Time Battle Arena</h4>
+                        <p class="text-[10px] text-slate-500 max-w-sm mx-auto">Compete head-to-head with a live matched aspirant in Nepal. Answer fast to earn maximum combat points!</p>
+                        <button onclick="start1v1Matchmaking()" class="bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs py-2 px-5 rounded-xl shadow-xs transition">
+                            Find Matchup
+                        </button>
+                    </div>
+
+                    <!-- Matchmaking Loader Screen -->
+                    <div id="battle-screen-finding" class="hidden text-center space-y-4 py-8">
+                        <div class="relative w-16 h-16 mx-auto flex items-center justify-center">
+                            <span class="absolute w-full h-full rounded-full border-4 border-orange-500 border-t-transparent animate-spin"></span>
+                            <span class="text-xl">🔍</span>
+                        </div>
+                        <h4 class="text-xs font-extrabold text-slate-700 dark:text-slate-300">Searching active Loksewa online candidates...</h4>
+                        <p class="text-[9px] text-slate-400">Match rating range: Level 3 to 6</p>
+                    </div>
+
+                    <!-- Playing Screen -->
+                    <div id="battle-screen-play" class="hidden space-y-4">
+                        <!-- Scoreboard Header -->
+                        <div class="flex justify-between items-center bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700">
+                            <div class="text-left">
+                                <span class="text-[8px] text-slate-400 font-bold block">YOU</span>
+                                <span class="text-xs font-black text-slate-800 dark:text-white">Arjun</span>
+                                <span class="block text-xs font-black text-orange-500" id="battle-score-user">0 Points</span>
+                            </div>
+                            <div class="text-center bg-orange-100 dark:bg-orange-950/60 px-3 py-1 rounded-full text-[10px] font-black text-orange-600">
+                                vs
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[8px] text-slate-400 font-bold block">RIVAL</span>
+                                <span class="text-xs font-black text-slate-800 dark:text-white" id="battle-rival-name">Sita Dahal</span>
+                                <span class="block text-xs font-black text-orange-500" id="battle-score-rival">0 Points</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-orange-500 uppercase" id="battle-question-number">Combat Question 1 of 3</span>
+                            <span class="text-[10px] font-extrabold text-slate-400 bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded-md" id="battle-timer">Time: 15s</span>
+                        </div>
+
+                        <h5 class="text-xs font-black text-slate-900 dark:text-white" id="battle-question-text">Loading question...</h5>
+                        <div class="space-y-2 mt-3" id="battle-options-container"></div>
+                    </div>
+
+                    <!-- Battle Outcomes -->
+                    <div id="battle-screen-results" class="hidden text-center space-y-3 py-4">
+                        <span class="text-4xl" id="battle-outcome-emoji">🏆</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white" id="battle-outcome-headline">Victory!</h4>
+                        <p class="text-[10px] text-slate-500" id="battle-outcome-detail"></p>
+                        <button onclick="resetBattle()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs py-2 px-5 rounded-xl">Back to Arena</button>
+                    </div>
+                </div>
+
+                <!-- Static Matchups Panel -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">Live Loksewa Test Rooms</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex justify-between items-center shadow-xs">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-rose-50 dark:bg-rose-950/20 text-rose-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-bolt"></i></div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white">Section Officer Speed Trial</h4>
+                                    <span class="text-[9px] text-slate-400 block mt-0.5">Starts in 3 hrs • 100 GK Questions</span>
+                                </div>
+                            </div>
+                            <button onclick="showNotification('Registered for Section Officer Trial!')" class="bg-blue-600 text-white font-extrabold text-[10px] px-3.5 py-1.5 rounded-lg shadow-xs hover:bg-blue-500 transition">Register</button>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex justify-between items-center shadow-xs">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-regular fa-clock"></i></div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900 dark:text-white">IQ Spatial Diagnostic</h4>
+                                    <span class="text-[9px] text-slate-400 block mt-0.5">Self-Paced • 30 Pattern Puzzles</span>
+                                </div>
+                            </div>
+                            <button onclick="showNotification('Entering IQ Spatial Diagnostic Suite!')" class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-extrabold text-[10px] px-3.5 py-1.5 rounded-lg hover:bg-slate-200 transition">Enter</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------
+                 TAB 4: FORUM & DISCUSSION COMMUNITY
+                 --------------------------------------- -->
+            <section id="view-community" class="page-view space-y-4">
+                <!-- Community Header Title + Meta Actions with Small Lens Button at Top Right -->
+                <div class="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 shadow-xs relative">
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Aspirants Lounge</h3>
+                        <p class="text-[10px] text-slate-400">Discuss doubts, share mnemonics, and solve IQ files.</p>
+                    </div>
+                    
+                    <!-- Small Lens Button at the top right -->
+                    <button onclick="toggleUserSearchPanel()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 flex items-center justify-center text-slate-700 dark:text-slate-300 transition shrink-0 shadow-xs">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Togglable User Search Panel -->
+                <div id="user-search-panel" class="hidden bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-xs space-y-3 transition duration-300">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-[10px] uppercase font-bold text-slate-400">Search PrepVerse Aspirants & Rankers</label>
+                        <button onclick="toggleUserSearchPanel()" class="text-slate-400 text-xs hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="community-user-search" oninput="filterAspirantsSearch()" placeholder="Search names (e.g. Rohan, Sita, Prashant, Kumar...)" class="w-full text-xs bg-slate-50 dark:bg-slate-950 p-2.5 pl-8 rounded-xl border border-slate-150 dark:border-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-blue-500">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-3 text-slate-400 text-xs"></i>
+                    </div>
+                    <!-- Live Search Results Area -->
+                    <div id="aspirant-search-results" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 max-h-48 overflow-y-auto no-scrollbar">
+                        <!-- Dynamic searchable profiles will append here -->
+                    </div>
+                </div>
+
+                <!-- Community Sub-Tabs: Feed, Message, Tags -->
+                <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-2xl">
+                    <button id="comm-subtab-feed" onclick="switchCommunitySubtab('feed')" class="flex-1 py-1.5 text-xs font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-blue-600 dark:text-white shadow-xs">
+                        📰 Public Feed
+                    </button>
+                    <button id="comm-subtab-messages" onclick="switchCommunitySubtab('messages')" class="flex-1 py-1.5 text-xs font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400">
+                        💬 Messages <span class="bg-red-500 text-white text-[8px] font-black px-1.5 py-0.2 rounded-full ml-1" id="message-badge">1</span>
+                    </button>
+                </div>
+
+                <!-- Tags Features Section (Public Feed Specific) -->
+                <div id="feed-tags-wrapper" class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+                    <button onclick="filterFeedByTag('all')" class="bg-blue-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-xs shrink-0">#AllPosts</button>
+                    <button onclick="filterFeedByTag('#NepalGK')" class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-100 dark:border-slate-800 shrink-0">#NepalGK</button>
+                    <button onclick="filterFeedByTag('#SpatialIQ')" class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-100 dark:border-slate-800 shrink-0">#SpatialIQ</button>
+                    <button onclick="filterFeedByTag('#Aspirants')" class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-100 dark:border-slate-800 shrink-0">#Aspirants</button>
+                </div>
+
+                <!-- Public Feed Page Container -->
+                <div id="community-feed-section" class="space-y-4">
+                    <!-- Create Post Input Section -->
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800/80 shadow-xs space-y-3">
+                        <div class="flex gap-2.5">
+                            <img id="community-input-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar" class="w-9 h-9 rounded-full object-cover">
+                            <textarea id="community-post-text" placeholder="Share a tricky mnemonic, post an IQ puzzle, or clear a doubt..." class="flex-1 text-xs bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border-0 focus:ring-1 focus:ring-blue-500 resize-none h-16 text-slate-800 dark:text-slate-100 outline-none"></textarea>
+                        </div>
+                        <div class="flex justify-between items-center pt-1 border-t border-slate-100 dark:border-slate-800/50">
+                            <!-- Tag Selection dropdown -->
+                            <div class="flex items-center gap-1.5 text-xs">
+                                <span class="text-xs text-slate-400 font-bold">Tag:</span>
+                                <select id="community-post-tag-select" class="text-[10px] bg-slate-50 dark:bg-slate-800 border-0 rounded-lg p-1 text-slate-600 dark:text-slate-300 outline-none">
+                                    <option value="#NepalGK">#NepalGK</option>
+                                    <option value="#SpatialIQ">#SpatialIQ</option>
+                                    <option value="#Aspirants">#Aspirants</option>
+                                </select>
+                            </div>
+                            <button onclick="createNewPost()" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-[10.5px] py-1.5 px-4 rounded-xl shadow-xs transition">
+                                Share Post
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Forum Feed Container -->
+                    <div class="space-y-4" id="community-feed-container"></div>
+                </div>
+
+                <!-- Messaging Simulation Section (Hidden by default) -->
+                <div id="community-messages-section" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <!-- Conversations List -->
+                    <div class="md:col-span-1 bg-white dark:bg-slate-900 p-3 rounded-2xl border border-slate-100 dark:border-slate-800/80 h-[280px] overflow-y-auto no-scrollbar space-y-2">
+                        <span class="text-[9px] uppercase font-bold text-slate-400 block mb-2 px-1">Active Aspirants Chat</span>
+                        
+                        <div onclick="openDirectChat('u1')" id="chat-item-u1" class="flex items-center gap-2.5 p-2 rounded-xl bg-blue-50/50 dark:bg-slate-800 cursor-pointer border border-blue-100 dark:border-slate-750">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover">
+                            <div class="min-w-0 flex-1">
+                                <div class="flex justify-between items-center"><span class="text-[11px] font-black text-slate-800 dark:text-white block">Rohan Adhikari</span> <span class="w-2 h-2 bg-blue-600 rounded-full"></span></div>
+                                <span class="text-[9px] text-slate-400 block truncate" id="chat-subtext-u1">Hey, check out the new 1v1 feature!</span>
+                            </div>
+                        </div>
+
+                        <div onclick="openDirectChat('u2')" id="chat-item-u2" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-[11px] font-black text-slate-800 dark:text-white block">Sita Dahal</span>
+                                <span class="text-[9px] text-slate-400 block truncate" id="chat-subtext-u2">Sure, let's exchange some notes.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Message Area -->
+                    <div class="md:col-span-2 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/80 flex flex-col justify-between h-[280px]">
+                        <!-- Chat Header -->
+                        <div class="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800/50">
+                            <img id="chat-box-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover">
+                            <div>
+                                <h4 class="text-xs font-black text-slate-900 dark:text-white" id="chat-box-name">Rohan Adhikari</h4>
+                                <span class="text-[8px] text-green-500 font-bold block">Online</span>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Container -->
+                        <div id="chat-messages-container" class="flex-grow my-3 overflow-y-auto no-scrollbar space-y-2 text-[10.5px]">
+                            <!-- Static matched responses -->
+                        </div>
+
+                        <!-- Chat Prompt Sender -->
+                        <div class="space-y-2">
+                            <!-- Predefined Quick Messages (Easier Tap on Mobile) -->
+                            <div class="flex gap-1 overflow-x-auto no-scrollbar">
+                                <button onclick="sendQuickMessage('Best of luck for prep! 👍')" class="bg-slate-100 dark:bg-slate-800 text-[8.5px] font-bold px-2 py-1 rounded-lg text-slate-600 dark:text-slate-300 shrink-0">Best of luck! 👍</button>
+                                <button onclick="sendQuickMessage('Can you share the Nepal History file? 🏛️')" class="bg-slate-100 dark:bg-slate-800 text-[8.5px] font-bold px-2 py-1 rounded-lg text-slate-600 dark:text-slate-300 shrink-0">Share History file? 🏛️</button>
+                                <button onclick="sendQuickMessage('Want to jump into 1v1 battle arena? ⚔️')" class="bg-slate-100 dark:bg-slate-800 text-[8.5px] font-bold px-2 py-1 rounded-lg text-slate-600 dark:text-slate-300 shrink-0">Want a 1v1 battle? ⚔️</button>
+                            </div>
+                            <div class="flex gap-1.5">
+                                <input type="text" id="chat-custom-input" placeholder="Type custom message..." class="flex-1 text-[10.5px] bg-slate-50 dark:bg-slate-950 p-2 rounded-xl outline-none focus:ring-1 focus:ring-blue-500 border-0 text-slate-800 dark:text-slate-100">
+                                <button onclick="sendCustomChatMessage()" class="bg-blue-600 text-white font-bold text-[10px] px-3.5 py-1.5 rounded-xl"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ---------------------------------------
+                 TAB 5: USER COMPREHENSIVE PROFILE
+                 --------------------------------------- -->
+            <section id="view-profile" class="page-view">
+                
+                <!-- Sub-View Dynamic Containers -->
+                <div id="profile-main-subview" class="space-y-6">
+                    <!-- User Hero Profile Card -->
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/80 text-center shadow-xs relative">
+                        <!-- Settings Gear Toggle Button -->
+                        <button onclick="goToProfileSubView('settings')" class="absolute top-4 right-4 w-9 h-9 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 transition">
+                            <i class="fa-solid fa-cog text-sm"></i>
+                        </button>
+
+                        <div class="w-24 h-24 rounded-full overflow-hidden mx-auto border-4 border-blue-100 dark:border-blue-950/60 relative shadow-md">
+                            <img id="profile-hero-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Arjun Profile" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white mt-3" id="profile-hero-name">Arjun Sharma</h3>
+                        
+                        <!-- Country, City, Level & XP elements inside Profile -->
+                        <div class="flex flex-wrap items-center justify-center gap-2 mt-1.5 text-[10px] text-slate-400 font-bold">
+                            <span>📍 <span id="profile-location">Kathmandu, Nepal</span></span>
+                            <span>•</span>
+                            <span class="bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 px-1.5 py-0.2 rounded-md">LEVEL 4</span>
+                        </div>
+
+                        <!-- Progress Bar indicator for level XP points -->
+                        <div class="max-w-xs mx-auto mt-3">
+                            <div class="flex justify-between items-center text-[9px] font-bold text-slate-400 mb-1">
+                                <span>Current Level XP</span>
+                                <span>1,840 / 2,500 XP</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-600 to-indigo-500 h-full w-[73.6%]"></div>
+                            </div>
+                        </div>
+
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-4" id="profile-hero-bio">🎯 Aspiring Loksewa Section Officer 2026 | GK & IQ Enthusiast | Kathmandu 🇳🇵</p>
+
+                        <!-- Social Followers/Following Dynamic Panel -->
+                        <div class="flex justify-center gap-6 mt-4">
+                            <div class="flex items-center gap-1.5 text-xs">
+                                <span class="font-extrabold text-slate-900 dark:text-white" id="profile-followers-count">1,240</span>
+                                <span class="text-slate-400">Followers</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-xs">
+                                <span class="font-extrabold text-slate-900 dark:text-white" id="profile-following-count">348</span>
+                                <span class="text-slate-400">Following</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Go Pro Advertisement Banner in Profile -->
+                    <div class="p-4 bg-gradient-to-br from-indigo-600 via-indigo-800 to-slate-950 rounded-2xl text-white relative overflow-hidden shadow-md">
+                        <div class="absolute right-4 bottom-2 text-white/5 opacity-20"><i class="fa-solid fa-crown text-6xl"></i></div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">💎</span>
+                            <div>
+                                <h4 class="text-xs font-black text-amber-400 uppercase tracking-widest">Upgrade to Scholar Pro</h4>
+                                <p class="text-[9px] text-slate-300 mt-0.5 leading-relaxed">Gain absolute access to Spatial IQ matrix builders, unlimited mock matchups, and advanced performance metrics!</p>
+                            </div>
+                        </div>
+                        <button onclick="openProPlansModal()" class="mt-3.5 bg-white text-indigo-950 hover:bg-slate-100 font-black text-[10px] py-1.5 px-4 rounded-xl shadow-xs transition w-full">
+                            Explore Premium Tiers
+                        </button>
+                    </div>
+
+                    <!-- Action lists to edit profile/settings -->
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-xs">
+                        <div onclick="goToProfileSubView('edit')" class="flex items-center justify-between p-4 border-b border-slate-50 dark:border-slate-800/50 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-pointer transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-user-pen text-blue-600 w-4"></i>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Edit Profile & Bio</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[9px] text-slate-300"></i>
+                        </div>
+                        <div onclick="goToProfileSubView('settings')" class="flex items-center justify-between p-4 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-pointer transition">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-sliders text-slate-400 w-4"></i>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Account Preferences</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-[9px] text-slate-300"></i>
+                        </div>
+                    </div>
+
+                    <!-- Achievements & Badges Showcase at the bottom -->
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/80 shadow-xs space-y-4">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-50 dark:border-slate-850">
+                            <h4 class="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">🎖️ Achievements & Badges</h4>
+                            <span class="text-[9px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-extrabold px-2 py-0.5 rounded-lg">3 Unlocked</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center">
+                                <span class="text-2xl block float-emoji mb-1.5">🔥</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">7 Day Warrior</h5>
+                                <span class="text-[7.5px] text-emerald-500 font-bold block mt-0.5"><i class="fa-solid fa-circle-check"></i> Unlocked</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center">
+                                <span class="text-2xl block float-emoji mb-1.5">🎯</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">Accurate Gun</h5>
+                                <span class="text-[7.5px] text-emerald-500 font-bold block mt-0.5"><i class="fa-solid fa-circle-check"></i> Unlocked</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center">
+                                <span class="text-2xl block float-emoji mb-1.5">⚔️</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">Arena Legend</h5>
+                                <span class="text-[7.5px] text-emerald-500 font-bold block mt-0.5"><i class="fa-solid fa-circle-check"></i> Unlocked</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center opacity-45">
+                                <span class="text-2xl block mb-1.5">🏆</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">State Topper</h5>
+                                <span class="text-[7.5px] text-slate-400 font-semibold block mt-0.5">Locked</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center opacity-45">
+                                <span class="text-2xl block mb-1.5">🧠</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">Matrix Genius</h5>
+                                <span class="text-[7.5px] text-slate-400 font-semibold block mt-0.5">Locked</span>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-100/40 dark:border-slate-850 text-center opacity-45">
+                                <span class="text-2xl block mb-1.5">📣</span>
+                                <h5 class="text-[9px] font-black text-slate-800 dark:text-slate-200 truncate">Voice of Nepal</h5>
+                                <span class="text-[7.5px] text-slate-400 font-semibold block mt-0.5">Locked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5.1 EDIT PROFILE COMPONENT -->
+                <div id="profile-edit-subview" class="hidden bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/80 shadow-xs space-y-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <button onclick="goToProfileSubView('main')" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 text-xs"><i class="fa-solid fa-arrow-left"></i></button>
+                        <h4 class="text-xs font-black text-slate-900 dark:text-white">Modify Profile Core</h4>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Display Name</label>
+                            <input type="text" id="edit-input-name" class="w-full text-xs bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-150 dark:border-slate-800 outline-none focus:border-blue-500 text-slate-800 dark:text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Aspirations Bio</label>
+                            <textarea id="edit-input-bio" class="w-full text-xs bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-150 dark:border-slate-800 outline-none h-16 resize-none focus:border-blue-500 text-slate-800 dark:text-slate-200"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Aspirations Location (City, Country)</label>
+                            <input type="text" id="edit-input-location" class="w-full text-xs bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl border border-slate-150 dark:border-slate-800 outline-none focus:border-blue-500 text-slate-800 dark:text-slate-200" placeholder="e.g. Pokhara, Nepal">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Select Custom Avatar</label>
+                            <div class="flex gap-2.5 pt-1">
+                                <button onclick="selectProfileAvatar('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80')" class="w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                                </button>
+                                <button onclick="selectProfileAvatar('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80')" class="w-10 h-10 rounded-full overflow-hidden border-2 border-transparent">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                                </button>
+                                <button onclick="selectProfileAvatar('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80')" class="w-10 h-10 rounded-full overflow-hidden border-2 border-transparent">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="saveProfileEdits()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs py-2.5 rounded-xl transition shadow-xs mt-2">
+                            Save Profile Edits
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5.2 ACCOUNT SETTINGS OVERLAY COMPONENT -->
+                <div id="profile-settings-subview" class="hidden bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/80 shadow-xs space-y-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <button onclick="goToProfileSubView('main')" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 text-xs"><i class="fa-solid fa-arrow-left"></i></button>
+                        <h4 class="text-xs font-black text-slate-900 dark:text-white">Account Preferences</h4>
+                    </div>
+
+                    <!-- Config options lists -->
+                    <div class="space-y-3.5">
+                        <!-- Dark Mode Toggle Selection -->
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-950 p-3 rounded-2xl">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Dark Interface View</span>
+                                <p class="text-[9px] text-slate-400 mt-0.5">Saves device battery & looks extremely cool</p>
+                            </div>
+                            <button onclick="toggleDarkModeState()" class="w-10 h-6 bg-slate-200 dark:bg-blue-600 rounded-full p-1 transition relative">
+                                <div class="w-4 h-4 bg-white rounded-full transition transform dark:translate-x-4"></div>
+                            </button>
+                        </div>
+
+                        <!-- System Language Switching -->
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-950 p-3 rounded-2xl">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">System Language</span>
+                                <p class="text-[9px] text-slate-400 mt-0.5">Current option translates GK modules</p>
+                            </div>
+                            <select onchange="changeSystemLanguage(this.value)" class="text-[10.5px] font-bold bg-white dark:bg-slate-800 border-0 rounded-lg py-1 px-2 text-slate-700 dark:text-slate-200 outline-none">
+                                <option value="en">English (US)</option>
+                                <option value="np">Nepali (🇳🇵)</option>
+                            </select>
+                        </div>
+
+                        <!-- Sound System Config -->
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-950 p-3 rounded-2xl">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Interactive Sound Alerts</span>
+                                <p class="text-[9px] text-slate-400 mt-0.5">Plays audio feedback for valid answers</p>
+                            </div>
+                            <button onclick="toggleSoundSystemState()" class="w-10 h-6 bg-blue-600 dark:bg-blue-500 rounded-full p-1 transition relative" id="sound-system-toggle">
+                                <div class="w-4 h-4 bg-white rounded-full transition transform" id="sound-dot"></div>
+                            </button>
+                        </div>
+
+                        <!-- Terms of Use Trigger Overlay -->
+                        <div class="space-y-2 pt-2">
+                            <button onclick="showLegalModal('Privacy Policy', 'Your privacy is core to PrepVerse. We securely utilize progress telemetry solely for providing optimal Loksewa curriculum advice. No personally identifiable credentials are sold to tertiary syndicates.')" class="w-full text-left text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 py-1 flex items-center gap-1.5"><i class="fa-regular fa-file"></i> Privacy Policy Terms</button>
+                            <button onclick="showLegalModal('Terms of Use', 'By preparing with PrepVerse, you agree that your progress statistics and streak counts remain localized on your machine. Mock test simulation materials are copyrighted assets of Loksewa Aayog (PSC) simulation cells.')" class="w-full text-left text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 py-1 flex items-center gap-1.5"><i class="fa-regular fa-file"></i> Terms of Use Rules</button>
+                            <button onclick="performSignOut()" class="w-full text-left text-xs font-bold text-red-500 py-1 flex items-center gap-1.5"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out of Current Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ==========================================
+             MOBILE NAVIGATION BOTTOM DECK DOCK (Fixed on Mobile Viewports)
+             ========================================== -->
+        <div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-6 py-3 flex justify-between items-center z-50 shadow-lg">
+            <!-- Nav Home Button -->
+            <button onclick="switchTab('home')" id="mob-nav-home" class="mob-btn flex flex-col items-center gap-1 text-blue-600 transition">
+                <i class="fa-solid fa-house text-base"></i>
+                <span class="text-[9px] font-bold">Home</span>
+            </button>
+            <!-- Nav Courses Button -->
+            <button onclick="switchTab('courses')" id="mob-nav-courses" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
+                <i class="fa-solid fa-book-open text-base"></i>
+                <span class="text-[9px] font-bold">Courses</span>
+            </button>
+            <!-- Nav Tests Button -->
+            <button onclick="switchTab('tests')" id="mob-nav-tests" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
+                <i class="fa-solid fa-clipboard-list text-base"></i>
+                <span class="text-[9px] font-bold">Tests</span>
+            </button>
+            <!-- Nav Community Button -->
+            <button onclick="switchTab('community')" id="mob-nav-community" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
+                <i class="fa-solid fa-users text-base"></i>
+                <span class="text-[9px] font-bold">Community</span>
+            </button>
+            <!-- Nav Profile Button -->
+            <button onclick="switchTab('profile')" id="mob-nav-profile" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
+                <i class="fa-solid fa-user text-base"></i>
+                <span class="text-[9px] font-bold">Profile</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- ==========================================
+         PRO PLAN COMPARATIVE PLANS MODAL
+         ========================================== -->
+    <div id="pro-plans-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 max-w-lg w-full rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 relative overflow-y-auto max-h-[90vh] no-scrollbar">
+            <!-- Close Modal -->
+            <button onclick="closeProPlansModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-3xl float-emoji">💎</span>
+                <h3 class="text-lg font-black text-slate-900 dark:text-white">Upgrade Your Study Arsenal</h3>
+                <p class="text-xs text-slate-400">Unlock high-yield mnemonics, advanced spatial IQ grids, and adaptive feedback.</p>
+            </div>
+
+            <!-- Billing Cycle Switcher -->
+            <div class="flex justify-center my-4">
+                <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl flex">
+                    <button onclick="toggleBillingCycle('monthly')" id="billing-monthly" class="px-3.5 py-1.5 text-[10px] font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-white">Monthly Billing</button>
+                    <button onclick="toggleBillingCycle('yearly')" id="billing-yearly" class="px-3.5 py-1.5 text-[10px] font-bold rounded-lg text-slate-500 dark:text-slate-400">Yearly Billing (Save 20%)</button>
+                </div>
+            </div>
+
+            <!-- Comparison Tier Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+                <!-- Free Tier -->
+                <div class="border border-slate-150 dark:border-slate-800 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-slate-50/50 dark:bg-slate-950/40">
+                    <div>
+                        <span class="text-[9px] font-black uppercase text-slate-400">Aspirant</span>
+                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Free Base</h4>
+                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white">Rs. 0</span>
+                    </div>
+                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Base GK Syllabus</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Public Lounge Access</li>
+                        <li><i class="fa-solid fa-xmark text-red-400 mr-1"></i> Pro IQ Matrix</li>
+                    </ul>
+                    <button onclick="closeProPlansModal(); showNotification('Active Free level retained!')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Active Plan</button>
+                </div>
+
+                <!-- Pro Scholar (Most Popular) -->
+                <div class="border-2 border-blue-500 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-white dark:bg-slate-900 relative shadow-md">
+                    <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-blue-500 text-white font-extrabold text-[7px] tracking-wider px-2 py-0.5 rounded-full">POPULAR</span>
+                    <div>
+                        <span class="text-[9px] font-black uppercase text-blue-600">Scholar</span>
+                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Pro Access</h4>
+                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white" id="pro-price">Rs. 499 / mo</span>
+                    </div>
+                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Unlimited GK Drills</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Full IQ Spatial Suites</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Mnemonic Wizardry</li>
+                    </ul>
+                    <button onclick="closeProPlansModal(); showNotification('Upgraded to Pro Access Tier! 🚀')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs">Upgrade Pro</button>
+                </div>
+
+                <!-- Ultimate Officer -->
+                <div class="border border-slate-150 dark:border-slate-800 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-slate-50/50 dark:bg-slate-950/40">
+                    <div>
+                        <span class="text-[9px] font-black uppercase text-purple-600">Officer</span>
+                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Elite Officer</h4>
+                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white" id="elite-price">Rs. 999 / mo</span>
+                    </div>
+                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Everything in Pro</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Dedicated AI Tutor</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Real Mock Evaluations</li>
+                    </ul>
+                    <button onclick="closeProPlansModal(); showNotification('Upgraded to Elite Officer Level! 👑')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-purple-600 hover:bg-purple-500 text-white">Upgrade Elite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         GLOBAL FLOATING NOTIFICATIONS TOASTS
+         ========================================== -->
+    <div id="toast-notif-bar" class="fixed bottom-20 md:bottom-6 right-6 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl border border-slate-800 z-50 transform translate-y-12 opacity-0 pointer-events-none transition duration-300 flex items-center gap-2">
+        <span id="toast-notif-text">Notification test alert!</span>
+    </div>
+
+    <!-- ==========================================
+         LEGAL & MODALS POPUP OVERLAY
+         ========================================== -->
+    <div id="legal-modal-overlay" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-5 hidden">
+        <div class="bg-white dark:bg-slate-900 max-w-sm w-full p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-2xl space-y-4">
+            <h4 class="text-sm font-black text-slate-900 dark:text-white" id="modal-title">Terms</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-300 leading-relaxed" id="modal-body">Description rules go here.</p>
+            <button onclick="closeLegalModal()" class="w-full bg-blue-600 text-white font-bold text-xs py-2 rounded-xl">Acknowledged</button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CORE APPLICATION ENGINE & DATA SCRIPTS 
+         ========================================== -->
+    <script>
+        const APP_STATE = {
+            user: {
+                name: "Arjun Sharma",
+                bio: "🎯 Aspiring Loksewa Section Officer 2026 | GK & IQ Enthusiast | Kathmandu 🇳🇵",
+                city: "Kathmandu",
+                country: "Nepal",
+                followersCount: 1240,
+                followingCount: 348,
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+                xp: 1840,
+                level: 4,
+                streak: 7,
+                syllabusPercent: 42,
+                accuracy: 89.4
+            },
+            preferences: {
+                darkMode: false,
+                language: 'en',
+                soundsOn: true,
+                billingCycle: 'monthly'
+            },
+            courses: [
+                {
+                    id: "c-nep-hist",
+                    icon: "🏛️",
+                    title: "History of Nepal & Malla Period",
+                    subtext: "Chapters 4-9 detailed Loksewa timeline drills.",
+                    progress: 68,
+                    color: "orange"
+                },
+                {
+                    id: "c-glob-aff",
+                    icon: "🌍",
+                    title: "Global Alliances & UN Councils",
+                    subtext: "Current Affairs updates for current year officer exams.",
+                    progress: 75,
+                    color: "emerald"
+                },
+                {
+                    id: "c-legal-gov",
+                    icon: "⚖️",
+                    title: "Nepalese Civil Acts & Constitution",
+                    subtext: "Public Administration laws and guidelines.",
+                    progress: 31,
+                    color: "purple"
+                },
+                {
+                    id: "c-iq-verbal",
+                    icon: "📝",
+                    title: "Verbal Aptitude and Vocabulary",
+                    subtext: "Synonyms, antonyms and logical verbal associations.",
+                    progress: 50,
+                    color: "blue"
+                },
+                {
+                    id: "c-nep-geog",
+                    icon: "🏔️",
+                    title: "Geography and Features of Nepal",
+                    subtext: "Topography, river basins, mountain elevations.",
+                    progress: 88,
+                    color: "rose"
+                },
+                {
+                    id: "c-iq-matrix",
+                    icon: "🧩",
+                    title: "Matrix Pattern completion (IQ)",
+                    subtext: "Logical grids, sequence progression, inverting colors.",
+                    progress: 40,
+                    color: "indigo"
+                }
+            ],
+            aspirants: [
+                {
+                    id: "u1",
+                    name: "Rohan Adhikari",
+                    bio: "🥇 Rank #4 GK Section Officer aspirant | Mnemonic creator",
+                    followers: 2480,
+                    tag: "Verified Officer Ranker",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+                    isFollowing: false
+                },
+                {
+                    id: "u2",
+                    name: "Sita Dahal",
+                    bio: "🏔️ Geography enthusiast | Nayab Subba Prep | Pokhara",
+                    followers: 1205,
+                    tag: "Aspirant Level 5",
+                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+                    isFollowing: false
+                },
+                {
+                    id: "u3",
+                    name: "Prashant Karki",
+                    bio: "💻 Computer Specialist | IQ logic solver | Kathmandu",
+                    followers: 890,
+                    tag: "IQ Expert Solver",
+                    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+                    isFollowing: false
+                }
+            ],
+            conversations: {
+                u1: [
+                    { sender: "them", text: "Hey! Did you prepare the forest treaties of Nepal?" },
+                    { sender: "them", text: "I have prepared some cards, check out the new 1v1 feature!" }
+                ],
+                u2: [
+                    { sender: "them", text: "Hi Arjun, want to study the constitution together?" },
+                    { sender: "them", text: "Sure, let's exchange some notes." }
+                ]
+            },
+            activeChatUserId: "u1",
+            currentCommunityTag: "all",
+            communityFeed: [
+                {
+                    id: "p1",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+                    name: "Rohan Adhikari",
+                    tag: "Verified Officer Ranker",
+                    time: "10 mins ago",
+                    text: "Quick Trick: Remember the mnemonic 'B-C-H-K-S' for the primary river branches feeding into the Kosi system. It makes matching questions in the GK section extremely easy!",
+                    likes: 24,
+                    userHasLiked: false,
+                    postTag: "#NepalGK",
+                    comments: [
+                        { name: "Prashant K.", text: "This is super helpful! Saved it." },
+                        { name: "Nisha S.", text: "Does this also apply to Kosi's tributaries?" }
+                    ]
+                },
+                {
+                    id: "p2",
+                    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+                    name: "Sita Dahal",
+                    tag: "Aspirant Level 5",
+                    time: "1 hour ago",
+                    text: "Having a slight issue resolving spatial analytical matrices (IQ patterns). Specifically when triangles invert color schemes inside 3x3 grids. Any recommended PDF resources?",
+                    likes: 12,
+                    userHasLiked: false,
+                    postTag: "#SpatialIQ",
+                    comments: [
+                        { name: "Arjun S.", text: "Check out the performance tab on our homepage, it has a mock link for Spatial patterns!" }
+                    ]
+                }
+            ],
+            activeQuizType: "gk", // gk, iq, or battle
+            activeQuizData: {
+                step: 0,
+                score: 0,
+                rivalScore: 0,
+                questions: []
+            },
+            quizQuestions: {
+                gk: [
+                    {
+                        question: "What is the exact official height of Mount Everest in meters according to the joint survey?",
+                        options: ["8,848.00m", "8,848.86m", "8,844.43m", "8,850.12m"],
+                        correctIndex: 1
+                    },
+                    {
+                        question: "When did Nepal adopt its current federal democratic constitution?",
+                        options: ["2072 Ashwin 3", "2072 Ashwin 1", "2073 Bhadra 15", "2071 Jestha 25"],
+                        correctIndex: 0
+                    },
+                    {
+                        question: "Which of the following national districts is classified as the largest by total area?",
+                        options: ["Humla", "Mugu", "Dolpa", "Mustang"],
+                        correctIndex: 2
+                    }
+                ],
+                iq: [
+                    {
+                        question: "Complete the numerical pattern puzzle: 3, 8, 18, 38, __ ?",
+                        options: ["58", "68", "78", "88"],
+                        correctIndex: 2
+                    },
+                    {
+                        question: "A matrix row has shapes in rotation sequence: Triangle pointing Up, Square, Pentagon pointing Down. What is next?",
+                        options: ["Hexagon pointing Up", "Hexagon pointing Down", "Octagon", "Pentagon pointing Up"],
+                        correctIndex: 0
+                    },
+                    {
+                        question: "In a certain code, NEPAL is written as PCRAK. How is KATHMANDU coded?",
+                        options: ["MCVJKCPFW", "MCVKJCPFW", "MBVJKCOFW", "MCVJKCOFW"],
+                        correctIndex: 3
+                    }
+                ]
+            }
+        };
+
+        /* ==========================================
+           2. TABS & VIEWS SWITCHER CONTROLLER
+           ========================================== */
+        function switchTab(tabId) {
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            const currentView = document.getElementById(`view-${tabId}`);
+            if (currentView) {
+                currentView.classList.add('active');
+            }
+
+            const deskTitles = {
+                home: "Dashboard Overview",
+                courses: "Syllabi & Prep Libraries",
+                tests: "Mock Examinations Control Panel",
+                community: "Aspirant Lounge & Feed Discussions",
+                profile: "Personal Metrics Hub"
+            };
+            const hText = document.getElementById('header-title-text');
+            if (hText) hText.innerText = deskTitles[tabId] || "PrepVerse Dashboard";
+
+            document.querySelectorAll('aside nav button').forEach(btn => {
+                btn.className = "w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all";
+            });
+            const deskBtn = document.getElementById(`desk-nav-${tabId}`);
+            if (deskBtn) {
+                deskBtn.className = "w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl font-bold text-sm text-blue-600 bg-blue-50/50 dark:bg-blue-950/20 border-r-4 border-blue-600 transition-all";
+            }
+
+            document.querySelectorAll('.mob-btn').forEach(btn => {
+                btn.className = "mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition";
+            });
+            const mobBtn = document.getElementById(`mob-nav-${tabId}`);
+            if (mobBtn) {
+                mobBtn.className = "mob-btn flex flex-col items-center gap-1 text-blue-600 transition";
+            }
+
+            if (tabId === 'profile') {
+                goToProfileSubView('main');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==========================================
+           3. PROFILE SUBVIEW LOGIC & EDITORS
+           ========================================== */
+        function goToProfileSubView(subId) {
+            document.getElementById('profile-main-subview').classList.add('hidden');
+            document.getElementById('profile-edit-subview').classList.add('hidden');
+            document.getElementById('profile-settings-subview').classList.add('hidden');
+
+            document.getElementById(`profile-${subId}-subview`).classList.remove('hidden');
+
+            if (subId === 'edit') {
+                document.getElementById('edit-input-name').value = APP_STATE.user.name;
+                document.getElementById('edit-input-bio').value = APP_STATE.user.bio;
+                document.getElementById('edit-input-location').value = `${APP_STATE.user.city}, ${APP_STATE.user.country}`;
+            }
+        }
+
+        function selectProfileAvatar(url) {
+            document.querySelectorAll('#profile-edit-subview img').forEach(img => {
+                img.parentElement.className = "w-10 h-10 rounded-full overflow-hidden border-2 border-transparent";
+            });
+            event.currentTarget.className = "w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500";
+            APP_STATE.user.avatar = url;
+        }
+
+        function saveProfileEdits() {
+            const nameVal = document.getElementById('edit-input-name').value.trim();
+            const bioVal = document.getElementById('edit-input-bio').value.trim();
+            const locVal = document.getElementById('edit-input-location').value.trim();
+
+            if (nameVal) {
+                APP_STATE.user.name = nameVal;
+                APP_STATE.user.bio = bioVal;
+
+                if (locVal) {
+                    const splitVal = locVal.split(',');
+                    APP_STATE.user.city = splitVal[0] ? splitVal[0].trim() : "";
+                    APP_STATE.user.country = splitVal[1] ? splitVal[1].trim() : "Nepal";
+                }
+
+                document.getElementById('header-user-name').innerText = nameVal;
+                document.getElementById('welcome-name').innerText = nameVal.split(' ')[0];
+                document.getElementById('welcome-bio').innerText = bioVal;
+
+                document.getElementById('profile-hero-name').innerText = nameVal;
+                document.getElementById('profile-hero-bio').innerText = bioVal;
+                document.getElementById('profile-location').innerText = `${APP_STATE.user.city}, ${APP_STATE.user.country}`;
+
+                document.getElementById('header-avatar').src = APP_STATE.user.avatar;
+                document.getElementById('welcome-avatar').src = APP_STATE.user.avatar;
+                document.getElementById('profile-hero-avatar').src = APP_STATE.user.avatar;
+                document.getElementById('community-input-avatar').src = APP_STATE.user.avatar;
+
+                showNotification("Profile updated successfully! ✨");
+                goToProfileSubView('main');
+            } else {
+                showNotification("Display name cannot be empty!");
+            }
+        }
+
+        /* ==========================================
+           4. PREFERENCES ENGINE (Sound & Dark Mode)
+           ========================================== */
+        function toggleDarkModeState() {
+            APP_STATE.preferences.darkMode = !APP_STATE.preferences.darkMode;
+            const docElement = document.documentElement;
+
+            if (APP_STATE.preferences.darkMode) {
+                docElement.classList.remove('light');
+                docElement.classList.add('dark');
+                showNotification("Dark interface theme enabled! 🌙");
+            } else {
+                docElement.classList.remove('dark');
+                docElement.classList.add('light');
+                showNotification("Light theme enabled! ☀️");
+            }
+        }
+
+        function toggleSoundSystemState() {
+            APP_STATE.preferences.soundsOn = !APP_STATE.preferences.soundsOn;
+            const soundBtn = document.getElementById('sound-system-toggle');
+            const dot = document.getElementById('sound-dot');
+
+            if (APP_STATE.preferences.soundsOn) {
+                soundBtn.className = "w-10 h-6 bg-blue-600 dark:bg-blue-500 rounded-full p-1 transition relative";
+                dot.style.transform = "translateX(0)";
+                showNotification("Sounds feedback: ON 🔊");
+            } else {
+                soundBtn.className = "w-10 h-6 bg-slate-300 dark:bg-slate-800 rounded-full p-1 transition relative";
+                dot.style.transform = "translateX(16px)";
+                showNotification("Sounds muted. 🔇");
+            }
+        }
+
+        function changeSystemLanguage(langVal) {
+            APP_STATE.preferences.language = langVal;
+            if (langVal === 'np') {
+                showNotification("भाषा नेपालीमा परिवर्तन भयो 🇳🇵");
+            } else {
+                showNotification("Language set to English (US) 🇺🇸");
+            }
+        }
+
+        /* ==========================================
+           5. INTERACTIVE TESTING SIMULATOR (GK, IQ & 1v1 Battle)
+           ========================================== */
+        function switchTestSection(sectionId) {
+            APP_STATE.activeQuizType = sectionId;
+            const gkBtn = document.getElementById('test-tab-gk');
+            const iqBtn = document.getElementById('test-tab-iq');
+            const battleBtn = document.getElementById('test-tab-battle');
+
+            const gkSimulator = document.getElementById('quiz-simulator-box');
+            const iqSimulator = document.getElementById('iq-simulator-box');
+            const battleSimulator = document.getElementById('battle-simulator-box');
+
+            // Hide everything first
+            gkSimulator.classList.add('hidden');
+            iqSimulator.classList.add('hidden');
+            battleSimulator.classList.add('hidden');
+
+            gkBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400";
+            iqBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400";
+            battleBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400";
+
+            if (sectionId === 'gk') {
+                gkBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-blue-600 dark:text-white shadow-xs";
+                gkSimulator.classList.remove('hidden');
+            } else if (sectionId === 'iq') {
+                iqBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-purple-600 dark:text-white shadow-xs";
+                iqSimulator.classList.remove('hidden');
+                setupIQInitialView();
+            } else {
+                battleBtn.className = "flex-1 py-1.5 text-[11px] font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-orange-600 dark:text-white shadow-xs";
+                battleSimulator.classList.remove('hidden');
+                resetBattle();
+            }
+        }
+
+        function setupIQInitialView() {
+            const container = document.getElementById('iq-simulator-box');
+            container.innerHTML = `
+                <div id="iq-screen-start" class="text-center space-y-3 py-4">
+                    <span class="text-4xl">🧠</span>
+                    <h4 class="text-sm font-black text-slate-900 dark:text-white">Active Intelligence Quotient (IQ) Challenge</h4>
+                    <p class="text-[10px] text-slate-500 max-w-sm mx-auto">Challenge your pattern recognition, spatial orientation, and logical arithmetic matrices. 3 high-yield questions!</p>
+                    <button onclick="startInteractiveQuiz('iq')" class="bg-purple-600 hover:bg-purple-550 text-white font-extrabold text-xs py-2 px-5 rounded-xl shadow-xs transition">
+                        Begin IQ Matrix
+                    </button>
+                </div>
+            `;
+        }
+
+        function startInteractiveQuiz(type) {
+            APP_STATE.activeQuizType = type;
+            APP_STATE.activeQuizData.step = 0;
+            APP_STATE.activeQuizData.score = 0;
+            APP_STATE.activeQuizData.questions = [...APP_STATE.quizQuestions[type]];
+
+            const boxId = type === 'gk' ? 'quiz-simulator-box' : 'iq-simulator-box';
+            const container = document.getElementById(boxId);
+
+            container.innerHTML = `
+                <div id="quiz-screen-play" class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] font-bold ${type === 'gk' ? 'text-blue-600' : 'text-purple-600'} uppercase" id="quiz-question-number">Question 1 of 3</span>
+                        <span class="text-[10px] font-extrabold text-slate-400 bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded-md" id="quiz-timer">Time: 20s</span>
+                    </div>
+                    <h5 class="text-xs font-black text-slate-900 dark:text-white mt-1" id="quiz-question-text">Loading question text?</h5>
+                    <div class="space-y-2 mt-3" id="quiz-options-container"></div>
+                </div>
+            `;
+
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const step = APP_STATE.activeQuizData.step;
+            const qData = APP_STATE.activeQuizData.questions[step];
+
+            document.getElementById('quiz-question-number').innerText = `Question ${step + 1} of 3`;
+            document.getElementById('quiz-question-text').innerText = qData.question;
+
+            const optionsBox = document.getElementById('quiz-options-container');
+            optionsBox.innerHTML = '';
+
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left text-xs font-bold p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-800/80 transition flex justify-between items-center";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+                btn.onclick = () => submitQuizAnswer(idx, btn);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selectedIdx, clickedButton) {
+            const step = APP_STATE.activeQuizData.step;
+            const qData = APP_STATE.activeQuizData.questions[step];
+
+            document.querySelectorAll('#quiz-options-container button').forEach(b => b.disabled = true);
+
+            if (selectedIdx === qData.correctIndex) {
+                APP_STATE.activeQuizData.score += 1;
+                clickedButton.className = "w-full text-left text-xs font-bold p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500 rounded-xl text-emerald-700 dark:text-emerald-400 flex justify-between items-center";
+                clickedButton.innerHTML = `<span>${qData.options[selectedIdx]}</span> <i class="fa-solid fa-circle-check"></i>`;
+                playSystemSound('success');
+            } else {
+                clickedButton.className = "w-full text-left text-xs font-bold p-3 bg-rose-50 dark:bg-rose-950/20 border border-rose-500 rounded-xl text-rose-700 dark:text-rose-400 flex justify-between items-center";
+                clickedButton.innerHTML = `<span>${qData.options[selectedIdx]}</span> <i class="fa-solid fa-circle-xmark"></i>`;
+                
+                const correctButton = document.getElementById('quiz-options-container').children[qData.correctIndex];
+                correctButton.className = "w-full text-left text-xs font-bold p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500 rounded-xl text-emerald-700 dark:text-emerald-400 flex justify-between items-center";
+                playSystemSound('failure');
+            }
+
+            setTimeout(() => {
+                if (step + 1 < APP_STATE.activeQuizData.questions.length) {
+                    APP_STATE.activeQuizData.step += 1;
+                    renderQuizQuestion();
+                } else {
+                    showQuizResults();
+                }
+            }, 1500);
+        }
+
+        function showQuizResults() {
+            const score = APP_STATE.activeQuizData.score;
+            const total = APP_STATE.activeQuizData.questions.length;
+            const type = APP_STATE.activeQuizType;
+            const boxId = type === 'gk' ? 'quiz-simulator-box' : 'iq-simulator-box';
+            const container = document.getElementById(boxId);
+
+            let emoji = "🎉";
+            let headline = "Outstanding!";
+            let detail = "You answered all questions correctly.";
+
+            if (score === total) {
+                emoji = "👑";
+                headline = "Flawless Performance!";
+                detail = `Congratulations! You got a perfect ${score}/3 score in ${type.toUpperCase()}. You earned +50 XP and 1 Streak Day.`;
+            } else if (score >= 1) {
+                emoji = "💡";
+                headline = "Good Job!";
+                detail = `You scored ${score}/${total} in ${type.toUpperCase()}. Keep reviewing diagnostic matrices to reach perfection.`;
+            } else {
+                emoji = "🧗";
+                headline = "Keep Practicing!";
+                detail = `You scored 0/${total} in ${type.toUpperCase()}. Re-read chapter guidelines to clear core queries.`;
+            }
+
+            container.innerHTML = `
+                <div id="quiz-screen-results" class="text-center space-y-3 py-4">
+                    <span class="text-4xl">${emoji}</span>
+                    <h4 class="text-sm font-black text-slate-900 dark:text-white">${headline}</h4>
+                    <p class="text-[10px] text-slate-500">${detail}</p>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="resetQuiz()" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs py-2 px-4 rounded-xl">Try Again</button>
+                        <button onclick="claimQuizRewards()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-xs transition">Claim +50 XP</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function claimQuizRewards() {
+            const score = APP_STATE.activeQuizData.score;
+            if (score > 0) {
+                APP_STATE.user.xp += 50;
+                APP_STATE.user.streak += 1;
+                APP_STATE.user.syllabusPercent = Math.min(APP_STATE.user.syllabusPercent + 2, 100);
+                APP_STATE.user.accuracy = parseFloat((APP_STATE.user.accuracy * 0.95 + (score/3)*100 * 0.05).toFixed(1));
+
+                // Update UI elements
+                document.getElementById('header-user-xp').innerText = `XP: ${APP_STATE.user.xp.toLocaleString()} • Level 4`;
+                document.getElementById('dashboard-streak-count').innerText = APP_STATE.user.streak;
+                document.getElementById('dashboard-syllabus-completed').innerText = `${APP_STATE.user.syllabusPercent}%`;
+                document.getElementById('diagnostic-accuracy').innerText = `${APP_STATE.user.accuracy}%`;
+
+                // Update svg radial progress bar
+                document.getElementById('radial-progress-bar').setAttribute('stroke-dasharray', `${APP_STATE.user.syllabusPercent}, 100`);
+
+                showNotification("Claimed +50 XP and +1 Streak Day! 🪙");
+            } else {
+                showNotification("No points to claim, review and try again!");
+            }
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            if (APP_STATE.activeQuizType === 'gk') {
+                const container = document.getElementById('quiz-simulator-box');
+                container.innerHTML = `
+                    <div id="quiz-screen-start" class="text-center space-y-3 py-4">
+                        <span class="text-4xl">🚀</span>
+                        <h4 class="text-sm font-black text-slate-900 dark:text-white">Active General Knowledge Matchup</h4>
+                        <p class="text-[10px] text-slate-500 max-w-sm mx-auto">Complete 3 timed questions on Nepal's geography and constitution to earn +50 XP and grow your streak!</p>
+                        <button onclick="startInteractiveQuiz('gk')" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs py-2 px-5 rounded-xl shadow-xs transition">
+                            Begin GK Drill
+                        </button>
+                    </div>
+                `;
+            } else {
+                setupIQInitialView();
+            }
+        }
+
+        /* ==========================================
+           5.2 1v1 BATTLE SIMULATION LOGIC CORE
+           ========================================== */
+        function start1v1Matchmaking() {
+            const startBox = document.getElementById('battle-screen-start');
+            const findingBox = document.getElementById('battle-screen-finding');
+            const playBox = document.getElementById('battle-screen-play');
+
+            startBox.classList.add('hidden');
+            findingBox.classList.remove('hidden');
+
+            setTimeout(() => {
+                findingBox.classList.add('hidden');
+                playBox.classList.remove('hidden');
+
+                // Pick a random rival name
+                const rivals = ["Sita Dahal", "Rohan Adhikari", "Prashant Karki", "Nisha Shrestha"];
+                const rivalName = rivals[Math.floor(Math.random() * rivals.length)];
+                document.getElementById('battle-rival-name').innerText = rivalName;
+
+                // Load battle questions
+                APP_STATE.activeQuizData.step = 0;
+                APP_STATE.activeQuizData.score = 0;
+                APP_STATE.activeQuizData.rivalScore = 0;
+                APP_STATE.activeQuizData.questions = [...APP_STATE.quizQuestions.gk]; // GK based combat questions
+
+                renderBattleQuestion();
+            }, 3000); // 3 seconds matchmaking search simulation
+        }
+
+        function renderBattleQuestion() {
+            const step = APP_STATE.activeQuizData.step;
+            const qData = APP_STATE.activeQuizData.questions[step];
+
+            document.getElementById('battle-question-number').innerText = `Combat Question ${step + 1} of 3`;
+            document.getElementById('battle-question-text').innerText = qData.question;
+
+            const optionsBox = document.getElementById('battle-options-container');
+            optionsBox.innerHTML = '';
+
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left text-xs font-bold p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-orange-500 hover:bg-orange-50/50 dark:hover:bg-slate-800/80 transition flex justify-between items-center";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300"></i>`;
+                btn.onclick = () => submitBattleAnswer(idx, btn);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function submitBattleAnswer(selectedIdx, clickedButton) {
+            const step = APP_STATE.activeQuizData.step;
+            const qData = APP_STATE.activeQuizData.questions[step];
+
+            document.querySelectorAll('#battle-options-container button').forEach(b => b.disabled = true);
+
+            // Simulate rival choosing an option (70% accuracy)
+            const rivalIsCorrect = Math.random() < 0.7;
+            if (rivalIsCorrect) {
+                APP_STATE.activeQuizData.rivalScore += 100;
+            }
+
+            if (selectedIdx === qData.correctIndex) {
+                APP_STATE.activeQuizData.score += 100;
+                clickedButton.className = "w-full text-left text-xs font-bold p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500 rounded-xl text-emerald-700 dark:text-emerald-400 flex justify-between items-center";
+                clickedButton.innerHTML = `<span>${qData.options[selectedIdx]}</span> <i class="fa-solid fa-circle-check"></i>`;
+                playSystemSound('success');
+            } else {
+                clickedButton.className = "w-full text-left text-xs font-bold p-3 bg-rose-50 dark:bg-rose-950/20 border border-rose-500 rounded-xl text-rose-700 dark:text-rose-400 flex justify-between items-center";
+                clickedButton.innerHTML = `<span>${qData.options[selectedIdx]}</span> <i class="fa-solid fa-circle-xmark"></i>`;
+                
+                const correctButton = document.getElementById('battle-options-container').children[qData.correctIndex];
+                correctButton.className = "w-full text-left text-xs font-bold p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500 rounded-xl text-emerald-700 dark:text-emerald-400 flex justify-between items-center";
+                playSystemSound('failure');
+            }
+
+            // Update scores
+            document.getElementById('battle-score-user').innerText = `${APP_STATE.activeQuizData.score} Points`;
+            document.getElementById('battle-score-rival').innerText = `${APP_STATE.activeQuizData.rivalScore} Points`;
+
+            setTimeout(() => {
+                if (step + 1 < APP_STATE.activeQuizData.questions.length) {
+                    APP_STATE.activeQuizData.step += 1;
+                    renderBattleQuestion();
+                } else {
+                    showBattleOutcome();
+                }
+            }, 1500);
+        }
+
+        function showBattleOutcome() {
+            const playBox = document.getElementById('battle-screen-play');
+            const resultsBox = document.getElementById('battle-screen-results');
+
+            playBox.classList.add('hidden');
+            resultsBox.classList.remove('hidden');
+
+            const score = APP_STATE.activeQuizData.score;
+            const rivalScore = APP_STATE.activeQuizData.rivalScore;
+            const emoji = document.getElementById('battle-outcome-emoji');
+            const headline = document.getElementById('battle-outcome-headline');
+            const detail = document.getElementById('battle-outcome-detail');
+
+            if (score > rivalScore) {
+                emoji.innerText = "🏆";
+                headline.innerText = "Combat Victory!";
+                detail.innerText = `Outstanding! You defeated Sita by ${score} to ${rivalScore} points. +100 Combat XP claimed!`;
+                APP_STATE.user.xp += 100;
+                document.getElementById('header-user-xp').innerText = `XP: ${APP_STATE.user.xp.toLocaleString()} • Level 4`;
+                playSystemSound('success');
+            } else if (score < rivalScore) {
+                emoji.innerText = "🧗";
+                headline.innerText = "Defeat!";
+                detail.innerText = `Sita won by ${rivalScore} to ${score} points. Review chapter matrices and try again!`;
+                playSystemSound('failure');
+            } else {
+                emoji.innerText = "🤝";
+                headline.innerText = "It's a Draw!";
+                detail.innerText = `Both scored equal ${score} points. Practice speed trials to win matchups next time!`;
+            }
+        }
+
+        function resetBattle() {
+            document.getElementById('battle-screen-start').classList.remove('hidden');
+            document.getElementById('battle-screen-finding').classList.add('hidden');
+            document.getElementById('battle-screen-play').classList.add('hidden');
+            document.getElementById('battle-screen-results').classList.add('hidden');
+
+            document.getElementById('battle-score-user').innerText = "0 Points";
+            document.getElementById('battle-score-rival').innerText = "0 Points";
+        }
+
+
+        /* ==========================================
+           6. LIVE FEED, USER SEARCH & SOCIAL INTERACTION SYSTEM
+           ========================================== */
+        function toggleUserSearchPanel() {
+            const panel = document.getElementById('user-search-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        function switchCommunitySubtab(subId) {
+            const feedBtn = document.getElementById('comm-subtab-feed');
+            const messagesBtn = document.getElementById('comm-subtab-messages');
+            
+            const feedSect = document.getElementById('community-feed-section');
+            const msgSect = document.getElementById('community-messages-section');
+            const tagsWrapper = document.getElementById('feed-tags-wrapper');
+
+            if (subId === 'feed') {
+                feedBtn.className = "flex-1 py-1.5 text-xs font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-blue-600 dark:text-white shadow-xs";
+                messagesBtn.className = "flex-1 py-1.5 text-xs font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400";
+                
+                feedSect.classList.remove('hidden');
+                msgSect.classList.add('hidden');
+                tagsWrapper.classList.remove('hidden');
+            } else {
+                messagesBtn.className = "flex-1 py-1.5 text-xs font-extrabold rounded-xl transition bg-white dark:bg-slate-800 text-blue-600 dark:text-white shadow-xs";
+                feedBtn.className = "flex-1 py-1.5 text-xs font-extrabold rounded-xl transition text-slate-500 dark:text-slate-400";
+
+                feedSect.classList.add('hidden');
+                msgSect.classList.remove('hidden');
+                tagsWrapper.classList.add('hidden');
+
+                // Clear unread badge
+                document.getElementById('message-badge').classList.add('hidden');
+
+                // Load initial direct messages
+                openDirectChat(APP_STATE.activeChatUserId);
+            }
+        }
+
+        function filterFeedByTag(tag) {
+            APP_STATE.currentCommunityTag = tag;
+            
+            // Highlight selected button
+            const buttons = document.querySelectorAll('#feed-tags-wrapper button');
+            buttons.forEach(btn => {
+                if (btn.innerText.includes(tag) || (tag === 'all' && btn.innerText.includes('#AllPosts'))) {
+                    btn.className = "bg-blue-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-xs shrink-0";
+                } else {
+                    btn.className = "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 text-[10px] font-extrabold px-3 py-1 rounded-full border border-slate-100 dark:border-slate-800 shrink-0";
+                }
+            });
+
+            renderCommunityFeed();
+        }
+
+        function renderCommunityFeed() {
+            const container = document.getElementById('community-feed-container');
+            container.innerHTML = '';
+
+            let posts = APP_STATE.communityFeed;
+            if (APP_STATE.currentCommunityTag !== 'all') {
+                posts = posts.filter(p => p.postTag === APP_STATE.currentCommunityTag);
+            }
+
+            if (posts.length === 0) {
+                container.innerHTML = `<p class="text-xs text-center text-slate-400 py-6">No posts found with ${APP_STATE.currentCommunityTag}</p>`;
+                return;
+            }
+
+            posts.forEach((post, pIdx) => {
+                const postCard = document.createElement('div');
+                postCard.className = "bg-white dark:bg-slate-900 p-4 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs space-y-3";
+
+                let commentsHtml = '';
+                post.comments.forEach(com => {
+                    commentsHtml += `
+                        <div class="bg-slate-50 dark:bg-slate-950 p-2.5 rounded-xl text-[11px] leading-normal border border-slate-100/40 dark:border-slate-850">
+                            <span class="font-bold text-slate-800 dark:text-slate-300 block mb-0.5">${com.name}</span>
+                            <span class="text-slate-500 dark:text-slate-400">${com.text}</span>
+                        </div>
+                    `;
+                });
+
+                postCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <img src="${post.avatar}" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+                            <div>
+                                <span class="block text-xs font-bold text-slate-900 dark:text-white">${post.name}</span>
+                                <span class="block text-[9px] text-slate-400">${post.time} • ${post.tag}</span>
+                            </div>
+                        </div>
+                        <span class="text-[9.5px] font-extrabold bg-blue-50 dark:bg-blue-950 text-blue-600 px-2 py-0.5 rounded-md">${post.postTag}</span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">${post.text}</p>
+                    
+                    <div class="flex items-center gap-4 text-[10px] font-bold border-y border-slate-100 dark:border-slate-800/60 py-2.5">
+                        <button onclick="likeCommunityPost(${pIdx})" class="${post.userHasLiked ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'} flex items-center gap-1.5 transition">
+                            <i class="${post.userHasLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i> ${post.likes} Likes
+                        </button>
+                        <span class="text-slate-400"><i class="fa-regular fa-comment"></i> ${post.comments.length} Comments</span>
+                    </div>
+
+                    <!-- Dynamic Comments Wrapper -->
+                    <div class="space-y-2 pt-1">
+                        ${commentsHtml}
+                    </div>
+
+                    <!-- Add Comment input Box -->
+                    <div class="flex gap-2 pt-2 border-t border-slate-50 dark:border-slate-800/40">
+                        <input type="text" placeholder="Write a constructive comment..." id="com-input-${post.id}" class="flex-1 text-[10.5px] bg-slate-50 dark:bg-slate-950 p-2 rounded-xl outline-none focus:ring-1 focus:ring-blue-500 text-slate-850 dark:text-slate-100 border-0">
+                        <button onclick="addCommentToPost(${pIdx})" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-[9px] py-2 px-3.5 rounded-lg transition shrink-0">
+                            Reply
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(postCard);
+            });
+        }
+
+        function createNewPost() {
+            const txtBox = document.getElementById('community-post-text');
+            const text = txtBox.value.trim();
+            const selectedTag = document.getElementById('community-post-tag-select').value;
+
+            if (text) {
+                const newPost = {
+                    id: `p-${Date.now()}`,
+                    avatar: APP_STATE.user.avatar,
+                    name: APP_STATE.user.name,
+                    tag: "Aspirant Level 4",
+                    time: "Just now",
+                    text: text,
+                    likes: 0,
+                    userHasLiked: false,
+                    postTag: selectedTag,
+                    comments: []
+                };
+
+                APP_STATE.communityFeed.unshift(newPost);
+                txtBox.value = '';
+                
+                renderCommunityFeed();
+                showNotification("Post shared with community! 🚀");
+            } else {
+                showNotification("Post content cannot be empty.");
+            }
+        }
+
+        function likeCommunityPost(pIdx) {
+            const post = APP_STATE.communityFeed[pIdx];
+
+            if (post.userHasLiked) {
+                post.likes -= 1;
+                post.userHasLiked = false;
+            } else {
+                post.likes += 1;
+                post.userHasLiked = true;
+                playSystemSound('like');
+            }
+
+            renderCommunityFeed();
+        }
+
+        function addCommentToPost(pIdx) {
+            const post = APP_STATE.communityFeed[pIdx];
+            const inp = document.getElementById(`com-input-${post.id}`);
+            const text = inp.value.trim();
+
+            if (text) {
+                post.comments.push({
+                    name: APP_STATE.user.name,
+                    text: text
+                });
+                inp.value = '';
+
+                renderCommunityFeed();
+                showNotification("Comment appended! 💭");
+            } else {
+                showNotification("Type a message to reply!");
+            }
+        }
+
+        function filterAspirantsSearch() {
+            const query = document.getElementById('community-user-search').value.toLowerCase().trim();
+            const resultsBox = document.getElementById('aspirant-search-results');
+            resultsBox.innerHTML = '';
+
+            if (!query) {
+                resultsBox.innerHTML = '<p class="text-[10px] text-slate-400 col-span-2 text-center py-2">Start typing to search other aspirants...</p>';
+                return;
+            }
+
+            const matches = APP_STATE.aspirants.filter(u => u.name.toLowerCase().includes(query) || u.bio.toLowerCase().includes(query));
+
+            if (matches.length === 0) {
+                resultsBox.innerHTML = '<p class="text-[10px] text-slate-400 col-span-2 text-center py-2">No matching aspirants found</p>';
+                return;
+            }
+
+            matches.forEach(u => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 dark:bg-slate-950 p-2 rounded-xl flex items-center justify-between border border-slate-100 dark:border-slate-800";
+                card.innerHTML = `
+                    <div class="flex items-center gap-2 min-w-0">
+                        <img src="${u.avatar}" class="w-8 h-8 rounded-full object-cover shrink-0" alt="${u.name}">
+                        <div class="min-w-0">
+                            <span class="block text-[11px] font-black text-slate-900 dark:text-white truncate">${u.name}</span>
+                            <span class="block text-[8px] text-slate-400 truncate">${u.bio}</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleFollowSimulatedUser('${u.id}')" class="shrink-0 text-[9px] font-extrabold px-2 py-1 rounded-lg ${u.isFollowing ? 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400' : 'bg-blue-600 text-white hover:bg-blue-500'}">
+                        ${u.isFollowing ? 'Following' : 'Follow'}
+                    </button>
+                `;
+                resultsBox.appendChild(card);
+            });
+        }
+
+        function toggleFollowSimulatedUser(userId) {
+            const user = APP_STATE.aspirants.find(u => u.id === userId);
+            if (!user) return;
+
+            if (user.isFollowing) {
+                user.isFollowing = false;
+                user.followers -= 1;
+                APP_STATE.user.followingCount -= 1;
+                showNotification(`Unfollowed ${user.name}`);
+            } else {
+                user.isFollowing = true;
+                user.followers += 1;
+                APP_STATE.user.followingCount += 1;
+                showNotification(`You are now following ${user.name}! 👥`);
+                playSystemSound('like');
+            }
+
+            document.getElementById('profile-following-count').innerText = APP_STATE.user.followingCount;
+            filterAspirantsSearch(); // Redraw search results
+        }
+
+
+        /* ==========================================
+           6.2 CHAT & messaging SIMULATOR ENGINE
+           ========================================== */
+        function openDirectChat(userId) {
+            APP_STATE.activeChatUserId = userId;
+            const targetUser = APP_STATE.aspirants.find(u => u.id === userId);
+            if (!targetUser) return;
+
+            // Highlight chosen sidebar chat element
+            document.querySelectorAll('#community-messages-section > div:first-child > div').forEach(div => {
+                div.className = "flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer";
+            });
+            const targetedDiv = document.getElementById(`chat-item-${userId}`);
+            if (targetedDiv) {
+                targetedDiv.className = "flex items-center gap-2.5 p-2 rounded-xl bg-blue-50/50 dark:bg-slate-800 cursor-pointer border border-blue-100 dark:border-slate-750";
+            }
+
+            // Bind top box metrics
+            document.getElementById('chat-box-name').innerText = targetUser.name;
+            document.getElementById('chat-box-avatar').src = targetUser.avatar;
+
+            renderChatMessages();
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chat-messages-container');
+            container.innerHTML = '';
+
+            const conversation = APP_STATE.conversations[APP_STATE.activeChatUserId] || [];
+            conversation.forEach(msg => {
+                const bubble = document.createElement('div');
+                if (msg.sender === 'me') {
+                    bubble.className = "flex justify-end";
+                    bubble.innerHTML = `
+                        <div class="bg-blue-600 text-white p-2.5 rounded-2xl rounded-tr-none max-w-[80%] shadow-xs">
+                            ${msg.text}
+                        </div>
+                    `;
+                } else {
+                    bubble.className = "flex justify-start";
+                    bubble.innerHTML = `
+                        <div class="bg-slate-100 dark:bg-slate-850 text-slate-800 dark:text-slate-200 p-2.5 rounded-2xl rounded-tl-none max-w-[80%] shadow-xs">
+                            ${msg.text}
+                        </div>
+                    `;
+                }
+                container.appendChild(bubble);
+            });
+
+            // Keep scrolled down
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendQuickMessage(txt) {
+            const conversation = APP_STATE.conversations[APP_STATE.activeChatUserId] || [];
+            conversation.push({ sender: "me", text: txt });
+
+            renderChatMessages();
+            playSystemSound('like');
+
+            // Simulate instant smart response
+            setTimeout(() => {
+                simulateRivalChatResponse();
+            }, 1500);
+        }
+
+        function sendCustomChatMessage() {
+            const inp = document.getElementById('chat-custom-input');
+            const txt = inp.value.trim();
+
+            if (txt) {
+                const conversation = APP_STATE.conversations[APP_STATE.activeChatUserId] || [];
+                conversation.push({ sender: "me", text: txt });
+                inp.value = '';
+
+                renderChatMessages();
+                playSystemSound('like');
+
+                // Simulate instant smart response
+                setTimeout(() => {
+                    simulateRivalChatResponse();
+                }, 1500);
+            }
+        }
+
+        function simulateRivalChatResponse() {
+            const targetUser = APP_STATE.aspirants.find(u => u.id === APP_STATE.activeChatUserId);
+            const replies = [
+                "That sounds super smart! Let's conquer Section Officer exams.",
+                "Absolutely! Let's prepare harder. Join 1v1 matchup whenever you're ready.",
+                "Definitely, we should check out non-verbal spatial IQ matrix templates too.",
+                "Yes, let's keep daily streaks high!"
+            ];
+            const chosenReply = replies[Math.floor(Math.random() * replies.length)];
+
+            const conversation = APP_STATE.conversations[APP_STATE.activeChatUserId] || [];
+            conversation.push({ sender: "them", text: chosenReply });
+
+            // Update subtext indicator in list
+            document.getElementById(`chat-subtext-${APP_STATE.activeChatUserId}`).innerText = chosenReply;
+
+            renderChatMessages();
+            showNotification(`Message received from ${targetUser.name}! 💭`);
+        }
+
+
+        /* ==========================================
+           7. PRO PLANS PRICING & MODAL CONTROL
+           ========================================== */
+        function openProPlansModal() {
+            document.getElementById('pro-plans-modal').classList.remove('hidden');
+        }
+
+        function closeProPlansModal() {
+            document.getElementById('pro-plans-modal').classList.add('hidden');
+        }
+
+        function toggleBillingCycle(cycle) {
+            APP_STATE.preferences.billingCycle = cycle;
+            const monthlyBtn = document.getElementById('billing-monthly');
+            const yearlyBtn = document.getElementById('billing-yearly');
+            const proPrice = document.getElementById('pro-price');
+            const elitePrice = document.getElementById('elite-price');
+
+            if (cycle === 'monthly') {
+                monthlyBtn.className = "px-3.5 py-1.5 text-[10px] font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-white";
+                yearlyBtn.className = "px-3.5 py-1.5 text-[10px] font-bold rounded-lg text-slate-500 dark:text-slate-400";
+                proPrice.innerText = "Rs. 499 / mo";
+                elitePrice.innerText = "Rs. 999 / mo";
+            } else {
+                yearlyBtn.className = "px-3.5 py-1.5 text-[10px] font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-white";
+                monthlyBtn.className = "px-3.5 py-1.5 text-[10px] font-bold rounded-lg text-slate-500 dark:text-slate-400";
+                proPrice.innerText = "Rs. 399 / mo";
+                elitePrice.innerText = "Rs. 799 / mo";
+            }
+        }
+
+        /* ==========================================
+           8. SYSTEM UI NOTIFICATIONS & UTILITIES
+           ========================================== */
+        function showNotification(msg) {
+            const bar = document.getElementById('toast-notif-bar');
+            const txt = document.getElementById('toast-notif-text');
+
+            txt.innerText = msg;
+            bar.className = "fixed bottom-20 md:bottom-6 right-6 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl border border-slate-800 z-50 transform translate-y-0 opacity-100 transition duration-300 flex items-center gap-2";
+
+            setTimeout(() => {
+                bar.className = "fixed bottom-20 md:bottom-6 right-6 bg-slate-900 text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-xl border border-slate-800 z-50 transform translate-y-12 opacity-0 pointer-events-none transition duration-300 flex items-center gap-2";
+            }, 2500);
+        }
+
+        function triggerStudyTool(tool) {
+            if (tool === 'flashcards') {
+                showNotification("Generating dynamic Loksewa flashcards... 📑");
+            } else if (tool === 'bookmarks') {
+                showNotification("Opening your study bookmark collection! 🔖");
+            }
+        }
+
+        function showLegalModal(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = text;
+            document.getElementById('legal-modal-overlay').classList.remove('hidden');
+        }
+
+        function closeLegalModal() {
+            document.getElementById('legal-modal-overlay').classList.add('hidden');
+        }
+
+        function performSignOut() {
+            showNotification("Successfully logged out of profile session.");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+
+        function playSystemSound(type) {
+            if (!APP_STATE.preferences.soundsOn) return;
+
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                } else if (type === 'failure') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'like') {
+                    osc.frequency.setValueAtTime(392, ctx.currentTime); // G4
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.1);
+                }
+            } catch (e) {
+                // Audio prevented by sandbox limits
+            }
+        }
+
+        /* ==========================================
+           9. INIT ONLOAD PRE-POPULATION HANDLERS 
+           ========================================== */
+        window.onload = function () {
+            // Render Enrolled Courses
+            const coursesContainer = document.getElementById('courses-list-container');
+            coursesContainer.innerHTML = '';
+            
+            APP_STATE.courses.forEach(course => {
+                let badgeClass = "bg-orange-50 dark:bg-orange-950/20 text-orange-500";
+                let progressClass = "bg-orange-500";
+                if (course.color === 'emerald') {
+                    badgeClass = "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500";
+                    progressClass = "bg-emerald-500";
+                } else if (course.color === 'purple') {
+                    badgeClass = "bg-purple-50 dark:bg-purple-950/20 text-purple-500";
+                    progressClass = "bg-purple-600";
+                } else if (course.color === 'blue') {
+                    badgeClass = "bg-blue-50 dark:bg-blue-950/20 text-blue-500";
+                    progressClass = "bg-blue-600";
+                } else if (course.color === 'rose') {
+                    badgeClass = "bg-rose-50 dark:bg-rose-950/20 text-rose-500";
+                    progressClass = "bg-rose-500";
+                } else if (course.color === 'indigo') {
+                    badgeClass = "bg-indigo-50 dark:bg-indigo-950/20 text-indigo-500";
+                    progressClass = "bg-indigo-600";
+                }
+
+                coursesContainer.innerHTML += `
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:border-blue-500 transition shadow-xs">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 ${badgeClass}">${course.icon}</div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${course.title}</h4>
+                            <p class="text-[10px] text-slate-400 mt-0.5">${course.subtext}</p>
+                            <div class="w-full bg-slate-100 dark:bg-slate-850 h-1.5 rounded-full mt-2.5 overflow-hidden">
+                                <div class="${progressClass} h-full" style="width: ${course.progress}%"></div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-black shrink-0 ml-2" style="color: ${course.color === 'purple' ? '#9333ea' : course.color === 'emerald' ? '#10b981' : course.color === 'orange' ? '#f97316' : '#2563eb'}">${course.progress}%</span>
+                    </div>
+                `;
+            });
+
+            // Initial feed and search triggers
+            renderCommunityFeed();
+            filterAspirantsSearch();
+        };
+    </script>
+</body>
+</html>
