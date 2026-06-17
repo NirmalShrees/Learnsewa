@@ -76,22 +76,45 @@
             user-select: none;  /* Disables text selection across the UI */
             -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
             scrollbar-width: none;  /* Hide scrollbar for Firefox */
-            overscroll-behavior-y: none;
         }
         ::-webkit-scrollbar {
             display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
         }
 
-        #bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            transform: translateY(0px);
-            transition: transform 0.15s ease-out;
-            will-change: transform;
-            -webkit-transform: translateZ(0);
-        }
+/* Enable safe, native scrolling behavior across the app document */
+html {
+    scrollbar-gutter: stable;
+    overscroll-behavior-y: none; /* Prevents whole-window webview background shifts */
+    height: 100%;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    overflow-y: auto; /* Restores fully-native, responsive scrolling */
+    -webkit-overflow-scrolling: touch; /* Ensures high-performance inertial scrolling in app containers */
+    height: auto;
+    min-h-screen: 100vh;
+}
+
+/* Optimize the active sub-container for premium edge transformations */
+.page-view.active {
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* Hard-anchor your bottom navbar completely out of any translation mechanics */
+#bottom-nav, .md\:hidden.fixed {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important; /* Forces nav to float over all transforming components */
+    transform: translate3d(0, 0, 0) !important; /* Pin navbar explicitly to its own hardware plane */
+}
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full select-none" >
@@ -2254,31 +2277,78 @@
             filterAspirantsSearch();
         };
     </script>
-    <script>
-// Counteract WebView overscroll on navbar
-(function() {
-    let lastScrollY = 0;
-    const nav = document.getElementById('bottom-nav');
-    const body = document.body;
 
-    body.addEventListener('scroll', function() {
-        const scrollY = body.scrollTop;
-        const maxScroll = body.scrollHeight - body.clientHeight;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let fingerStartY = 0;
+    let fingerCurrentY = 0;
+    let isBoundaryHitTop = false;
+    let isBoundaryHitBottom = false;
 
-        if (scrollY < 0) {
-            // Pulled down past top — push navbar back down to compensate
-            nav.style.transform = `translateY(${Math.abs(scrollY)}px)`;
-        } else if (scrollY > maxScroll) {
-            // Pulled up past bottom — push navbar back up to compensate
-            nav.style.transform = `translateY(${-(scrollY - maxScroll)}px)`;
-        } else {
-            nav.style.transform = 'translateY(0px)';
+    // Monitor initial swipe location
+    window.addEventListener('touchstart', (e) => {
+        fingerStartY = e.touches[0].pageY;
+        
+        // Dynamic calculations to find exact browser edges right at touch commencement
+        const currentScrollPos = window.scrollY || document.documentElement.scrollTop;
+        const totalScrollableArea = document.documentElement.scrollHeight - window.innerHeight;
+
+        isBoundaryHitTop = (currentScrollPos <= 0);
+        isBoundaryHitBottom = (currentScrollPos >= totalScrollableArea - 2);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        fingerCurrentY = e.touches[0].pageY;
+        const dragDeltaY = fingerCurrentY - fingerStartY;
+
+        // Target only the active visible page view section
+        const activeLayoutView = document.querySelector('.page-view.active');
+        if (!activeLayoutView) return;
+
+        // 1. OVERSCROLL TOP (User is pulling down when already at the absolute top of the page)
+        if (isBoundaryHitTop && dragDeltaY > 0) {
+            // Cancel native white-out background layout gaps
+            if (e.cancelable) e.preventDefault();
+
+            // Aggressive dampening curve so the stretch feels subtle and premium
+            const microDampenFactor = Math.pow(dragDeltaY, 0.42) * 0.1;
+            const stretchScaleValue = 1 + (microDampenFactor * 0.015);
+            const translateShift = microDampenFactor * 1.2;
+
+            // Anchor transformation to top center: 
+            // Top elements stretch the most, smoothly fading down to zero at the bottom
+            activeLayoutView.style.transformOrigin = 'top center';
+            activeLayoutView.style.transform = `matrix3d(1, 0, 0, 0, 0, ${stretchScaleValue}, 0, 0, 0, 0, 1, 0, 0, ${translateShift}, 0, 1)`;
+            activeLayoutView.style.transition = 'none';
         }
 
-        lastScrollY = scrollY;
-    }, { passive: true });
-})();
+        // 2. OVERSCROLL BOTTOM (User is pushing up when already at the absolute bottom of the page)
+        if (isBoundaryHitBottom && dragDeltaY < 0) {
+            if (e.cancelable) e.preventDefault();
 
-    </script>
+            const absoluteDeltaY = Math.abs(dragDeltaY);
+            const microDampenFactor = Math.pow(absoluteDeltaY, 0.42) * 0.1;
+            const stretchScaleValue = 1 + (microDampenFactor * 0.015);
+            const translateShift = microDampenFactor * 1.2;
+
+            // Anchor transformation to bottom center: 
+            // Bottom elements stretch the most, smoothly fading out as it goes up
+            activeLayoutView.style.transformOrigin = 'bottom center';
+            activeLayoutView.style.transform = `matrix3d(1, 0, 0, 0, 0, ${stretchScaleValue}, 0, 0, 0, 0, 1, 0, 0, -${translateShift}, 0, 1)`;
+            activeLayoutView.style.transition = 'none';
+        }
+    }, { passive: false });
+
+    // Instantly execute spring-back transition the millisecond finger leaves the screen
+    window.addEventListener('touchend', () => {
+        const activeLayoutView = document.querySelector('.page-view.active');
+        if (!activeLayoutView) return;
+
+        // Native iOS UIKit spring matching interpolation parameters
+        activeLayoutView.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
+        activeLayoutView.style.transform = 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)';
+    });
+});
+</script>
 </body>
 </html>
