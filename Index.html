@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnSewa — Nepal's #1 Loksewa & IQ Prep Platform</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81',950:'#1e1b4b' },
+        cyan: { 400:'#22d3ee',500:'#06b6d4',600:'#0891b2' }
+      },
+      animation: {
+        'marquee':'marquee 35s linear infinite',
+        'float':'float 3s ease-in-out infinite',
+        'ping-slow':'ping 2s cubic-bezier(0,0,.2,1) infinite',
+        'slide-in':'slideIn .35s cubic-bezier(.34,1.56,.64,1)',
+        'bounce-once':'bounceOnce .6s ease forwards',
+        'fade-up':'fadeUp .4s ease forwards',
+      },
+      keyframes: {
+        marquee:{'0%':{transform:'translateX(0%)'},'100%':{transform:'translateX(-50%)'}},
+        float:{'0%,100%':{transform:'translateY(0px)'},'50%':{transform:'translateY(-8px)'}},
+        slideIn:{'0%':{opacity:0,transform:'scale(.95) translateY(12px)'},'100%':{opacity:1,transform:'scale(1) translateY(0)'}},
+        bounceOnce:{'0%':{transform:'scale(1)'},'40%':{transform:'scale(1.2)'},'80%':{transform:'scale(.95)'},'100%':{transform:'scale(1)'}},
+        fadeUp:{'0%':{opacity:0,transform:'translateY(16px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+      }
+    }
+  }
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-tap-highlight-color:transparent;scrollbar-width:thin;scrollbar-color:rgba(99,102,241,.3) transparent}
+  ::-webkit-scrollbar{width:4px;height:4px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(99,102,241,.3);border-radius:99px}
+
+  .page-view{display:none;animation:fadeUp .35s ease forwards}
+  .page-view.active{display:block}
+
+  .glass{background:rgba(255,255,255,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .dark .glass{background:rgba(17,24,39,.75)}
+
+  .card{background:#fff;border:1px solid rgba(99,102,241,.1);border-radius:20px;box-shadow:0 1px 3px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.06)}
+  .dark .card{background:#111827;border-color:rgba(99,102,241,.12)}
+
+  .card-hover{transition:all .2s ease}
+  .card-hover:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.12)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:14px;font-weight:700;font-size:.8rem;transition:all .2s ease;cursor:pointer;padding:.7rem 1.2rem;border:none;outline:none}
+  .btn-primary{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.3)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.4)}
+  .btn-primary:active{transform:translateY(0)}
+  .btn-secondary{background:rgba(99,102,241,.08);color:#4f46e5}
+  .dark .btn-secondary{background:rgba(99,102,241,.15);color:#818cf8}
+  .btn-secondary:hover{background:rgba(99,102,241,.15)}
+  .btn-ghost{background:transparent;color:#64748b}
+  .dark .btn-ghost{color:#94a3b8}
+  .btn-ghost:hover{background:rgba(0,0,0,.05)}
+  .dark .btn-ghost:hover{background:rgba(255,255,255,.05)}
+  .btn-danger{background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff;box-shadow:0 4px 14px rgba(244,63,94,.25)}
+
+  .btn-lg{padding:.9rem 1.6rem;font-size:.875rem;border-radius:16px}
+  .btn-sm{padding:.45rem .9rem;font-size:.72rem;border-radius:10px}
+  .btn-icon{padding:.65rem;border-radius:12px;width:40px;height:40px}
+  .btn-icon-sm{padding:.45rem;border-radius:10px;width:34px;height:34px}
+
+  .nav-item{display:flex;align-items:center;gap:.85rem;padding:.75rem 1rem;border-radius:14px;font-weight:600;font-size:.83rem;color:#64748b;transition:all .18s ease;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
+  .nav-item:hover{background:rgba(99,102,241,.07);color:#4f46e5}
+  .nav-item.active{background:rgba(99,102,241,.1);color:#4f46e5;font-weight:700}
+  .dark .nav-item{color:#94a3b8}
+  .dark .nav-item:hover{background:rgba(99,102,241,.12);color:#818cf8}
+  .dark .nav-item.active{background:rgba(99,102,241,.15);color:#818cf8}
+
+  .nav-icon{width:1.1rem;text-align:center;font-size:1rem;flex-shrink:0}
+
+  .flashcard-inner{transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+  .flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+  .flashcard-front,.flashcard-back{-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  .flashcard-back{transform:rotateY(180deg)}
+
+  .reaction-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .8rem;border-radius:10px;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;border:none;background:transparent;color:#64748b}
+  .dark .reaction-btn{color:#94a3b8}
+  .reaction-btn:hover{background:rgba(0,0,0,.06);color:#1e293b}
+  .dark .reaction-btn:hover{background:rgba(255,255,255,.07);color:#f1f5f9}
+  .reaction-btn.liked{color:#4f46e5}
+
+  .story-ring{border:2.5px solid transparent;background:linear-gradient(white,white) padding-box,linear-gradient(135deg,#6366f1,#06b6d4) border-box}
+  .dark .story-ring{background:linear-gradient(#111827,#111827) padding-box,linear-gradient(135deg,#6366f1,#06b6d4) border-box}
+
+  .online-dot{position:absolute;bottom:1px;right:1px;width:10px;height:10px;background:#10b981;border:2px solid white;border-radius:50%}
+  .dark .online-dot{border-color:#111827}
+
+  .msg-bubble-me{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-radius:18px 18px 4px 18px;padding:.6rem 1rem;font-size:.8rem;max-width:72%;word-break:break-word}
+  .msg-bubble-them{background:#f1f5f9;color:#1e293b;border-radius:18px 18px 18px 4px;padding:.6rem 1rem;font-size:.8rem;max-width:72%;word-break:break-word}
+  .dark .msg-bubble-them{background:#1f2937;color:#f1f5f9}
+
+  .quiz-opt{width:100%;text-align:left;padding:.85rem 1.1rem;border-radius:14px;font-size:.82rem;font-weight:600;cursor:pointer;border:2px solid rgba(99,102,241,.15);background:rgba(99,102,241,.03);color:#334155;transition:all .18s;display:flex;align-items:center;gap:.75rem}
+  .dark .quiz-opt{border-color:rgba(99,102,241,.2);background:rgba(99,102,241,.05);color:#cbd5e1}
+  .quiz-opt:hover{border-color:#6366f1;background:rgba(99,102,241,.08);color:#312e81}
+  .dark .quiz-opt:hover{color:#a5b4fc}
+  .quiz-opt.correct{border-color:#10b981;background:rgba(16,185,129,.08);color:#065f46!important}
+  .dark .quiz-opt.correct{background:rgba(16,185,129,.12);color:#34d399!important}
+  .quiz-opt.wrong{border-color:#f43f5e;background:rgba(244,63,94,.07);color:#be123c!important}
+  .dark .quiz-opt.wrong{background:rgba(244,63,94,.12);color:#fb7185!important}
+  .quiz-opt:disabled{cursor:not-allowed}
+
+  .badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .65rem;border-radius:8px;font-size:.68rem;font-weight:700;letter-spacing:.02em}
+  .badge-blue{background:rgba(99,102,241,.1);color:#4f46e5}
+  .badge-green{background:rgba(16,185,129,.1);color:#059669}
+  .badge-amber{background:rgba(245,158,11,.1);color:#d97706}
+  .badge-red{background:rgba(244,63,94,.1);color:#e11d48}
+  .badge-purple{background:rgba(168,85,247,.1);color:#9333ea}
+  .dark .badge-blue{background:rgba(99,102,241,.18);color:#a5b4fc}
+  .dark .badge-green{background:rgba(16,185,129,.15);color:#34d399}
+  .dark .badge-amber{background:rgba(245,158,11,.15);color:#fbbf24}
+  .dark .badge-red{background:rgba(244,63,94,.15);color:#fb7185}
+  .dark .badge-purple{background:rgba(168,85,247,.15);color:#c084fc}
+
+  .progress-bar{height:6px;border-radius:99px;background:rgba(99,102,241,.1);overflow:hidden}
+  .dark .progress-bar{background:rgba(99,102,241,.2)}
+  .progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#06b6d4);transition:width 1s ease}
+
+  .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .75rem;border-radius:99px;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .15s;border:1.5px solid transparent}
+  .chip:hover{border-color:rgba(99,102,241,.4)}
+  .chip.active-chip{background:rgba(99,102,241,.1);border-color:#6366f1;color:#4f46e5}
+  .dark .chip.active-chip{background:rgba(99,102,241,.2);color:#818cf8}
+
+  .sidebar-section-label{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;padding:.3rem .6rem;margin-top:.75rem}
+
+  .post-card{border-radius:20px;overflow:hidden}
+  .post-actions{display:flex;gap:.25rem;padding:.5rem .75rem;border-top:1px solid rgba(0,0,0,.06)}
+  .dark .post-actions{border-top-color:rgba(255,255,255,.06)}
+
+  .community-tabs button{flex:1;padding:.7rem;font-size:.8rem;font-weight:700;border-radius:12px;transition:all .15s;cursor:pointer;border:none;color:#94a3b8;background:transparent}
+  .community-tabs button.active-tab{background:#fff;color:#4f46e5;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .dark .community-tabs button.active-tab{background:#1f2937;color:#818cf8}
+  .community-tabs{background:rgba(0,0,0,.05);border-radius:14px;padding:.25rem;display:flex;gap:.2rem}
+  .dark .community-tabs{background:rgba(255,255,255,.05)}
+
+  .thread-item{display:flex;align-items:center;gap:.75rem;padding:.7rem .75rem;border-radius:14px;cursor:pointer;transition:all .15s;border:1.5px solid transparent}
+  .thread-item:hover{background:rgba(99,102,241,.05)}
+  .thread-item.active-thread{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.2)}
+  .dark .thread-item.active-thread{background:rgba(99,102,241,.12)}
+
+  .xp-bar{height:8px;background:linear-gradient(90deg,rgba(99,102,241,.15),rgba(99,102,241,.08));border-radius:99px;overflow:hidden}
+  .xp-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#a78bfa);transition:width 1.2s ease}
+
+  .achievement-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.9rem .6rem;border-radius:16px;text-align:center;gap:.35rem;border:1.5px solid rgba(99,102,241,.1);background:rgba(99,102,241,.03);transition:all .2s}
+  .achievement-card:hover{border-color:#6366f1;background:rgba(99,102,241,.07);transform:scale(1.03)}
+  .dark .achievement-card{border-color:rgba(99,102,241,.15);background:rgba(99,102,241,.05)}
+
+  .ticker-wrap{overflow:hidden;white-space:nowrap}
+  .ticker-inner{display:inline-block;animation:marquee 35s linear infinite}
+
+  input,textarea,select{outline:none;transition:border-color .15s,box-shadow .15s}
+  input:focus,textarea:focus,select:focus{border-color:#6366f1!important;box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+
+  .bottom-nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;flex:1;padding:.5rem .25rem;cursor:pointer;border:none;background:transparent;color:#94a3b8;transition:color .15s;-webkit-tap-highlight-color:transparent}
+  .bottom-nav-btn.active-nav{color:#6366f1}
+  .bottom-nav-btn span{font-size:.65rem;font-weight:700;line-height:1}
+
+  .stat-card{padding:1.25rem;border-radius:20px;display:flex;flex-direction:column;gap:.6rem}
+  .stat-card .stat-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+  .stat-card .stat-val{font-size:1.7rem;font-weight:900;line-height:1}
+  .stat-card .stat-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8}
+
+  .typing-dot{width:7px;height:7px;border-radius:50%;background:#94a3b8;animation:typing 1.4s infinite}
+  .typing-dot:nth-child(2){animation-delay:.2s}
+  .typing-dot:nth-child(3){animation-delay:.4s}
+  @keyframes typing{0%,60%,100%{opacity:.3;transform:scale(.8)}30%{opacity:1;transform:scale(1)}}
+
+  @media(max-width:768px){
+    .sidebar-hidden-mobile{display:none!important}
+    .main-content{padding-bottom:80px}
+  }
+</style>
+</head>
+<body class="bg-[#f4f6ff] dark:bg-[#080b14] text-slate-800 dark:text-slate-100 min-h-screen overflow-x-hidden">
+
+<!-- ====== TOAST ====== -->
+<div id="toast" class="fixed bottom-24 md:bottom-8 right-4 z-[9999] flex items-center gap-3 p-4 rounded-2xl shadow-2xl max-w-xs transition-all duration-300 opacity-0 translate-y-4 pointer-events-none glass border border-white/30">
+  <div id="toast-icon" class="w-9 h-9 rounded-xl bg-brand-500/15 text-brand-500 flex items-center justify-center text-sm flex-shrink-0"><i class="fa-solid fa-circle-check"></i></div>
+  <p id="toast-text" class="text-sm font-600 text-slate-700 dark:text-slate-200"></p>
+</div>
+
+<!-- ====== HEADER ====== -->
+<header class="fixed top-0 inset-x-0 h-[60px] glass border-b border-white/40 dark:border-white/5 flex items-center justify-between px-5 z-50">
+  <div class="flex items-center gap-3">
+    <div class="w-9 h-9 rounded-[12px] bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-lg shadow-brand-500/25">
+      <a href="index1.html"> <i class="fa-solid fa-graduation-cap text-sm"></i> </a>
+    </div>
+    <div>
+      <div class="text-[.95rem] font-900 bg-gradient-to-r from-brand-600 to-cyan-500 bg-clip-text text-transparent leading-none" style="font-weight:900">LearnSewa</div>
+      <div class="text-[.6rem] font-700 text-slate-400 tracking-widest uppercase">Loksewa Prep</div>
+    </div>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="hidden sm:flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/30 px-3 py-1.5 rounded-xl">
+      <span class="text-sm">🔥</span>
+      <span id="hdr-streak" class="text-xs font-800 text-amber-600 dark:text-amber-400" style="font-weight:800">7 Days</span>
+    </div>
+    <button onclick="showToast('🎯 You\'re all caught up! No new notifications.')" class="btn btn-icon btn-ghost relative dark:text-slate-400">
+      <i class="fa-regular fa-bell text-[.95rem]"></i>
+      <span class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white dark:border-[#080b14]"></span>
+    </button>
+    <button onclick="toggleDark()" class="btn btn-icon btn-ghost dark:text-slate-400">
+      <i class="fa-solid fa-sun text-amber-500 dark:hidden text-[.95rem]"></i>
+      <i class="fa-solid fa-moon text-indigo-400 hidden dark:block text-[.95rem]"></i>
+    </button>
+    <button onclick="goTo('profile')" class="w-9 h-9 rounded-full overflow-hidden ring-2 ring-brand-500/30 hover:ring-brand-500 transition ml-1 flex-shrink-0">
+      <img id="hdr-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+    </button>
+  </div>
+</header>
+
+<!-- ====== SIDEBAR (desktop) ====== -->
+<aside id="sidebar" class="hidden md:flex flex-col fixed left-0 top-[60px] bottom-0 w-[260px] bg-white dark:bg-[#0f1623] border-r border-slate-200/60 dark:border-white/[.06] pt-4 pb-6 z-40 overflow-y-auto">
+  <nav class="px-3 space-y-1">
+    <button onclick="goTo('home')" id="s-home" class="nav-item active"><span class="nav-icon">🏠</span> Dashboard</button>
+    <button onclick="goTo('courses')" id="s-courses" class="nav-item"><span class="nav-icon">📚</span> Courses</button>
+    <button onclick="goTo('tests')" id="s-tests" class="nav-item"><span class="nav-icon">🧪</span> Practice Lab <span class="ml-auto badge badge-blue text-[.6rem] py-[2px]">LIVE</span></button>
+    <button onclick="goTo('community')" id="s-community" class="nav-item"><span class="nav-icon">👥</span> Community <span id="s-notif-dot" class="ml-auto w-2 h-2 bg-rose-500 rounded-full"></span></button>
+    <button onclick="goTo('profile')" id="s-profile" class="nav-item"><span class="nav-icon">👤</span> Profile</button>
+    <div class="sidebar-section-label">Tools</div>
+    <button onclick="openFlashcards()" class="nav-item"><span class="nav-icon">🃏</span> Flashcards</button>
+    <button onclick="openTimer()" class="nav-item"><span class="nav-icon">⏱️</span> Study Timer</button>
+    <button onclick="goTo('leaderboard')" class="nav-item"><span class="nav-icon">🏆</span> Leaderboard</button>
+    <button onclick="showToast('📌 Bookmarks coming soon!')" class="nav-item"><span class="nav-icon">🔖</span> Bookmarks</button>
+  </nav>
+
+  <!-- Exam Countdown Widget -->
+  <div class="mx-3 mt-6 p-4 rounded-2xl bg-gradient-to-br from-brand-800 to-brand-950 text-white relative overflow-hidden">
+    <div class="absolute -right-4 -top-4 text-white/5 text-8xl rotate-12"><i class="fa-solid fa-trophy"></i></div>
+    <div class="badge badge-blue mb-2 text-[.6rem] bg-white/10 text-white" style="background:rgba(255,255,255,.12)">⚡ COUNTDOWN</div>
+    <p class="text-xs font-700 text-slate-300" style="font-weight:700">Section Officer Prelims 2026</p>
+    <div class="flex items-baseline gap-1 mt-2 mb-3">
+      <span class="text-3xl font-900 text-cyan-400" style="font-weight:900" id="days-left">42</span>
+      <span class="text-xs text-slate-400">days remaining</span>
+    </div>
+    <div class="grid grid-cols-3 gap-1.5 text-center text-[.6rem] mb-3">
+      <div class="bg-white/8 rounded-lg py-1.5" style="background:rgba(255,255,255,.08)"><div class="text-base font-900 text-white" style="font-weight:900">42</div><div class="text-slate-400">Days</div></div>
+      <div class="bg-white/8 rounded-lg py-1.5" style="background:rgba(255,255,255,.08)"><div class="text-base font-900 text-white" style="font-weight:900" id="cd-hrs">09</div><div class="text-slate-400">Hours</div></div>
+      <div class="bg-white/8 rounded-lg py-1.5" style="background:rgba(255,255,255,.08)"><div class="text-base font-900 text-white" style="font-weight:900" id="cd-min">--</div><div class="text-slate-400">Mins</div></div>
+    </div>
+    <button onclick="openPremium()" class="btn btn-primary btn-sm w-full text-xs">⭐ Upgrade to Pro</button>
+  </div>
+</aside>
+
+<!-- ====== MAIN CONTENT ====== -->
+<main class="md:ml-[260px] pt-[60px] min-h-screen main-content">
+
+<!-- ========== PANE: HOME (DASHBOARD) ========== -->
+<section id="pane-home" class="page-view active p-4 md:p-8 space-y-6 max-w-4xl">
+
+  <!-- Mobile greeting card -->
+  <div class="flex md:hidden items-center justify-between card p-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-[14px] text-2xl flex items-center justify-center bg-brand-50 dark:bg-brand-900/30 border border-brand-100 dark:border-brand-800/30">🦉</div>
+      <div>
+        <p class="text-[.65rem] font-700 text-slate-400 uppercase tracking-wider" style="font-weight:700">Good Morning,</p>
+        <h2 class="text-lg font-900 text-slate-900 dark:text-white" style="font-weight:900">Arjun! 👋</h2>
+        <p class="text-[.65rem] text-slate-400 font-600">Targeting Section Officer 2026</p>
+      </div>
+    </div>
+    <button onclick="goTo('profile')">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" class="w-11 h-11 rounded-full object-cover ring-2 ring-brand-500">
+    </button>
+  </div>
+
+  <!-- Desktop header -->
+  <div class="hidden md:flex items-center justify-between">
+    <div>
+      <p class="text-sm text-slate-400 font-600">Good Morning ☀️</p>
+      <h1 class="text-2xl font-900 text-slate-900 dark:text-white" style="font-weight:900">Welcome back, Arjun! 👋</h1>
+    </div>
+    <button onclick="openFlashcards()" class="btn btn-primary"><i class="fa-solid fa-cards-blank"></i> Quick Flashcards</button>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="stat-card card card-hover">
+      <div class="stat-icon bg-amber-50 dark:bg-amber-900/20 text-amber-500">🔥</div>
+      <div class="stat-val text-slate-900 dark:text-white">7</div>
+      <div class="stat-label">Day Streak</div>
+    </div>
+    <div class="stat-card card card-hover">
+      <div class="stat-icon bg-brand-50 dark:bg-brand-900/20 text-brand-500">⚡</div>
+      <div class="stat-val text-slate-900 dark:text-white">1,840</div>
+      <div class="stat-label">Total XP</div>
+    </div>
+    <div class="stat-card card card-hover">
+      <div class="stat-icon bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500">✅</div>
+      <div class="stat-val text-slate-900 dark:text-white">38</div>
+      <div class="stat-label">Tests Done</div>
+    </div>
+    <div class="stat-card card card-hover">
+      <div class="stat-icon bg-cyan-50 dark:bg-cyan-900/20 text-cyan-500">🎯</div>
+      <div class="stat-val text-slate-900 dark:text-white">89%</div>
+      <div class="stat-label">Avg Accuracy</div>
+    </div>
+  </div>
+
+  <!-- News ticker -->
+  <div class="flex items-center gap-3 card p-3 rounded-2xl overflow-hidden">
+    <div class="flex items-center gap-1.5 shrink-0 bg-rose-500/10 text-rose-600 dark:text-rose-400 px-3 py-1.5 rounded-xl font-800 text-xs" style="font-weight:800">
+      <i class="fa-solid fa-bullhorn animate-bounce"></i> LIVE
+    </div>
+    <div class="ticker-wrap flex-1">
+      <div class="ticker-inner text-xs font-600 text-slate-600 dark:text-slate-300">
+        📢 PSC 2026 Section Officer & Nayab Subba vacancies declared — Apply before deadline! &nbsp;•&nbsp; 🏆 New 1v1 Arena battles now live — challenge a friend &nbsp;•&nbsp; 📖 Constitution Chapter 3 notes updated &nbsp;•&nbsp; 🎯 Mock Test #12 now available with 2082 pattern &nbsp;•&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        📢 PSC 2026 Section Officer & Nayab Subba vacancies declared — Apply before deadline! &nbsp;•&nbsp; 🏆 New 1v1 Arena battles now live — challenge a friend &nbsp;•&nbsp; 📖 Constitution Chapter 3 notes updated &nbsp;•&nbsp; 🎯 Mock Test #12 now available with 2082 pattern &nbsp;•&nbsp;
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div>
+    <h3 class="text-sm font-800 text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3" style="font-weight:800">Quick Actions</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <button onclick="goTo('tests')" class="card card-hover p-4 flex flex-col items-center gap-2 text-center cursor-pointer">
+        <div class="w-11 h-11 rounded-[14px] bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl">🧪</div>
+        <span class="text-xs font-700 text-slate-700 dark:text-slate-300" style="font-weight:700">Start Quiz</span>
+      </button>
+      <button onclick="openFlashcards()" class="card card-hover p-4 flex flex-col items-center gap-2 text-center cursor-pointer">
+        <div class="w-11 h-11 rounded-[14px] bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-xl">🃏</div>
+        <span class="text-xs font-700 text-slate-700 dark:text-slate-300" style="font-weight:700">Flashcards</span>
+      </button>
+      <button onclick="goTo('tests');setTimeout(()=>switchTestTab('arena'),100)" class="card card-hover p-4 flex flex-col items-center gap-2 text-center cursor-pointer">
+        <div class="w-11 h-11 rounded-[14px] bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-xl">⚔️</div>
+        <span class="text-xs font-700 text-slate-700 dark:text-slate-300" style="font-weight:700">1v1 Arena</span>
+      </button>
+      <button onclick="openTimer()" class="card card-hover p-4 flex flex-col items-center gap-2 text-center cursor-pointer">
+        <div class="w-11 h-11 rounded-[14px] bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl">⏱️</div>
+        <span class="text-xs font-700 text-slate-700 dark:text-slate-300" style="font-weight:700">Study Timer</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Progress + Daily Challenge -->
+  <div class="grid md:grid-cols-2 gap-4">
+
+    <!-- Progress ring -->
+    <div class="card p-5 flex items-center gap-5">
+      <div class="relative w-28 h-28 shrink-0">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+          <path stroke="currentColor" class="text-slate-100 dark:text-slate-800" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          <path id="ring-track" stroke="#6366f1" stroke-dasharray="42,100" stroke-width="3" stroke-linecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style="transition:stroke-dasharray 1s ease"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span class="text-xl font-900 text-slate-900 dark:text-white" style="font-weight:900">42%</span>
+          <span class="text-[.6rem] font-700 text-slate-400 uppercase tracking-wide" style="font-weight:700">Done</span>
+        </div>
+      </div>
+      <div class="flex-1 space-y-3">
+        <div>
+          <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Syllabus Progress</h3>
+          <p class="text-xs text-slate-400 mt-0.5">You're ahead of 68% of aspirants!</p>
+        </div>
+        <div class="space-y-2">
+          <div>
+            <div class="flex justify-between text-[.68rem] font-700 mb-1"><span class="text-slate-600 dark:text-slate-300">Constitution</span><span class="text-brand-500">75%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[.68rem] font-700 mb-1"><span class="text-slate-600 dark:text-slate-300">History & GK</span><span class="text-brand-500">55%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-[.68rem] font-700 mb-1"><span class="text-slate-600 dark:text-slate-300">IQ / Aptitude</span><span class="text-brand-500">30%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Challenge -->
+    <div class="card p-5 flex flex-col gap-3 bg-gradient-to-br from-brand-600 to-brand-800 text-white relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-6 text-white/5 text-8xl">🧠</div>
+      <div class="flex items-center gap-2">
+        <span class="text-xl">⚡</span>
+        <div>
+          <div class="text-[.65rem] font-800 text-brand-200 uppercase tracking-widest" style="font-weight:800">Daily Challenge</div>
+          <h3 class="text-sm font-800 text-white" style="font-weight:800">Today's Brain Teaser</h3>
+        </div>
+        <span class="ml-auto badge bg-white/15 text-white border-0 text-[.6rem]">+25 XP</span>
+      </div>
+      <p class="text-xs font-600 text-brand-100 leading-relaxed">Which article of Nepal's Constitution guarantees the right to education as a fundamental right?</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="dailyChallenge('A')" class="py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-700 text-left transition border border-white/10">A. Article 28</button>
+        <button onclick="dailyChallenge('B')" class="py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-700 text-left transition border border-white/10">B. Article 31 ✓</button>
+        <button onclick="dailyChallenge('C')" class="py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-700 text-left transition border border-white/10">C. Article 35</button>
+        <button onclick="dailyChallenge('D')" class="py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-700 text-left transition border border-white/10">D. Article 40</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Streak week + XP Level -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <!-- Streak week -->
+    <div class="card p-5">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">🔥 7-Day Streak</h3>
+        <span class="badge badge-amber">Top 5% 🏅</span>
+      </div>
+      <div class="grid grid-cols-7 gap-1.5">
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">M</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">T</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">W</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">T</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">F</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-check"></i></div><span class="text-[.6rem] font-700 text-slate-400">S</span></div>
+        <div class="flex flex-col items-center gap-1"><div class="w-8 h-8 rounded-xl bg-amber-400 border-2 border-amber-300 flex items-center justify-center text-white text-xs">⚡</div><span class="text-[.6rem] font-700 text-brand-500">S</span></div>
+      </div>
+    </div>
+    <!-- XP Level -->
+    <div class="card p-5">
+      <div class="flex justify-between items-center mb-1">
+        <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Level 4 Scholar</h3>
+        <span class="badge badge-blue">⭐ 1,840 XP</span>
+      </div>
+      <p class="text-[.7rem] text-slate-400 mb-3">160 XP to reach Level 5 — "Senior Aspirant"</p>
+      <div class="xp-bar"><div class="xp-fill" style="width:92%"></div></div>
+      <div class="flex justify-between text-[.65rem] font-700 mt-1.5 text-slate-400">
+        <span>Lv. 4 — 1,840 XP</span><span>Lv. 5 — 2,000 XP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini Leaderboard + Continue Studying -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <!-- Leaderboard snippet -->
+    <div class="card p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">🏆 Top Aspirants</h3>
+        <button onclick="goTo('leaderboard')" class="text-xs font-700 text-brand-500 hover:text-brand-600">See All</button>
+      </div>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <span class="text-lg w-6 text-center">🥇</span>
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover">
+          <div class="flex-1"><span class="text-xs font-700 text-slate-800 dark:text-white block">Prashant Kumar</span><span class="text-[.65rem] text-slate-400">Level 6 Strategist</span></div>
+          <span class="badge badge-amber">3,420 XP</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-lg w-6 text-center">🥈</span>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover">
+          <div class="flex-1"><span class="text-xs font-700 text-slate-800 dark:text-white block">Deepika Shrestha</span><span class="text-[.65rem] text-slate-400">Level 5 Scholar</span></div>
+          <span class="badge badge-blue">2,910 XP</span>
+        </div>
+        <div class="flex items-center gap-3 bg-brand-50/60 dark:bg-brand-900/20 rounded-xl px-2 py-1.5 -mx-1">
+          <span class="text-lg w-6 text-center">4️⃣</span>
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full object-cover ring-2 ring-brand-400">
+          <div class="flex-1"><span class="text-xs font-700 text-brand-700 dark:text-brand-300 block">You — Arjun</span><span class="text-[.65rem] text-slate-400">Level 4 Scholar</span></div>
+          <span class="badge badge-green">1,840 XP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue studying -->
+    <div class="card p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">📖 Continue Studying</h3>
+        <button onclick="goTo('courses')" class="text-xs font-700 text-brand-500 hover:text-brand-600">View All</button>
+      </div>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-50/60 dark:hover:bg-brand-900/20 cursor-pointer transition" onclick="showToast('📖 Loading Constitution notes...')">
+          <div class="w-10 h-10 rounded-[12px] bg-orange-50 dark:bg-orange-900/20 text-orange-500 flex items-center justify-center text-lg flex-shrink-0">🏛️</div>
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-700 text-slate-800 dark:text-white truncate">Constitution & Governance</h4>
+            <div class="progress-bar mt-1"><div class="progress-fill" style="width:75%"></div></div>
+            <span class="text-[.65rem] text-slate-400 font-600">45 / 60 topics</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-50/60 dark:hover:bg-brand-900/20 cursor-pointer transition" onclick="showToast('🧠 Loading IQ Aptitude notes...')">
+          <div class="w-10 h-10 rounded-[12px] bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center text-lg flex-shrink-0">🧠</div>
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-700 text-slate-800 dark:text-white truncate">Quantitative Aptitude</h4>
+            <div class="progress-bar mt-1"><div class="progress-fill" style="width:15%"></div></div>
+            <span class="text-[.65rem] text-slate-400 font-600">12 / 80 topics</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-50/60 dark:hover:bg-brand-900/20 cursor-pointer transition" onclick="showToast('🗺️ Loading Nepal Geography notes...')">
+          <div class="w-10 h-10 rounded-[12px] bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500 flex items-center justify-center text-lg flex-shrink-0">🗺️</div>
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-700 text-slate-800 dark:text-white truncate">Nepal Geography</h4>
+            <div class="progress-bar mt-1"><div class="progress-fill" style="width:55%"></div></div>
+            <span class="text-[.65rem] text-slate-400 font-600">22 / 40 topics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANE: COURSES ========== -->
+<section id="pane-courses" class="page-view p-4 md:p-8 space-y-6 max-w-4xl">
+  <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+    <div>
+      <h1 class="text-xl font-900 text-slate-900 dark:text-white" style="font-weight:900">📚 Courses & Syllabus</h1>
+      <p class="text-xs text-slate-400 mt-0.5">Complete syllabus coverage for Loksewa preparation</p>
+    </div>
+    <div class="sm:ml-auto relative">
+      <input type="text" placeholder="🔍 Search topics..." class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm w-full sm:w-52 text-slate-700 dark:text-slate-200">
+    </div>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar" id="course-filters">
+    <button onclick="filterCourse('all',this)" class="chip active-chip text-brand-600 border-brand-300 dark:border-brand-600">All Subjects</button>
+    <button onclick="filterCourse('constitution',this)" class="chip text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700">🏛️ Constitution</button>
+    <button onclick="filterCourse('history',this)" class="chip text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700">🏺 History</button>
+    <button onclick="filterCourse('geography',this)" class="chip text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700">🗺️ Geography</button>
+    <button onclick="filterCourse('iq',this)" class="chip text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700">🧠 IQ & Aptitude</button>
+    <button onclick="filterCourse('economy',this)" class="chip text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700">📊 Economics</button>
+  </div>
+
+  <!-- Course cards grid -->
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="card card-hover p-4 flex flex-col gap-3 cursor-pointer" onclick="showToast('📖 Loading Nepal History course...')">
+      <div class="h-32 bg-gradient-to-br from-orange-400/15 to-amber-400/10 rounded-xl flex items-center justify-center text-4xl relative border border-orange-100 dark:border-orange-900/30">🏺<span class="absolute top-2 right-2"><i class="fa-regular fa-bookmark text-xs text-slate-300 dark:text-slate-600"></i></span></div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">History & Heritage of Nepal</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">12 Chapters • 180 Topics</p>
+      </div>
+      <div><div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div><div class="flex justify-between text-[.65rem] font-700 mt-1"><span class="text-slate-400">65%</span><span class="text-brand-500">117/180</span></div></div>
+      <button class="btn btn-primary btn-sm w-full text-xs">Continue Learning</button>
+    </div>
+    <div class="card card-hover p-4 flex flex-col gap-3 cursor-pointer" onclick="showToast('🏛️ Loading Constitution course...')">
+      <div class="h-32 bg-gradient-to-br from-blue-400/15 to-indigo-400/10 rounded-xl flex items-center justify-center text-4xl relative border border-blue-100 dark:border-blue-900/30">🏛️</div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">Constitution of Nepal 2072</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">8 Parts • 60 Topics <span class="badge badge-red ml-1">HIGH YIELD</span></p>
+      </div>
+      <div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div><div class="flex justify-between text-[.65rem] font-700 mt-1"><span class="text-slate-400">75%</span><span class="text-brand-500">45/60</span></div></div>
+      <button class="btn btn-primary btn-sm w-full text-xs">Continue Learning</button>
+    </div>
+    <div class="card card-hover p-4 flex flex-col gap-3 cursor-pointer" onclick="showToast('🗺️ Loading Geography course...')">
+      <div class="h-32 bg-gradient-to-br from-emerald-400/15 to-green-400/10 rounded-xl flex items-center justify-center text-4xl border border-emerald-100 dark:border-emerald-900/30">🗺️</div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">Nepal Geography & Climate</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">6 Chapters • 40 Topics</p>
+      </div>
+      <div><div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div><div class="flex justify-between text-[.65rem] font-700 mt-1"><span class="text-slate-400">55%</span><span class="text-brand-500">22/40</span></div></div>
+      <button class="btn btn-secondary btn-sm w-full text-xs">Continue Learning</button>
+    </div>
+    <div class="card card-hover p-4 flex flex-col gap-3 cursor-pointer" onclick="showToast('🧠 Loading IQ Aptitude course...')">
+      <div class="h-32 bg-gradient-to-br from-purple-400/15 to-violet-400/10 rounded-xl flex items-center justify-center text-4xl border border-purple-100 dark:border-purple-900/30">🧠</div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">Quantitative & Verbal IQ</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">10 Modules • 80 Topics <span class="badge badge-blue ml-1">COMPULSORY</span></p>
+      </div>
+      <div><div class="progress-bar"><div class="progress-fill" style="width:15%"></div></div><div class="flex justify-between text-[.65rem] font-700 mt-1"><span class="text-slate-400">15%</span><span class="text-brand-500">12/80</span></div></div>
+      <button class="btn btn-secondary btn-sm w-full text-xs">Start Learning</button>
+    </div>
+    <div class="card card-hover p-4 flex flex-col gap-3 cursor-pointer" onclick="showToast('📊 Loading Economics course...')">
+      <div class="h-32 bg-gradient-to-br from-cyan-400/15 to-teal-400/10 rounded-xl flex items-center justify-center text-4xl border border-cyan-100 dark:border-cyan-900/30">📊</div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">Macroeconomics of Nepal</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">7 Chapters • 55 Topics</p>
+      </div>
+      <div><div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div><div class="flex justify-between text-[.65rem] font-700 mt-1"><span class="text-slate-400">30%</span><span class="text-brand-500">17/55</span></div></div>
+      <button class="btn btn-secondary btn-sm w-full text-xs">Continue Learning</button>
+    </div>
+    <div class="card p-4 flex flex-col gap-3 opacity-70 cursor-pointer" onclick="openPremium()">
+      <div class="h-32 bg-gradient-to-br from-amber-400/10 to-yellow-400/05 rounded-xl flex items-center justify-center text-4xl border border-amber-100 dark:border-amber-900/20 relative">🤝<span class="absolute top-2 right-2"><i class="fa-solid fa-lock text-amber-400 text-sm"></i></span></div>
+      <div>
+        <h4 class="text-sm font-800 text-slate-800 dark:text-white leading-tight" style="font-weight:800">Diplomatic Protocol & International Relations</h4>
+        <p class="text-[.68rem] text-slate-400 mt-0.5">Pro Only • Unlock with upgrade</p>
+      </div>
+      <button class="btn btn-sm w-full text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">🔒 Unlock with Pro</button>
+    </div>
+  </div>
+
+  <!-- Syllabus Accordion -->
+  <div>
+    <h3 class="text-sm font-800 text-slate-900 dark:text-white mb-3" style="font-weight:800">📋 Syllabus Overview — Section Officer Paper 1</h3>
+    <div class="space-y-2" id="syllabus-accordion">
+      <div class="card overflow-hidden">
+        <button onclick="toggleAccordion('acc1')" class="w-full flex items-center justify-between p-4 text-sm font-700 text-slate-800 dark:text-white text-left hover:bg-slate-50 dark:hover:bg-white/[.03] transition">
+          <div class="flex items-center gap-3"><span class="text-lg">🏛️</span> Constitution & Governance <span class="badge badge-red ml-2">HIGH YIELD</span></div>
+          <i id="acc1-icon" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+        </button>
+        <div id="acc1" class="hidden border-t border-slate-100 dark:border-white/[.05] p-4 space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <div class="flex items-center gap-2">✅ Fundamental Rights (Arts. 16–46)</div>
+          <div class="flex items-center gap-2">✅ State Powers & Federal Structure</div>
+          <div class="flex items-center gap-2">✅ Constitutional Bodies (CIAA, Judicial Council)</div>
+          <div class="flex items-center gap-2">⬜ Directive Principles & Policies</div>
+          <div class="flex items-center gap-2">⬜ Emergency Provisions</div>
+        </div>
+      </div>
+      <div class="card overflow-hidden">
+        <button onclick="toggleAccordion('acc2')" class="w-full flex items-center justify-between p-4 text-sm font-700 text-slate-800 dark:text-white text-left hover:bg-slate-50 dark:hover:bg-white/[.03] transition">
+          <div class="flex items-center gap-3"><span class="text-lg">🏺</span> Nepal History & Heritage</div>
+          <i id="acc2-icon" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+        </button>
+        <div id="acc2" class="hidden border-t border-slate-100 dark:border-white/[.05] p-4 space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <div class="flex items-center gap-2">✅ Ancient Kingdoms & Shah Dynasty</div>
+          <div class="flex items-center gap-2">✅ Treaty of Sugauli (1816)</div>
+          <div class="flex items-center gap-2">⬜ Rana Period & Democracy Restoration</div>
+          <div class="flex items-center gap-2">⬜ Republic Transition (2008)</div>
+        </div>
+      </div>
+      <div class="card overflow-hidden">
+        <button onclick="toggleAccordion('acc3')" class="w-full flex items-center justify-between p-4 text-sm font-700 text-slate-800 dark:text-white text-left hover:bg-slate-50 dark:hover:bg-white/[.03] transition">
+          <div class="flex items-center gap-3"><span class="text-lg">🧠</span> IQ & Logical Reasoning <span class="badge badge-blue ml-2">COMPULSORY</span></div>
+          <i id="acc3-icon" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+        </button>
+        <div id="acc3" class="hidden border-t border-slate-100 dark:border-white/[.05] p-4 space-y-2 text-xs text-slate-500 dark:text-slate-400">
+          <div class="flex items-center gap-2">✅ Number Series & Sequences</div>
+          <div class="flex items-center gap-2">⬜ Verbal Analogies</div>
+          <div class="flex items-center gap-2">⬜ Spatial Reasoning</div>
+          <div class="flex items-center gap-2">⬜ Data Interpretation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANE: TESTS ========== -->
+<section id="pane-tests" class="page-view p-4 md:p-8 space-y-6 max-w-4xl">
+  <!-- Performance banner -->
+  <div class="card p-5 bg-gradient-to-br from-slate-900 to-brand-950 text-white border-0 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+    <div>
+      <div class="badge bg-white/10 text-white text-[.65rem] mb-2">🧪 PRACTICE LAB</div>
+      <h2 class="text-xl font-900" style="font-weight:900">Assessment Lab</h2>
+      <p class="text-xs text-slate-400 mt-0.5">Sharpen your skills with timed practice tests</p>
+    </div>
+    <div class="flex gap-3">
+      <div class="bg-white/8 border border-white/10 rounded-xl px-4 py-3 text-center" style="background:rgba(255,255,255,.08)">
+        <div class="text-lg font-900 text-emerald-400" style="font-weight:900">89%</div>
+        <div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Accuracy</div>
+      </div>
+      <div class="bg-white/8 border border-white/10 rounded-xl px-4 py-3 text-center" style="background:rgba(255,255,255,.08)">
+        <div class="text-lg font-900 text-cyan-400" style="font-weight:900">38</div>
+        <div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Tests</div>
+      </div>
+      <div class="bg-white/8 border border-white/10 rounded-xl px-4 py-3 text-center" style="background:rgba(255,255,255,.08)">
+        <div class="text-lg font-900 text-amber-400" style="font-weight:900">#4</div>
+        <div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Rank</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test type tabs -->
+  <div class="community-tabs" style="background:rgba(0,0,0,.05)" id="test-tabs">
+    <button id="ttab-gk" onclick="switchTestTab('gk')" class="active-tab">🌍 GK Quiz</button>
+    <button id="ttab-iq" onclick="switchTestTab('iq')">🧠 IQ Test</button>
+    <button id="ttab-arena" onclick="switchTestTab('arena')">⚔️ 1v1 Arena</button>
+  </div>
+
+  <!-- Quiz Engine Box -->
+  <div class="card p-6 min-h-[320px] relative">
+
+    <!-- GK Module -->
+    <div id="gk-panel" class="space-y-4">
+      <div id="gk-start" class="text-center py-6 space-y-4">
+        <div class="w-16 h-16 rounded-2xl bg-brand-50 dark:bg-brand-900/30 text-3xl flex items-center justify-center mx-auto">🌍</div>
+        <h3 class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900">General Knowledge Quiz</h3>
+        <p class="text-sm text-slate-400 max-w-sm mx-auto">Test your knowledge of Nepal history, geography, polity, and current affairs. 5 questions, 20 seconds each.</p>
+        <div class="flex gap-3 justify-center flex-wrap">
+          <div class="badge badge-blue">⏱️ 20s per question</div>
+          <div class="badge badge-green">5 Questions</div>
+          <div class="badge badge-amber">+10 XP each</div>
+        </div>
+        <button onclick="startQuiz('gk')" class="btn btn-primary btn-lg mx-auto">🚀 Start GK Quiz</button>
+      </div>
+      <div id="gk-active" class="hidden space-y-5">
+        <div class="flex justify-between items-center">
+          <span id="gk-q-label" class="badge badge-blue text-[.7rem]">Question 1 of 5</span>
+          <div class="flex items-center gap-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/30 rounded-xl px-3 py-1.5">
+            <i class="fa-regular fa-clock text-rose-500 text-xs animate-pulse"></i>
+            <span id="gk-timer" class="text-xs font-800 text-rose-600 dark:text-rose-400" style="font-weight:800">20s</span>
+          </div>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+          <div id="gk-timer-bar" class="h-full bg-gradient-to-r from-brand-500 to-cyan-500 rounded-full transition-all" style="width:100%"></div>
+        </div>
+        <h4 id="gk-question" class="text-sm font-700 text-slate-800 dark:text-white leading-relaxed pt-1" style="font-weight:700"></h4>
+        <div id="gk-opts" class="space-y-2"></div>
+      </div>
+      <div id="gk-done" class="hidden text-center py-6 space-y-4">
+        <div id="gk-result-emoji" class="text-4xl">🎉</div>
+        <h3 id="gk-result-title" class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900"></h3>
+        <p id="gk-result-desc" class="text-sm text-slate-400"></p>
+        <div class="flex gap-3 justify-center">
+          <button onclick="resetQuiz('gk')" class="btn btn-secondary">Try Again</button>
+          <button onclick="claimXP(50,'gk')" class="btn btn-primary">🎁 Claim +50 XP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- IQ Module -->
+    <div id="iq-panel" class="hidden space-y-4">
+      <div id="iq-start" class="text-center py-6 space-y-4">
+        <div class="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-900/30 text-3xl flex items-center justify-center mx-auto animate-float">🧠</div>
+        <h3 class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900">IQ & Logical Reasoning</h3>
+        <p class="text-sm text-slate-400 max-w-sm mx-auto">Sequences, analogies, spatial reasoning, and pattern recognition. Push your logical thinking!</p>
+        <div class="flex gap-3 justify-center flex-wrap">
+          <div class="badge badge-purple">🧩 4 Questions</div>
+          <div class="badge badge-amber">30s per question</div>
+        </div>
+        <button onclick="startQuiz('iq')" class="btn btn-lg mx-auto" style="background:linear-gradient(135deg,#9333ea,#7c3aed);color:#fff;box-shadow:0 4px 14px rgba(147,51,234,.3)">🧠 Start IQ Test</button>
+      </div>
+      <div id="iq-active" class="hidden space-y-5">
+        <div class="flex justify-between items-center">
+          <span id="iq-q-label" class="badge badge-purple text-[.7rem]">Question 1 of 4</span>
+          <div class="flex items-center gap-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/30 rounded-xl px-3 py-1.5">
+            <i class="fa-regular fa-clock text-rose-500 text-xs animate-pulse"></i>
+            <span id="iq-timer" class="text-xs font-800 text-rose-600 dark:text-rose-400" style="font-weight:800">30s</span>
+          </div>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5"><div id="iq-timer-bar" class="h-full bg-gradient-to-r from-purple-500 to-violet-500 rounded-full transition-all" style="width:100%"></div></div>
+        <h4 id="iq-question" class="text-sm font-700 text-slate-800 dark:text-white leading-relaxed pt-1" style="font-weight:700"></h4>
+        <div id="iq-opts" class="space-y-2"></div>
+      </div>
+      <div id="iq-done" class="hidden text-center py-6 space-y-4">
+        <div id="iq-result-emoji" class="text-4xl">🧠</div>
+        <h3 id="iq-result-title" class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900"></h3>
+        <p id="iq-result-desc" class="text-sm text-slate-400"></p>
+        <div class="flex gap-3 justify-center">
+          <button onclick="resetQuiz('iq')" class="btn btn-secondary">Try Again</button>
+          <button onclick="claimXP(60,'iq')" class="btn btn-primary" style="background:linear-gradient(135deg,#9333ea,#7c3aed)">🎁 Claim +60 XP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arena Module -->
+    <div id="arena-panel" class="hidden space-y-4">
+      <div id="arena-start" class="text-center py-6 space-y-4">
+        <div class="text-4xl animate-float">⚔️</div>
+        <h3 class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900">Live 1v1 Battle Arena</h3>
+        <p class="text-sm text-slate-400 max-w-sm mx-auto">Challenge fellow aspirants in real-time! Answer faster than your opponent to win rating points.</p>
+        <div class="flex gap-3 justify-center flex-wrap">
+          <div class="badge badge-red">🔴 LIVE</div>
+          <div class="badge badge-amber">3 Questions</div>
+          <div class="badge badge-green">+100 XP for win</div>
+        </div>
+        <button onclick="startArena()" class="btn btn-lg mx-auto" style="background:linear-gradient(135deg,#f97316,#f59e0b);color:#fff;box-shadow:0 4px 14px rgba(249,115,22,.3)">⚔️ Find Opponent</button>
+      </div>
+      <div id="arena-search" class="hidden text-center py-8 space-y-4">
+        <div class="w-14 h-14 rounded-full border-4 border-orange-100 border-t-orange-500 animate-spin mx-auto"></div>
+        <h4 class="text-sm font-800 text-slate-700 dark:text-slate-300" style="font-weight:800">Searching for an opponent...</h4>
+        <p class="text-xs text-slate-400">Matching with aspirants at your level</p>
+      </div>
+      <div id="arena-battle" class="hidden space-y-4">
+        <div class="grid grid-cols-3 items-center bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-2xl p-4 text-center">
+          <div><div class="text-[.65rem] font-800 text-slate-400 uppercase mb-1" style="font-weight:800">You</div><div class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Arjun</div><div id="arena-u-score" class="text-lg font-900 text-orange-500" style="font-weight:900">0</div></div>
+          <div class="w-10 h-10 mx-auto rounded-full bg-orange-500/15 text-orange-600 flex items-center justify-center text-xs font-900 border border-orange-200 dark:border-orange-800/30" style="font-weight:900">VS</div>
+          <div><div class="text-[.65rem] font-800 text-slate-400 uppercase mb-1" style="font-weight:800">Rival</div><div id="arena-rival-name" class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800"></div><div id="arena-r-score" class="text-lg font-900 text-orange-500" style="font-weight:900">0</div></div>
+        </div>
+        <div class="flex justify-between text-xs font-700">
+          <span id="arena-q-label" class="badge badge-red">Round 1 of 3</span>
+          <span id="arena-timer" class="font-900 text-rose-500" style="font-weight:900">15s</span>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5"><div id="arena-timer-bar" class="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full transition-all" style="width:100%"></div></div>
+        <h4 id="arena-question" class="text-sm font-700 text-slate-800 dark:text-white leading-relaxed" style="font-weight:700"></h4>
+        <div id="arena-opts" class="space-y-2"></div>
+      </div>
+      <div id="arena-done" class="hidden text-center py-6 space-y-4">
+        <div id="arena-result-emoji" class="text-5xl">🏆</div>
+        <h3 id="arena-result-title" class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900"></h3>
+        <p id="arena-result-desc" class="text-sm text-slate-400"></p>
+        <button onclick="resetArena()" class="btn btn-lg mx-auto" style="background:linear-gradient(135deg,#f97316,#f59e0b);color:#fff">⚔️ Play Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANE: COMMUNITY (Facebook-style) ========== -->
+<section id="pane-community" class="page-view p-4 md:p-6 space-y-4 max-w-5xl">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-900 text-slate-900 dark:text-white" style="font-weight:900">👥 Community</h1>
+    <button onclick="toggleDirectorySearch()" class="btn btn-secondary btn-sm"><i class="fa-solid fa-magnifying-glass text-xs mr-1"></i> Find Aspirants</button>
+  </div>
+
+  <!-- Directory search panel -->
+  <div id="dir-search" class="hidden card p-4 space-y-3 border border-brand-200 dark:border-brand-800/40">
+    <div class="flex justify-between items-center">
+      <h4 class="text-sm font-700 text-slate-800 dark:text-white">🔍 Find Aspirants</h4>
+      <button onclick="toggleDirectorySearch()" class="btn-icon btn-ghost btn-icon-sm"><i class="fa-solid fa-xmark text-xs"></i></button>
+    </div>
+    <input type="text" id="dir-input" oninput="filterDirectory()" placeholder="Search by name..." class="w-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200">
+    <div id="dir-results" class="grid sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto"></div>
+  </div>
+
+  <!-- Community sub-tabs -->
+  <div class="community-tabs" id="comm-tabs">
+    <button id="ctab-feed" onclick="switchCommTab('feed')" class="active-tab">📰 Feed</button>
+    <button id="ctab-chat" onclick="switchCommTab('chat')">💬 Messages <span id="unread-badge" class="ml-1.5 bg-rose-500 text-white text-[.6rem] font-800 px-1.5 py-0.5 rounded-full inline-block" style="font-weight:800">2</span></button>
+    <button id="ctab-groups" onclick="switchCommTab('groups')">🏫 Groups</button>
+  </div>
+
+  <!-- FEED -->
+  <div id="comm-feed" class="space-y-4">
+
+    <!-- Stories row -->
+    <div class="card p-3">
+      <div class="flex gap-3 overflow-x-auto pb-1 no-scrollbar">
+        <div class="flex flex-col items-center gap-1.5 flex-shrink-0 cursor-pointer" onclick="showToast('📸 Your story • Add a story to keep your streak visible!')">
+          <div class="relative w-14 h-14 rounded-full overflow-hidden border-2 border-dashed border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-900/20 flex items-center justify-center text-brand-500">
+            <i class="fa-solid fa-plus text-base"></i>
+          </div>
+          <span class="text-[.6rem] font-700 text-slate-500 dark:text-slate-400 whitespace-nowrap">Your Story</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 flex-shrink-0 cursor-pointer" onclick="showToast('📖 Prashant shared a Nepal GK tip!')">
+          <div class="story-ring w-14 h-14 rounded-full overflow-hidden p-0.5"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full"></div>
+          <span class="text-[.6rem] font-700 text-slate-600 dark:text-slate-300 whitespace-nowrap">Prashant</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 flex-shrink-0 cursor-pointer" onclick="showToast('🧠 Rohan solved the IQ puzzle!')">
+          <div class="story-ring w-14 h-14 rounded-full overflow-hidden p-0.5"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full"></div>
+          <span class="text-[.6rem] font-700 text-slate-600 dark:text-slate-300 whitespace-nowrap">Rohan</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 flex-shrink-0 cursor-pointer" onclick="showToast('📌 Deepika shared exam tips!')">
+          <div class="story-ring w-14 h-14 rounded-full overflow-hidden p-0.5"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full"></div>
+          <span class="text-[.6rem] font-700 text-slate-600 dark:text-slate-300 whitespace-nowrap">Deepika</span>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 flex-shrink-0 cursor-pointer" onclick="showToast('✍️ Sita\'s constitutional notes!')">
+          <div class="story-ring w-14 h-14 rounded-full overflow-hidden p-0.5"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="w-full h-full object-cover rounded-full"></div>
+          <span class="text-[.6rem] font-700 text-slate-600 dark:text-slate-300 whitespace-nowrap">Sita</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post Creator -->
+    <div class="card p-4 space-y-3">
+      <div class="flex gap-3 items-start">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover flex-shrink-0">
+        <textarea id="post-input" placeholder="Share a study tip, ask a question, or post an IQ challenge for your fellow aspirants..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200 resize-none h-[72px]"></textarea>
+      </div>
+      <div class="flex items-center justify-between pl-12">
+        <div class="flex gap-1">
+          <button onclick="showToast('📷 Image upload coming soon!')" class="btn btn-ghost btn-sm text-slate-500 dark:text-slate-400 gap-1.5"><i class="fa-solid fa-image text-emerald-500"></i><span class="hidden sm:block text-xs">Photo</span></button>
+          <button onclick="showToast('😊 Emoji picker coming soon!')" class="btn btn-ghost btn-sm text-slate-500 dark:text-slate-400 gap-1.5"><i class="fa-regular fa-face-smile text-amber-500"></i><span class="hidden sm:block text-xs">Emoji</span></button>
+          <select id="post-tag" class="text-[.72rem] font-700 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-1.5 text-slate-600 dark:text-slate-300">
+            <option>#NepalGK</option><option>#IQPuzzle</option><option>#Aspirants</option><option>#Constitution</option><option>#PSCTips</option>
+          </select>
+        </div>
+        <button onclick="submitPost()" class="btn btn-primary btn-sm">📢 Post</button>
+      </div>
+    </div>
+
+    <!-- Feed posts container -->
+    <div id="feed-posts" class="space-y-4"></div>
+  </div>
+
+  <!-- MESSAGES (Facebook Messenger style) -->
+  <div id="comm-chat" class="hidden">
+    <div class="grid md:grid-cols-[280px_1fr] gap-4" style="height:calc(100vh - 240px);min-height:480px">
+      <!-- Left: Threads -->
+      <div class="card flex flex-col overflow-hidden">
+        <div class="p-3 border-b border-slate-100 dark:border-white/[.05]">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Search messages..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-700 dark:text-slate-200">
+          </div>
+        </div>
+        <div class="flex-1 overflow-y-auto p-2 space-y-0.5" id="thread-list">
+          <div onclick="openChat('u1')" id="thr-u1" class="thread-item active-thread">
+            <div class="relative flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-11 h-11 rounded-full object-cover">
+              <span class="online-dot"></span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline"><span class="text-xs font-800 text-slate-800 dark:text-white truncate" style="font-weight:800">Rohan Adhikari</span><span class="text-[.6rem] text-slate-400 flex-shrink-0 ml-1">Now</span></div>
+              <p id="sub-u1" class="text-[.7rem] text-slate-400 truncate">Let's arrange a duel tonight! ⚔️</p>
+            </div>
+            <span class="w-2 h-2 bg-brand-500 rounded-full flex-shrink-0"></span>
+          </div>
+          <div onclick="openChat('u2')" id="thr-u2" class="thread-item">
+            <div class="relative flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="w-11 h-11 rounded-full object-cover">
+              <span class="absolute bottom-1 right-1 w-2.5 h-2.5 bg-slate-300 dark:bg-slate-600 border-2 border-white dark:border-slate-900 rounded-full"></span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline"><span class="text-xs font-700 text-slate-800 dark:text-white truncate">Sita Dahal</span><span class="text-[.6rem] text-slate-400 flex-shrink-0 ml-1">2h</span></div>
+              <p id="sub-u2" class="text-[.7rem] text-slate-400 truncate">Yes, structured around planning indices.</p>
+            </div>
+          </div>
+          <div onclick="openChat('u3')" id="thr-u3" class="thread-item">
+            <div class="relative flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" class="w-11 h-11 rounded-full object-cover">
+              <span class="online-dot"></span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline"><span class="text-xs font-700 text-slate-800 dark:text-white truncate">Prashant Kumar</span><span class="text-[.6rem] text-slate-400 flex-shrink-0 ml-1">1d</span></div>
+              <p id="sub-u3" class="text-[.7rem] text-slate-400 truncate">Check out my GK mnemonic sheet 📝</p>
+            </div>
+          </div>
+          <div onclick="openChat('u4')" id="thr-u4" class="thread-item">
+            <div class="relative flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80" class="w-11 h-11 rounded-full object-cover">
+              <span class="absolute bottom-1 right-1 w-2.5 h-2.5 bg-slate-300 dark:bg-slate-600 border-2 border-white dark:border-slate-900 rounded-full"></span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline"><span class="text-xs font-700 text-slate-800 dark:text-white truncate">Deepika Shrestha</span><span class="text-[.6rem] text-slate-400 flex-shrink-0 ml-1">3d</span></div>
+              <p id="sub-u4" class="text-[.7rem] text-slate-400 truncate">Has anyone solved the spatial IQ Q14?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Active chat -->
+      <div class="card flex flex-col overflow-hidden">
+        <!-- Chat header -->
+        <div class="flex items-center justify-between p-3.5 border-b border-slate-100 dark:border-white/[.05]">
+          <div class="flex items-center gap-3">
+            <div class="relative flex-shrink-0">
+              <img id="chat-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-10 h-10 rounded-full object-cover">
+              <span id="chat-status-dot" class="online-dot"></span>
+            </div>
+            <div>
+              <h4 id="chat-name" class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Rohan Adhikari</h4>
+              <p id="chat-status" class="text-[.68rem] text-emerald-500 font-600">● Active now</p>
+            </div>
+          </div>
+          <div class="flex gap-1">
+            <button onclick="showToast('📞 Voice call coming soon!')" class="btn btn-ghost btn-icon btn-icon-sm text-slate-500 dark:text-slate-400 hover:text-brand-500"><i class="fa-solid fa-phone text-sm"></i></button>
+            <button onclick="showToast('📹 Video call coming soon!')" class="btn btn-ghost btn-icon btn-icon-sm text-slate-500 dark:text-slate-400 hover:text-brand-500"><i class="fa-solid fa-video text-sm"></i></button>
+            <button onclick="showToast('ℹ️ Profile info coming soon!')" class="btn btn-ghost btn-icon btn-icon-sm text-slate-500 dark:text-slate-400 hover:text-brand-500"><i class="fa-solid fa-circle-info text-sm"></i></button>
+          </div>
+        </div>
+        <!-- Messages viewport -->
+        <div id="chat-viewport" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 dark:bg-white/[.01]"></div>
+        <!-- Typing indicator -->
+        <div id="typing-indicator" class="hidden px-4 pb-1">
+          <div class="flex items-center gap-1.5"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div><span class="text-[.65rem] text-slate-400 ml-1">typing...</span></div>
+        </div>
+        <!-- Input -->
+        <div class="p-3 border-t border-slate-100 dark:border-white/[.05] space-y-2">
+          <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+            <button onclick="quickSend('Good luck with your prep! 🍀')" class="flex-shrink-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-700 px-3 py-1.5 rounded-xl hover:border-brand-400 transition text-slate-600 dark:text-slate-300">Good luck! 🍀</button>
+            <button onclick="quickSend('Let\'s do a 1v1 Arena battle! ⚔️')" class="flex-shrink-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-700 px-3 py-1.5 rounded-xl hover:border-brand-400 transition text-slate-600 dark:text-slate-300">1v1 Arena? ⚔️</button>
+            <button onclick="quickSend('Can you share your notes? 📚')" class="flex-shrink-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-700 px-3 py-1.5 rounded-xl hover:border-brand-400 transition text-slate-600 dark:text-slate-300">Share notes? 📚</button>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="showToast('📎 Attachment coming soon!')" class="btn btn-ghost btn-icon-sm text-slate-400 hover:text-brand-500 flex-shrink-0"><i class="fa-solid fa-plus text-base"></i></button>
+            <button onclick="showToast('🖼️ Image upload coming soon!')" class="btn btn-ghost btn-icon-sm text-slate-400 hover:text-brand-500 flex-shrink-0"><i class="fa-solid fa-image text-base"></i></button>
+            <input id="chat-input" type="text" placeholder="Message..." class="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200" onkeydown="if(event.key==='Enter')sendMessage()">
+            <button onclick="showToast('😊 Emoji picker coming soon!')" class="btn btn-ghost btn-icon-sm text-slate-400 hover:text-amber-400 flex-shrink-0"><i class="fa-regular fa-face-smile text-base"></i></button>
+            <button onclick="sendMessage()" class="btn btn-primary btn-icon flex-shrink-0"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUPS -->
+  <div id="comm-groups" class="hidden space-y-4">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div class="card p-4 flex flex-col gap-3 cursor-pointer card-hover" onclick="showToast('🏫 Joining Section Officer 2026 group...')">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-900/30 text-2xl flex items-center justify-center">🏛️</div>
+          <div>
+            <h4 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Section Officer 2026</h4>
+            <p class="text-[.7rem] text-slate-400">2,847 members • Active daily</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Dedicated study group for Section Officer aspirants. Share notes, discuss patterns, and help each other prepare.</p>
+        <button class="btn btn-primary btn-sm w-full">Join Group</button>
+      </div>
+      <div class="card p-4 flex flex-col gap-3 cursor-pointer card-hover" onclick="showToast('🧠 Joining IQ Masters group...')">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-2xl flex items-center justify-center">🧠</div>
+          <div>
+            <h4 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">IQ Masters Nepal</h4>
+            <p class="text-[.7rem] text-slate-400">1,203 members • Puzzles daily</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Daily IQ puzzles, logical reasoning challenges, and pattern recognition drills for serious aspirants.</p>
+        <button class="btn btn-secondary btn-sm w-full">Join Group</button>
+      </div>
+      <div class="card p-4 flex flex-col gap-3 cursor-pointer card-hover" onclick="showToast('📖 Joining Current Affairs group...')">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-2xl flex items-center justify-center">📰</div>
+          <div>
+            <h4 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Current Affairs Nepal</h4>
+            <p class="text-[.7rem] text-slate-400">4,120 members • News daily</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Daily national and international current affairs digest relevant to Loksewa exams.</p>
+        <button class="btn btn-secondary btn-sm w-full">Join Group</button>
+      </div>
+      <div class="card p-4 flex flex-col gap-3 cursor-pointer card-hover" onclick="showToast('⚔️ Joining Battle Club...')">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-900/30 text-2xl flex items-center justify-center">⚔️</div>
+          <div>
+            <h4 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Arena Battle Club</h4>
+            <p class="text-[.7rem] text-slate-400">863 members • Tournaments weekly</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Competitive 1v1 battles and weekly tournaments. Climb the leaderboard and win prizes!</p>
+        <button class="btn btn-secondary btn-sm w-full">Join Group</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANE: LEADERBOARD ========== -->
+<section id="pane-leaderboard" class="page-view p-4 md:p-8 space-y-6 max-w-2xl">
+  <h1 class="text-xl font-900 text-slate-900 dark:text-white" style="font-weight:900">🏆 Leaderboard</h1>
+  <div class="card p-5 space-y-3">
+    <div class="flex items-center gap-4 bg-amber-50 dark:bg-amber-900/20 rounded-2xl p-4 border border-amber-100 dark:border-amber-800/30">
+      <span class="text-3xl">🥇</span>
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover ring-2 ring-amber-400">
+      <div class="flex-1"><h4 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">Prashant Kumar Gole</h4><p class="text-xs text-slate-400">Level 6 Strategist • Kathmandu</p></div>
+      <span class="badge badge-amber text-sm font-900" style="font-weight:900">3,420 XP</span>
+    </div>
+    <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-4">
+      <span class="text-3xl">🥈</span>
+      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover">
+      <div class="flex-1"><h4 class="text-sm font-700 text-slate-900 dark:text-white">Deepika Shrestha</h4><p class="text-xs text-slate-400">Level 5 Scholar • Pokhara</p></div>
+      <span class="badge badge-blue">2,910 XP</span>
+    </div>
+    <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-4">
+      <span class="text-3xl">🥉</span>
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover">
+      <div class="flex-1"><h4 class="text-sm font-700 text-slate-900 dark:text-white">Rohan Adhikari</h4><p class="text-xs text-slate-400">Level 5 Scholar • Lalitpur</p></div>
+      <span class="badge badge-green">2,650 XP</span>
+    </div>
+    <div class="flex items-center gap-4 bg-brand-50 dark:bg-brand-900/20 rounded-2xl p-4 border border-brand-100 dark:border-brand-800/30">
+      <span class="text-2xl font-900 text-brand-500 w-8 text-center" style="font-weight:900">4</span>
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover ring-2 ring-brand-500">
+      <div class="flex-1"><h4 class="text-sm font-800 text-brand-700 dark:text-brand-300" style="font-weight:800">You — Arjun Sharma</h4><p class="text-xs text-slate-400">Level 4 Scholar • Kathmandu</p></div>
+      <span class="badge badge-blue">1,840 XP</span>
+    </div>
+    <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-4">
+      <span class="text-2xl font-700 text-slate-400 w-8 text-center">5</span>
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover">
+      <div class="flex-1"><h4 class="text-sm font-700 text-slate-900 dark:text-white">Sita Dahal</h4><p class="text-xs text-slate-400">Level 3 Aspirant • Biratnagar</p></div>
+      <span class="badge badge-purple">1,220 XP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANE: PROFILE ========== -->
+<section id="pane-profile" class="page-view p-4 md:p-8 space-y-5 max-w-2xl">
+  <div id="profile-main" class="space-y-5">
+
+    <!-- Profile banner -->
+    <div class="card overflow-hidden">
+      <div class="h-32 bg-gradient-to-br from-brand-500 via-brand-700 to-cyan-600 relative">
+        <div class="absolute inset-0 opacity-20" style="background:url('https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?w=800&auto=format&fit=crop&q=60') center/cover"></div>
+        <button onclick="showToast('📷 Cover photo upload coming soon!')" class="absolute bottom-3 right-3 btn btn-sm bg-white/20 text-white border border-white/30 backdrop-blur text-xs">✏️ Edit Cover</button>
+      </div>
+      <div class="px-6 pb-6 pt-0">
+        <div class="flex items-end gap-4 -mt-8 mb-4">
+          <div class="relative">
+            <img id="profile-avatar-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-white dark:ring-[#111827]">
+            <button onclick="showToast('📷 Photo upload coming soon!')" class="absolute bottom-1 right-1 w-7 h-7 rounded-lg bg-brand-500 text-white flex items-center justify-center text-xs shadow-lg"><i class="fa-solid fa-camera"></i></button>
+          </div>
+          <div class="flex-1 pb-1">
+            <h2 id="profile-name-display" class="text-xl font-900 text-slate-900 dark:text-white" style="font-weight:900">Arjun Sharma</h2>
+            <p id="profile-bio-display" class="text-xs text-slate-400 mt-0.5 leading-relaxed">🎯 Aspiring Section Officer 2026 | GK & IQ Enthusiast | Kathmandu 🇳🇵</p>
+          </div>
+          <button onclick="toggleEdit()" class="btn btn-secondary btn-sm flex-shrink-0 self-start mt-8">✏️ Edit</button>
+        </div>
+
+        <div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 mb-4">
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brand-400"></i> Kathmandu, Nepal</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-flag text-rose-400"></i> Targeting Section Officer 2026</span>
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar text-brand-400"></i> Member since Jan 2025</span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-3 text-center">
+          <div class="bg-brand-50 dark:bg-brand-900/20 rounded-xl p-3"><div class="text-lg font-900 text-brand-600 dark:text-brand-400" style="font-weight:900">38</div><div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Tests</div></div>
+          <div class="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-3"><div class="text-lg font-900 text-amber-600 dark:text-amber-400" style="font-weight:900">7</div><div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Streak</div></div>
+          <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-3"><div class="text-lg font-900 text-emerald-600 dark:text-emerald-400" style="font-weight:900">#4</div><div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">Rank</div></div>
+          <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3"><div class="text-lg font-900 text-purple-600 dark:text-purple-400" style="font-weight:900">1,840</div><div class="text-[.6rem] text-slate-400 font-700 uppercase tracking-wide">XP</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements/Badges -->
+    <div class="card p-5">
+      <h3 class="text-sm font-800 text-slate-900 dark:text-white mb-4" style="font-weight:800">🏅 Achievements</h3>
+      <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+        <div class="achievement-card"><span class="text-2xl">🔥</span><span class="text-[.65rem] font-700 text-slate-700 dark:text-slate-300">7-Day Streak</span></div>
+        <div class="achievement-card"><span class="text-2xl">⚡</span><span class="text-[.65rem] font-700 text-slate-700 dark:text-slate-300">XP Hunter</span></div>
+        <div class="achievement-card"><span class="text-2xl">🎯</span><span class="text-[.65rem] font-700 text-slate-700 dark:text-slate-300">Perfect Score</span></div>
+        <div class="achievement-card"><span class="text-2xl">⚔️</span><span class="text-[.65rem] font-700 text-slate-700 dark:text-slate-300">Arena Victor</span></div>
+        <div class="achievement-card opacity-40"><span class="text-2xl">🏆</span><span class="text-[.65rem] font-700 text-slate-400">Top Ranker</span></div>
+        <div class="achievement-card opacity-40"><span class="text-2xl">📚</span><span class="text-[.65rem] font-700 text-slate-400">Course Master</span></div>
+        <div class="achievement-card opacity-40"><span class="text-2xl">👑</span><span class="text-[.65rem] font-700 text-slate-400">Legend</span></div>
+        <div class="achievement-card opacity-40"><span class="text-2xl">🌟</span><span class="text-[.65rem] font-700 text-slate-400">Pro Scholar</span></div>
+      </div>
+    </div>
+
+    <!-- Edit Profile form -->
+    <div id="edit-panel" class="hidden card p-5 space-y-4">
+      <h3 class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">✏️ Edit Profile</h3>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs font-700 text-slate-500 dark:text-slate-400 block mb-1.5">Display Name</label>
+          <input id="edit-name" type="text" value="Arjun Sharma" class="w-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200">
+        </div>
+        <div>
+          <label class="text-xs font-700 text-slate-500 dark:text-slate-400 block mb-1.5">Bio</label>
+          <textarea id="edit-bio" class="w-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200 resize-none h-20">🎯 Aspiring Section Officer 2026 | GK & IQ Enthusiast | Kathmandu 🇳🇵</textarea>
+        </div>
+        <div>
+          <label class="text-xs font-700 text-slate-500 dark:text-slate-400 block mb-1.5">Location</label>
+          <input id="edit-location" type="text" value="Kathmandu, Nepal" class="w-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200">
+        </div>
+        <div>
+          <label class="text-xs font-700 text-slate-500 dark:text-slate-400 block mb-1.5">Target Exam</label>
+          <select class="w-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 rounded-xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200">
+            <option>Section Officer 2026</option>
+            <option>Nayab Subba 2026</option>
+            <option>Kharidar 2026</option>
+            <option>Police Inspector 2026</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="saveProfile()" class="btn btn-primary flex-1">💾 Save Changes</button>
+        <button onclick="toggleEdit()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="card p-5">
+      <h3 class="text-sm font-800 text-slate-900 dark:text-white mb-3" style="font-weight:800">⚙️ Account Settings</h3>
+      <div class="space-y-1">
+        <button onclick="openPremium()" class="nav-item w-full text-left"><span class="text-lg">⭐</span> Upgrade to Pro<span class="ml-auto badge badge-amber">Pro</span></button>
+        <button onclick="showToast('🔔 Notification settings coming soon!')" class="nav-item w-full text-left"><span class="text-lg">🔔</span> Notification Settings</button>
+        <button onclick="showToast('🔒 Privacy settings coming soon!')" class="nav-item w-full text-left"><span class="text-lg">🔒</span> Privacy & Security</button>
+        <button onclick="showToast('❓ Help center opening...')" class="nav-item w-full text-left"><span class="text-lg">❓</span> Help & Support</button>
+        <button onclick="showToast('👋 Logged out. See you soon!')" class="nav-item w-full text-left text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20"><span class="text-lg">🚪</span> Log Out</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- end main -->
+
+<!-- ====== MOBILE BOTTOM NAV ====== -->
+<nav class="fixed bottom-0 inset-x-0 h-[68px] glass border-t border-white/40 dark:border-white/[.06] flex items-center px-1 z-50 md:hidden">
+  <button onclick="goTo('home')" id="n-home" class="bottom-nav-btn active-nav"><i class="fa-solid fa-house text-xl"></i><span>Home</span></button>
+  <button onclick="goTo('courses')" id="n-courses" class="bottom-nav-btn"><i class="fa-solid fa-book-open text-xl"></i><span>Learn</span></button>
+  <button onclick="goTo('tests')" id="n-tests" class="bottom-nav-btn"><i class="fa-solid fa-flask-vial text-xl"></i><span>Practice</span></button>
+  <button onclick="goTo('community')" id="n-community" class="bottom-nav-btn relative"><i class="fa-solid fa-users text-xl"></i><span class="absolute top-2 right-3 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white dark:border-[#080b14]"></span><span>Community</span></button>
+  <button onclick="goTo('profile')" id="n-profile" class="bottom-nav-btn"><i class="fa-solid fa-circle-user text-xl"></i><span>Profile</span></button>
+</nav>
+
+<!-- ====== MODAL: FLASHCARDS ====== -->
+<div id="flashcard-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#111827] w-full max-w-md rounded-3xl shadow-2xl border border-slate-200/50 dark:border-white/[.07] overflow-hidden animate-slide-in">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/[.06]">
+      <div>
+        <h3 class="text-sm font-900 text-slate-900 dark:text-white" style="font-weight:900">🃏 Flashcard Deck</h3>
+        <p class="text-[.7rem] text-slate-400">Tap card to flip • Swipe to navigate</p>
+      </div>
+      <button onclick="closeFlashcards()" class="btn btn-ghost btn-icon-sm text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-6 space-y-4">
+      <!-- Card counter -->
+      <div class="flex justify-between items-center">
+        <span id="fc-label" class="badge badge-blue">Card 1 of 5</span>
+        <div class="flex gap-1">
+          <button onclick="prevCard()" class="btn btn-secondary btn-sm py-1.5 px-3">← Prev</button>
+          <button onclick="nextCard()" class="btn btn-secondary btn-sm py-1.5 px-3">Next →</button>
+        </div>
+      </div>
+      <!-- Flip card -->
+      <div onclick="flipCard()" class="flashcard w-full h-52 cursor-pointer select-none" style="perspective:800px">
+        <div class="flashcard-inner relative w-full h-full rounded-2xl">
+          <div class="flashcard-front absolute inset-0 bg-gradient-to-br from-brand-50 to-white dark:from-brand-950/40 dark:to-[#0f172a] border border-brand-100 dark:border-brand-900/30 rounded-2xl flex flex-col items-center justify-center p-6 gap-3 text-center shadow-md">
+            <span id="fc-icon" class="text-4xl">🏛️</span>
+            <p id="fc-front" class="text-sm font-700 text-slate-800 dark:text-white leading-relaxed" style="font-weight:700">What is the ratification date of Nepal's Constitution?</p>
+            <span class="text-[.65rem] text-brand-400 font-600 mt-2">Tap to reveal answer</span>
+          </div>
+          <div class="flashcard-back absolute inset-0 bg-gradient-to-br from-slate-900 to-brand-950 rounded-2xl flex flex-col items-center justify-center p-6 gap-3 text-center shadow-md">
+            <span class="text-2xl">💡</span>
+            <p id="fc-back" class="text-sm font-700 text-white leading-relaxed" style="font-weight:700">Ashwin 3, 2072 BS<br><span class="font-500 text-slate-300 text-xs">(September 20, 2015 AD)</span></p>
+          </div>
+        </div>
+      </div>
+      <!-- Category tabs -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button onclick="loadDeck('constitution')" class="chip active-chip text-brand-600">🏛️ Constitution</button>
+        <button onclick="loadDeck('history')" class="chip text-slate-500 border-slate-200 dark:border-slate-700">🏺 History</button>
+        <button onclick="loadDeck('geography')" class="chip text-slate-500 border-slate-200 dark:border-slate-700">🗺️ Geography</button>
+        <button onclick="loadDeck('iq')" class="chip text-slate-500 border-slate-200 dark:border-slate-700">🧠 IQ</button>
+      </div>
+    </div>
+    <div class="px-6 pb-6 flex gap-3">
+      <button onclick="showToast('✅ Marked as remembered!')" class="btn btn-sm flex-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/30">✅ Got it!</button>
+      <button onclick="showToast('🔄 Added to review pile.')" class="btn btn-sm flex-1 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800/30">🔄 Review Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MODAL: STUDY TIMER ====== -->
+<div id="timer-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#111827] w-full max-w-sm rounded-3xl shadow-2xl border border-slate-200/50 dark:border-white/[.07] overflow-hidden animate-slide-in">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/[.06]">
+      <h3 class="text-sm font-900 text-slate-900 dark:text-white" style="font-weight:900">⏱️ Pomodoro Study Timer</h3>
+      <button onclick="closeTimer()" class="btn btn-ghost btn-icon-sm text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-6 text-center space-y-6">
+      <div class="relative w-40 h-40 mx-auto">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-100 dark:text-slate-800"/>
+          <circle id="timer-ring" cx="18" cy="18" r="15.9" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="100 100" style="transition:stroke-dasharray .5s ease"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="timer-display" class="text-3xl font-900 text-slate-900 dark:text-white" style="font-weight:900">25:00</span>
+          <span id="timer-mode" class="text-[.65rem] font-700 text-brand-500 uppercase tracking-wider">Focus Time</span>
+        </div>
+      </div>
+      <div class="flex gap-3 justify-center">
+        <button onclick="setTimer(25,'Focus')" class="chip active-chip text-brand-600">🎯 25 min</button>
+        <button onclick="setTimer(5,'Short Break')" class="chip text-slate-500 border-slate-200 dark:border-slate-700">☕ 5 min</button>
+        <button onclick="setTimer(15,'Long Break')" class="chip text-slate-500 border-slate-200 dark:border-slate-700">🌿 15 min</button>
+      </div>
+      <div class="flex gap-3 justify-center">
+        <button id="timer-play" onclick="toggleTimer()" class="btn btn-primary btn-lg px-10"><i class="fa-solid fa-play"></i> Start</button>
+        <button onclick="resetTimerDisplay()" class="btn btn-secondary btn-lg"><i class="fa-solid fa-rotate-left"></i></button>
+      </div>
+      <p class="text-xs text-slate-400">Session 1 of 4 • Complete 4 pomodoros for a long break 🍅</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MODAL: PREMIUM ====== -->
+<div id="premium-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#111827] w-full max-w-3xl rounded-3xl shadow-2xl border border-slate-200/50 dark:border-white/[.07] overflow-y-auto max-h-[90vh] animate-slide-in">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-white/[.06]">
+      <div>
+        <h3 class="text-base font-900 text-slate-900 dark:text-white" style="font-weight:900">💎 Upgrade Your Learning Arsenal</h3>
+        <p class="text-xs text-slate-400">Unlock full access to all features and content</p>
+      </div>
+      <button onclick="closePremium()" class="btn btn-ghost btn-icon-sm text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-6 grid md:grid-cols-3 gap-4">
+      <!-- Free -->
+      <div class="border border-slate-200 dark:border-slate-700/60 p-5 rounded-2xl space-y-4">
+        <div><span class="badge badge-blue mb-2">Free</span><h4 class="text-base font-800 text-slate-900 dark:text-white" style="font-weight:800">Aspirant</h4><div class="text-2xl font-900 text-slate-900 dark:text-white mt-1" style="font-weight:900">Rs. 0<span class="text-sm font-500 text-slate-400"> /lifetime</span></div></div>
+        <ul class="text-xs text-slate-500 dark:text-slate-400 space-y-2"><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i>Standard GK Quiz (5 questions)</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i>Community Feed Access</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-emerald-500 mt-0.5"></i>Basic Flashcards</li><li class="flex gap-2 items-start opacity-40"><i class="fa-solid fa-xmark text-rose-500 mt-0.5"></i>Advanced IQ Tests</li><li class="flex gap-2 items-start opacity-40"><i class="fa-solid fa-xmark text-rose-500 mt-0.5"></i>1v1 Arena (limited)</li></ul>
+        <button onclick="closePremium();showToast('You are on the Free plan.')" class="btn btn-secondary w-full text-xs">Current Plan</button>
+      </div>
+      <!-- Scholar Pro -->
+      <div class="border-2 border-brand-500 p-5 rounded-2xl space-y-4 relative bg-gradient-to-b from-brand-50/30 to-transparent dark:from-brand-950/20">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-500 to-cyan-500 text-white text-[.6rem] font-800 px-3 py-1 rounded-full shadow-lg" style="font-weight:800">⭐ MOST POPULAR</span>
+        <div><span class="badge badge-blue mb-2">Scholar Pro</span><h4 class="text-base font-800 text-slate-900 dark:text-white" style="font-weight:800">Ecosystem Premium</h4><div class="text-2xl font-900 text-brand-600 dark:text-brand-400 mt-1" style="font-weight:900">Rs. 499<span class="text-sm font-500 text-slate-400"> /month</span></div></div>
+        <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2"><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Unlimited GK + IQ Tests</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Full Flashcard Library (500+ cards)</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Unlimited 1v1 Arena</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>Advanced Study Analytics</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-brand-500 mt-0.5"></i>All Premium Courses</li></ul>
+        <button onclick="closePremium();showToast('🚀 Welcome to Scholar Pro! Payment gateway coming soon.')" class="btn btn-primary w-full text-xs">Upgrade to Pro</button>
+      </div>
+      <!-- Elite -->
+      <div class="border border-slate-200 dark:border-slate-700/60 p-5 rounded-2xl space-y-4">
+        <div><span class="badge badge-purple mb-2">Elite Ranker</span><h4 class="text-base font-800 text-slate-900 dark:text-white" style="font-weight:800">Institutional</h4><div class="text-2xl font-900 text-slate-900 dark:text-white mt-1" style="font-weight:900">Rs. 2,499<span class="text-sm font-500 text-slate-400"> /year</span></div></div>
+        <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2"><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-purple-500 mt-0.5"></i>Everything in Scholar Pro</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-purple-500 mt-0.5"></i>Personal Mentor Access</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-purple-500 mt-0.5"></i>Full Past Question Archive</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-purple-500 mt-0.5"></i>Verified Certificate</li><li class="flex gap-2 items-start"><i class="fa-solid fa-check text-purple-500 mt-0.5"></i>Priority Support</li></ul>
+        <button onclick="closePremium();showToast('💎 Elite plan enquiry sent. Our team will contact you.')" class="btn w-full text-xs bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-800/30">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== JAVASCRIPT ENGINE ====== -->
+<script>
+// ═══════════════════════════════════════════
+//  DATA STORES
+// ═══════════════════════════════════════════
+const USER = { name:'Arjun Sharma', bio:'🎯 Aspiring Section Officer 2026 | GK & IQ Enthusiast | Kathmandu 🇳🇵', location:'Kathmandu, Nepal', xp:1840, streak:7, level:4 };
+
+const QUIZ_BANK = {
+  gk: [
+    { q:'Which article of Nepal\'s Constitution guarantees the Right to Education?', opts:['Article 28','Article 31','Article 35','Article 40'], ans:1 },
+    { q:'How many local government units (Palika) are there in Nepal\'s federal structure?', opts:['744','753','77','165'], ans:1 },
+    { q:'In which year was the Treaty of Sugauli signed between Nepal and the British East India Company?', opts:['1814','1815','1816','1817'], ans:2 },
+    { q:'Which mountain is the highest point in Nepal and the world?', opts:['Kanchenjunga','Annapurna I','Mount Everest','Lhotse'], ans:2 },
+    { q:'What is the capital city of Madhesh Province in Nepal?', opts:['Dhangadhi','Janakpur','Hetauda','Rajbiraj'], ans:1 },
+  ],
+  iq: [
+    { q:'Complete the sequence: 2, 6, 12, 20, 30, ?', opts:['36','40','42','48'], ans:2 },
+    { q:'If APPLE = 1, 16, 16, 12, 5 (using A=1, B=2...), what is the code for CAT?', opts:['3,1,20','3,1,19','2,1,20','4,1,20'], ans:0 },
+    { q:'Which number is the odd one out: 2, 3, 5, 7, 9, 11, 13?', opts:['9','11','13','7'], ans:0 },
+    { q:'Rajan is 15th from the left and 10th from the right. How many students are in the row?', opts:['24','25','26','27'], ans:0 },
+  ],
+  arena: [
+    { q:'Nepal became a Federal Democratic Republic in which year (BS)?', opts:['2063','2065','2072','2074'], ans:1 },
+    { q:'The CIAA (Commission for the Investigation of Abuse of Authority) is established under which article?', opts:['Article 230','Article 239','Article 240','Article 248'], ans:1 },
+    { q:'Which province in Nepal has no international border?', opts:['Gandaki Province','Bagmati Province','Lumbini Province','Koshi Province'], ans:1 },
+  ]
+};
+
+const FLASHCARDS = {
+  constitution: [
+    { icon:'🏛️', front:'What is the ratification date of Nepal\'s Constitution?', back:'Ashwin 3, 2072 BS (September 20, 2015 AD)' },
+    { icon:'📜', front:'How many articles does Nepal\'s Constitution contain?', back:'308 Articles, 35 Parts, and 9 Schedules' },
+    { icon:'⚖️', front:'Which body has the power of constitutional interpretation?', back:'The Supreme Court of Nepal under Article 133' },
+    { icon:'🌐', front:'What are the fundamental duties listed in Nepal\'s Constitution?', back:'Patriotism, obeying the Constitution, paying taxes, protecting environment, and public property' },
+    { icon:'🗳️', front:'What is the tenure of the President of Nepal?', back:'5 years, elected by Electoral College comprising Federal Parliament and Provincial Assemblies' },
+  ],
+  history: [
+    { icon:'👑', front:'Who unified Nepal and in what year?', back:'Prithvi Narayan Shah unified Nepal in 1768 AD (1825 BS)' },
+    { icon:'📋', front:'What was the Sugauli Treaty?', back:'A treaty signed between Nepal and British East India Company in 1816, after the Anglo-Nepal War (1814-1816)' },
+    { icon:'🕊️', front:'When did Nepal transition to a Republic?', back:'May 28, 2008 (Jestha 15, 2065 BS) — abolishing the 240-year-old monarchy' },
+    { icon:'🏛️', front:'What was the first Constitution of Nepal?', back:'The Government of Nepal Act, 1948 (Nepal Sarkar Vidhaan, 2004 BS)' },
+    { icon:'📅', front:'When was multiparty democracy restored in Nepal?', back:'1990 (2047 BS) after the Jana Andolan I movement' },
+  ],
+  geography: [
+    { icon:'🏔️', front:'What is the total area of Nepal?', back:'147,181 sq km, making it the 93rd largest country in the world' },
+    { icon:'🌊', front:'Which is the longest river in Nepal?', back:'Karnali River (507 km within Nepal), a major tributary of the Ganga' },
+    { icon:'🗺️', front:'How many provinces does Nepal have?', back:'7 Provinces (established under the 2015 Constitution)' },
+    { icon:'🌡️', front:'What type of climate does the Terai region of Nepal have?', back:'Tropical and subtropical climate with hot summers and mild winters' },
+    { icon:'🏔️', front:'How many peaks above 8,000m are in Nepal?', back:'Eight of the world\'s fourteen 8,000m peaks are in Nepal' },
+  ],
+  iq: [
+    { icon:'🔢', front:'Complete: 1, 1, 2, 3, 5, 8, 13, ?', back:'21 — This is the Fibonacci sequence where each number = sum of the two before it' },
+    { icon:'🔤', front:'Analogy: Book is to Library as Painting is to ?', back:'Museum / Gallery — A museum holds paintings the way a library holds books' },
+    { icon:'🧩', front:'If 5 × 3 = 151510 and 7 × 2 = 14149, what is 3 × 4?', back:'12128 — (a×b), (a×b+2), (a×b-2) pattern: 12, 14, 10' },
+    { icon:'👁️', front:'What comes next: AZBYCX?', back:'DW — alternating alphabet forward (A,B,C,D) and backward (Z,Y,X,W)' },
+    { icon:'⚡', front:'In a class of 40, if 25 like GK and 30 like IQ, how many like both (if every student likes at least one)?', back:'15 students — Using set formula: |A∪B| = |A|+|B|−|A∩B| → 40 = 25+30−x → x=15' },
+  ]
+};
+
+const POSTS = [
+  { id:1, user:'Prashant Kumar Gole', avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80', time:'32 min ago', tag:'#NepalGK', body:'📌 Key mnemonic for remembering Nepal\'s major boundary rivers: "SRMKK" — Sapta Koshi, Rapti, Mahakali, Karnali, and Kankai. These appear frequently in Loksewa exams! Share if helpful 🙌', likes:24, comments:[ { u:'Rohan', t:'Super helpful! Saving this!' }, { u:'Sita', t:'This is exactly what I needed, thank you 🙏' } ], liked:false },
+  { id:2, user:'Deepika Shrestha', avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80', time:'2 hours ago', tag:'#IQPuzzle', body:'🧠 Can anyone solve this? A clock shows 3:15. What is the angle between the hour hand and minute hand?\n\nHint: Don\'t forget the hour hand also moves within the hour! 🤔', likes:12, comments:[ { u:'Arjun', t:'7.5 degrees! Hour hand = 97.5°, Minute hand = 90°' } ], liked:false },
+  { id:3, user:'Rohan Adhikari', avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80', time:'5 hours ago', tag:'#PSCTips', body:'💡 Section Officer tip: PSC usually asks about constitutional commissions. Remember all 11:\n1. Election Commission\n2. CIAA\n3. Public Service Commission\n4. National Human Rights Commission... and 7 more! Full list in comments 👇', likes:41, comments:[ { u:'Prashant', t:'Thanks for this list! Printing it out.' }, { u:'Deepika', t:'Can you also share the articles for each?' } ], liked:false },
+];
+
+const DMS = {
+  u1: { name:'Rohan Adhikari', avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80', online:true, msgs:[ {s:'them',t:'Hey! Check out the new 1v1 Arena feature 🔥'}, {s:'you',t:'Looks amazing! The timer feature is intense.'}, {s:'them',t:'Let\'s arrange a duel tonight! ⚔️'} ] },
+  u2: { name:'Sita Dahal', avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80', online:false, msgs:[ {s:'them',t:'Hi! Are your public administration notes ready?'}, {s:'you',t:'Yes, structured around the five-year plans.'} ] },
+  u3: { name:'Prashant Kumar Gole', avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80', online:true, msgs:[ {s:'them',t:'Check out my GK mnemonic sheet 📝'}, {s:'them',t:'It covers all major rivers, peaks, and treaties!'} ] },
+  u4: { name:'Deepika Shrestha', avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80', online:false, msgs:[ {s:'them',t:'Has anyone solved the spatial IQ question 14?'}, {s:'you',t:'I\'ll take a look and get back to you!'} ] },
+};
+
+const DIRECTORY = [
+  { id:'u1', name:'Rohan Adhikari', tag:'Level 5 Scholar', avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80' },
+  { id:'u2', name:'Sita Dahal', tag:'Level 3 Aspirant', avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80' },
+  { id:'u3', name:'Prashant Kumar Gole', tag:'Level 6 Strategist', avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80' },
+  { id:'u4', name:'Deepika Shrestha', tag:'Level 4 Ranker', avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop&q=80' },
+];
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+let currentTab = 'home';
+const sideLinks = { home:'s-home', courses:'s-courses', tests:'s-tests', community:'s-community', profile:'s-profile', leaderboard:'s-profile' };
+const mobileLinks = { home:'n-home', courses:'n-courses', tests:'n-tests', community:'n-community', profile:'n-profile' };
+const panels = ['home','courses','tests','community','profile','leaderboard'];
+const titles = { home:'Dashboard', courses:'Courses & Syllabus', tests:'Practice Lab', community:'Community', profile:'My Profile', leaderboard:'Leaderboard' };
+
+function goTo(tab) {
+  currentTab = tab;
+  panels.forEach(id => {
+    const el = document.getElementById('pane-'+id);
+    if(el) { el.classList.remove('active'); }
+  });
+  const target = document.getElementById('pane-'+tab);
+  if(target) { target.classList.add('active'); }
+
+  // Sidebar active state
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const sLink = document.getElementById(sideLinks[tab]);
+  if(sLink) sLink.classList.add('active');
+
+  // Mobile nav active state
+  document.querySelectorAll('.bottom-nav-btn').forEach(el => el.classList.remove('active-nav'));
+  const mLink = document.getElementById(mobileLinks[tab]);
+  if(mLink) mLink.classList.add('active-nav');
+}
+
+// ═══════════════════════════════════════════
+//  DARK MODE
+// ═══════════════════════════════════════════
+function toggleDark() {
+  document.documentElement.classList.toggle('dark');
+  showToast(document.documentElement.classList.contains('dark') ? '🌙 Dark mode on' : '☀️ Light mode on');
+}
+
+// ═══════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════
+let toastTimer;
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  const tx = document.getElementById('toast-text');
+  const ic = document.getElementById('toast-icon');
+  tx.textContent = msg;
+  ic.innerHTML = type === 'error' ? '<i class="fa-solid fa-circle-xmark text-rose-500"></i>' : '<i class="fa-solid fa-circle-check text-brand-500"></i>';
+  t.classList.remove('opacity-0','translate-y-4','pointer-events-none');
+  t.classList.add('opacity-100','translate-y-0');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    t.classList.add('opacity-0','translate-y-4','pointer-events-none');
+    t.classList.remove('opacity-100','translate-y-0');
+  }, 3000);
+}
+
+// ═══════════════════════════════════════════
+//  QUIZ ENGINE
+// ═══════════════════════════════════════════
+let quizState = {};
+let timerInterval;
+
+function startQuiz(type) {
+  quizState[type] = { idx:0, score:0, total:QUIZ_BANK[type].length, maxTime: type==='iq'?30:20 };
+  showQuizQuestion(type);
+}
+
+function showQuizQuestion(type) {
+  const st = quizState[type];
+  const q = QUIZ_BANK[type][st.idx];
+  const prefix = type === 'iq' ? 'iq' : 'gk';
+
+  document.getElementById(prefix+'-start').classList.add('hidden');
+  document.getElementById(prefix+'-active').classList.remove('hidden');
+  document.getElementById(prefix+'-done').classList.add('hidden');
+  document.getElementById(prefix+'-q-label').textContent = `Question ${st.idx+1} of ${st.total}`;
+  document.getElementById(prefix+'-question').textContent = q.q;
+
+  const optsEl = document.getElementById(prefix+'-opts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `<span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-700 text-[.7rem] font-900 flex items-center justify-center flex-shrink-0" style="font-weight:900">${'ABCD'[i]}</span>${opt}`;
+    btn.onclick = () => answerQuiz(type, i, btn, optsEl, q.ans);
+    optsEl.appendChild(btn);
+  });
+
+  // Timer
+  clearInterval(timerInterval);
+  let t = st.maxTime;
+  const bar = document.getElementById(prefix+'-timer-bar');
+  document.getElementById(prefix+'-timer').textContent = t+'s';
+  bar.style.width = '100%';
+  timerInterval = setInterval(() => {
+    t--;
+    document.getElementById(prefix+'-timer').textContent = t+'s';
+    bar.style.width = (t/st.maxTime*100)+'%';
+    if(t <= 0) { clearInterval(timerInterval); timeoutQuiz(type, optsEl, q.ans); }
+  }, 1000);
+}
+
+function answerQuiz(type, chosen, btn, optsEl, correct) {
+  clearInterval(timerInterval);
+  const st = quizState[type];
+  if(chosen === correct) st.score++;
+  const btns = optsEl.querySelectorAll('.quiz-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if(i === correct) b.classList.add('correct');
+    else if(b === btn && chosen !== correct) b.classList.add('wrong');
+  });
+  setTimeout(() => nextQuizQuestion(type), 1200);
+}
+
+function timeoutQuiz(type, optsEl, correct) {
+  const btns = optsEl.querySelectorAll('.quiz-opt');
+  btns.forEach((b,i) => { b.disabled=true; if(i===correct) b.classList.add('correct'); });
+  setTimeout(() => nextQuizQuestion(type), 1000);
+}
+
+function nextQuizQuestion(type) {
+  const st = quizState[type];
+  st.idx++;
+  if(st.idx < st.total) { showQuizQuestion(type); }
+  else { showQuizResult(type); }
+}
+
+function showQuizResult(type) {
+  const st = quizState[type];
+  const prefix = type === 'iq' ? 'iq' : 'gk';
+  document.getElementById(prefix+'-active').classList.add('hidden');
+  document.getElementById(prefix+'-done').classList.remove('hidden');
+  const pct = Math.round(st.score/st.total*100);
+  const emoji = pct>=80?'🎉':pct>=60?'👍':'😤';
+  const title = pct>=80?`Excellent! ${st.score}/${st.total} — Outstanding!`:pct>=60?`Good job! ${st.score}/${st.total} — Keep going!`:`${st.score}/${st.total} — Practice makes perfect!`;
+  document.getElementById(prefix+'-result-emoji').textContent = emoji;
+  document.getElementById(prefix+'-result-title').textContent = title;
+  document.getElementById(prefix+'-result-desc').textContent = `Accuracy: ${pct}% • You earned ${st.score * 10} XP this round`;
+}
+
+function resetQuiz(type) {
+  const prefix = type === 'iq' ? 'iq' : 'gk';
+  document.getElementById(prefix+'-done').classList.add('hidden');
+  document.getElementById(prefix+'-active').classList.add('hidden');
+  document.getElementById(prefix+'-start').classList.remove('hidden');
+  clearInterval(timerInterval);
+}
+
+function claimXP(amount, type) {
+  showToast(`🎁 +${amount} XP claimed! Keep it up!`);
+  resetQuiz(type);
+}
+
+// ═══════════════════════════════════════════
+//  TEST TABS
+// ═══════════════════════════════════════════
+function switchTestTab(tab) {
+  ['gk','iq','arena'].forEach(t => {
+    document.getElementById(t+'-panel').classList.add('hidden');
+    document.getElementById('ttab-'+t).classList.remove('active-tab');
+  });
+  document.getElementById(tab+'-panel').classList.remove('hidden');
+  document.getElementById('ttab-'+tab).classList.add('active-tab');
+}
+
+// ═══════════════════════════════════════════
+//  ARENA ENGINE
+// ═══════════════════════════════════════════
+let arenaState = { idx:0, uScore:0, rScore:0, rival:'', timerRef:null };
+const rivals = ['Sita Dahal','Rohan Adhikari','Deepika Shrestha'];
+
+function startArena() {
+  document.getElementById('arena-start').classList.add('hidden');
+  document.getElementById('arena-search').classList.remove('hidden');
+  setTimeout(() => {
+    arenaState = { idx:0, uScore:0, rScore:0, rival:rivals[Math.floor(Math.random()*rivals.length)], timerRef:null };
+    document.getElementById('arena-rival-name').textContent = arenaState.rival;
+    document.getElementById('arena-u-score').textContent = '0';
+    document.getElementById('arena-r-score').textContent = '0';
+    document.getElementById('arena-search').classList.add('hidden');
+    document.getElementById('arena-battle').classList.remove('hidden');
+    showArenaQuestion();
+  }, 2200);
+}
+
+function showArenaQuestion() {
+  const q = QUIZ_BANK.arena[arenaState.idx];
+  document.getElementById('arena-q-label').textContent = `Round ${arenaState.idx+1} of ${QUIZ_BANK.arena.length}`;
+  document.getElementById('arena-question').textContent = q.q;
+  const optsEl = document.getElementById('arena-opts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `<span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-700 text-[.7rem] font-900 flex items-center justify-center flex-shrink-0" style="font-weight:900">${'ABCD'[i]}</span>${opt}`;
+    btn.onclick = () => answerArena(i, btn, optsEl, q.ans);
+    optsEl.appendChild(btn);
+  });
+  let t = 15;
+  document.getElementById('arena-timer').textContent = t+'s';
+  document.getElementById('arena-timer-bar').style.width = '100%';
+  clearInterval(arenaState.timerRef);
+  arenaState.timerRef = setInterval(() => {
+    t--;
+    document.getElementById('arena-timer').textContent = t+'s';
+    document.getElementById('arena-timer-bar').style.width = (t/15*100)+'%';
+    if(t<=0) { clearInterval(arenaState.timerRef); timeoutArena(optsEl, q.ans); }
+  }, 1000);
+}
+
+function answerArena(chosen, btn, optsEl, correct) {
+  clearInterval(arenaState.timerRef);
+  optsEl.querySelectorAll('.quiz-opt').forEach((b,i) => { b.disabled=true; if(i===correct) b.classList.add('correct'); else if(b===btn&&chosen!==correct) b.classList.add('wrong'); });
+  if(chosen===correct) {
+    arenaState.uScore += 50;
+    document.getElementById('arena-u-score').textContent = arenaState.uScore;
+    showToast('✅ Correct! +50 points');
+  } else {
+    arenaState.rScore += Math.random()>0.4?50:0;
+    document.getElementById('arena-r-score').textContent = arenaState.rScore;
+    showToast('❌ Wrong answer!', 'error');
+  }
+  // Rival auto-scores sometimes
+  if(Math.random()>0.6 && chosen===correct) { arenaState.rScore+=30; document.getElementById('arena-r-score').textContent=arenaState.rScore; }
+  setTimeout(() => nextArenaQ(), 1300);
+}
+
+function timeoutArena(optsEl, correct) {
+  optsEl.querySelectorAll('.quiz-opt').forEach((b,i) => { b.disabled=true; if(i===correct) b.classList.add('correct'); });
+  arenaState.rScore += 50;
+  document.getElementById('arena-r-score').textContent = arenaState.rScore;
+  setTimeout(() => nextArenaQ(), 1000);
+}
+
+function nextArenaQ() {
+  arenaState.idx++;
+  if(arenaState.idx < QUIZ_BANK.arena.length) { showArenaQuestion(); }
+  else { endArena(); }
+}
+
+function endArena() {
+  document.getElementById('arena-battle').classList.add('hidden');
+  document.getElementById('arena-done').classList.remove('hidden');
+  const won = arenaState.uScore >= arenaState.rScore;
+  document.getElementById('arena-result-emoji').textContent = won ? '🏆' : '😤';
+  document.getElementById('arena-result-title').textContent = won ? `Victory! You beat ${arenaState.rival}!` : `Defeat! ${arenaState.rival} won this time.`;
+  document.getElementById('arena-result-desc').textContent = `You: ${arenaState.uScore} pts • ${arenaState.rival}: ${arenaState.rScore} pts • ${won?'+100 XP earned!':'Keep practicing — you\'ll win next time!'}`;
+}
+
+function resetArena() {
+  ['arena-done','arena-battle','arena-search'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  document.getElementById('arena-start').classList.remove('hidden');
+  clearInterval(arenaState.timerRef);
+}
+
+// ═══════════════════════════════════════════
+//  COMMUNITY TABS
+// ═══════════════════════════════════════════
+let commTab = 'feed';
+function switchCommTab(tab) {
+  commTab = tab;
+  ['feed','chat','groups'].forEach(t => {
+    document.getElementById('comm-'+t).classList.add('hidden');
+    document.getElementById('ctab-'+t).classList.remove('active-tab');
+  });
+  document.getElementById('comm-'+tab).classList.remove('hidden');
+  document.getElementById('ctab-'+tab).classList.add('active-tab');
+  if(tab==='chat') renderMessages();
+}
+
+// ═══════════════════════════════════════════
+//  FEED / POSTS
+// ═══════════════════════════════════════════
+function renderFeed() {
+  const container = document.getElementById('feed-posts');
+  container.innerHTML = '';
+  POSTS.forEach(post => {
+    const commentsHtml = post.comments.map(c => `<div class="flex items-start gap-2 text-[.72rem]"><span class="font-800 text-slate-700 dark:text-slate-200" style="font-weight:800">${c.u}:</span><span class="text-slate-500 dark:text-slate-400">${c.t}</span></div>`).join('');
+    const el = document.createElement('div');
+    el.className = 'card post-card';
+    el.innerHTML = `
+      <div class="p-4 space-y-3">
+        <div class="flex items-start gap-3">
+          <img src="${post.avatar}" class="w-10 h-10 rounded-full object-cover flex-shrink-0">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center flex-wrap gap-2"><span class="text-sm font-800 text-slate-900 dark:text-white" style="font-weight:800">${post.user}</span><span class="badge badge-blue">${post.tag}</span></div>
+            <span class="text-[.68rem] text-slate-400">${post.time}</span>
+          </div>
+          <button onclick="showToast('⋮ Post options coming soon!')" class="btn btn-ghost btn-icon-sm text-slate-400"><i class="fa-solid fa-ellipsis text-sm"></i></button>
+        </div>
+        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">${post.body}</p>
+        <div class="flex gap-4 text-[.72rem] text-slate-400 border-t border-slate-100 dark:border-white/[.05] pt-2">
+          <span id="like-count-${post.id}">${post.likes} Likes</span>
+          <span>${post.comments.length} Comments</span>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button id="like-btn-${post.id}" onclick="toggleLike(${post.id})" class="reaction-btn flex-1 justify-center ${post.liked?'liked':''}"><i class="fa-${post.liked?'solid':'regular'} fa-thumbs-up"></i>${post.liked?'Liked':'Like'}</button>
+        <button onclick="toggleComments(${post.id})" class="reaction-btn flex-1 justify-center"><i class="fa-regular fa-comment"></i> Comment</button>
+        <button onclick="showToast('📤 Share feature coming soon!')" class="reaction-btn flex-1 justify-center"><i class="fa-solid fa-share-nodes"></i> Share</button>
+      </div>
+      <div id="comments-${post.id}" class="hidden px-4 pb-3 space-y-2 border-t border-slate-100 dark:border-white/[.05] pt-3">
+        ${commentsHtml}
+        <div class="flex gap-2 mt-2">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" class="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-0.5">
+          <div class="flex-1 flex gap-1.5">
+            <input type="text" id="comment-input-${post.id}" placeholder="Write a comment..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-3 py-2 text-xs text-slate-700 dark:text-slate-200" onkeydown="if(event.key==='Enter')addComment(${post.id})">
+            <button onclick="addComment(${post.id})" class="btn btn-primary btn-icon-sm"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+          </div>
+        </div>
+      </div>`;
+    container.appendChild(el);
+  });
+}
+
+function toggleLike(id) {
+  const post = POSTS.find(p => p.id === id);
+  post.liked = !post.liked;
+  post.likes += post.liked ? 1 : -1;
+  const btn = document.getElementById('like-btn-'+id);
+  const count = document.getElementById('like-count-'+id);
+  btn.className = 'reaction-btn flex-1 justify-center'+(post.liked?' liked':'');
+  btn.innerHTML = `<i class="fa-${post.liked?'solid':'regular'} fa-thumbs-up"></i>${post.liked?'Liked':'Like'}`;
+  count.textContent = post.likes+' Likes';
+}
+
+function toggleComments(id) {
+  const el = document.getElementById('comments-'+id);
+  el.classList.toggle('hidden');
+}
+
+function addComment(postId) {
+  const input = document.getElementById('comment-input-'+postId);
+  const text = input.value.trim();
+  if(!text) return;
+  const post = POSTS.find(p=>p.id===postId);
+  post.comments.push({u:'You', t:text});
+  input.value = '';
+  renderFeed();
+  toggleComments(postId);
+  document.getElementById('comment-input-'+postId).focus();
+  showToast('💬 Comment posted!');
+}
+
+function submitPost() {
+  const input = document.getElementById('post-input');
+  const tag = document.getElementById('post-tag').value;
+  const text = input.value.trim();
+  if(!text) { showToast('Please write something first!', 'error'); return; }
+  POSTS.unshift({ id:Date.now(), user:'You — Arjun Sharma', avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80', time:'Just now', tag, body:text, likes:0, comments:[], liked:false });
+  input.value = '';
+  renderFeed();
+  showToast('📢 Post published to the community!');
+}
+
+function toggleDirectorySearch() {
+  const panel = document.getElementById('dir-search');
+  panel.classList.toggle('hidden');
+  if(!panel.classList.contains('hidden')) { filterDirectory(); document.getElementById('dir-input').focus(); }
+}
+
+function filterDirectory() {
+  const q = document.getElementById('dir-input').value.toLowerCase();
+  const results = document.getElementById('dir-results');
+  const filtered = DIRECTORY.filter(u => u.name.toLowerCase().includes(q));
+  if(!filtered.length) { results.innerHTML = '<p class="text-xs text-slate-400 col-span-2 text-center py-2">No aspirants found</p>'; return; }
+  results.innerHTML = filtered.map(u => `
+    <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-700/40">
+      <div class="flex items-center gap-2">
+        <img src="${u.avatar}" class="w-8 h-8 rounded-full object-cover">
+        <div><div class="text-xs font-700 text-slate-800 dark:text-white">${u.name}</div><div class="text-[.6rem] text-slate-400">${u.tag}</div></div>
+      </div>
+      <button onclick="startDirectChat('${u.id}')" class="btn btn-primary btn-sm text-[.68rem] py-1.5 px-3">Message</button>
+    </div>`).join('');
+}
+
+function startDirectChat(userId) {
+  toggleDirectorySearch();
+  switchCommTab('chat');
+  openChat(userId);
+}
+
+// ═══════════════════════════════════════════
+//  MESSAGING
+// ═══════════════════════════════════════════
+let activeChat = 'u1';
+function openChat(userId) {
+  activeChat = userId;
+  const user = DMS[userId];
+  if(!user) return;
+  document.getElementById('chat-name').textContent = user.name;
+  document.getElementById('chat-avatar').src = user.avatar;
+  document.getElementById('chat-status').textContent = user.online ? '● Active now' : '● Last seen recently';
+  document.getElementById('chat-status').className = 'text-[.68rem] font-600 '+(user.online?'text-emerald-500':'text-slate-400');
+  document.getElementById('chat-status-dot').className = user.online ? 'online-dot' : 'absolute bottom-1 right-1 w-2.5 h-2.5 bg-slate-300 dark:bg-slate-600 border-2 border-white dark:border-[#111827] rounded-full';
+  // Mark thread active
+  document.querySelectorAll('.thread-item').forEach(el => el.classList.remove('active-thread'));
+  const thr = document.getElementById('thr-'+userId);
+  if(thr) thr.classList.add('active-thread');
+  renderMessages();
+}
+
+function renderMessages() {
+  const vp = document.getElementById('chat-viewport');
+  if(!vp) return;
+  const msgs = DMS[activeChat]?.msgs || [];
+  vp.innerHTML = msgs.map(m => `
+    <div class="flex ${m.s==='you'?'justify-end':'justify-start'}">
+      <div class="${m.s==='you'?'msg-bubble-me':'msg-bubble-them'}">${m.t}</div>
+    </div>`).join('');
+  vp.scrollTop = vp.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if(!text) return;
+  DMS[activeChat].msgs.push({s:'you', t:text});
+  const sub = document.getElementById('sub-'+activeChat);
+  if(sub) sub.textContent = 'You: '+text;
+  input.value = '';
+  renderMessages();
+  // Typing indicator
+  const ti = document.getElementById('typing-indicator');
+  setTimeout(() => { ti.classList.remove('hidden'); }, 600);
+  setTimeout(() => {
+    ti.classList.add('hidden');
+    const replies = ['Got it! 👍','That\'s helpful, thanks!','Let\'s study together soon!','💪 Keep grinding!','Nice! Share more tips?'];
+    const reply = replies[Math.floor(Math.random()*replies.length)];
+    DMS[activeChat].msgs.push({s:'them', t:reply});
+    const sub2 = document.getElementById('sub-'+activeChat);
+    if(sub2) sub2.textContent = reply;
+    renderMessages();
+    showToast('💬 New message from '+DMS[activeChat].name);
+  }, 2200);
+}
+
+function quickSend(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+// ═══════════════════════════════════════════
+//  FLASHCARDS
+// ═══════════════════════════════════════════
+let fcState = { deck:'constitution', idx:0, flipped:false };
+
+function openFlashcards() {
+  document.getElementById('flashcard-modal').classList.remove('hidden');
+  loadDeck('constitution');
+}
+function closeFlashcards() {
+  document.getElementById('flashcard-modal').classList.add('hidden');
+}
+function loadDeck(deckName) {
+  fcState.deck = deckName;
+  fcState.idx = 0;
+  fcState.flipped = false;
+  document.querySelector('#flashcard-modal .flashcard').classList.remove('flipped');
+  updateCard();
+  // Update chips
+  document.querySelectorAll('#flashcard-modal .chip').forEach(c => c.classList.remove('active-chip','text-brand-600','border-brand-300','dark:border-brand-600'));
+}
+function updateCard() {
+  const cards = FLASHCARDS[fcState.deck];
+  const card = cards[fcState.idx];
+  document.getElementById('fc-label').textContent = `Card ${fcState.idx+1} of ${cards.length}`;
+  document.getElementById('fc-icon').textContent = card.icon;
+  document.getElementById('fc-front').textContent = card.front;
+  document.getElementById('fc-back').textContent = card.back;
+  fcState.flipped = false;
+  document.querySelector('#flashcard-modal .flashcard').classList.remove('flipped');
+}
+function flipCard() {
+  fcState.flipped = !fcState.flipped;
+  document.querySelector('#flashcard-modal .flashcard').classList.toggle('flipped');
+}
+function prevCard() {
+  const cards = FLASHCARDS[fcState.deck];
+  fcState.idx = (fcState.idx - 1 + cards.length) % cards.length;
+  updateCard();
+}
+function nextCard() {
+  const cards = FLASHCARDS[fcState.deck];
+  fcState.idx = (fcState.idx + 1) % cards.length;
+  updateCard();
+}
+
+// ═══════════════════════════════════════════
+//  STUDY TIMER
+// ═══════════════════════════════════════════
+let timerRunning = false, timerVal = 1500, timerMax = 1500, timerMode = 'Focus', pomTimer;
+
+function openTimer() { document.getElementById('timer-modal').classList.remove('hidden'); updateTimerDisplay(); }
+function closeTimer() { document.getElementById('timer-modal').classList.add('hidden'); }
+
+function setTimer(mins, mode) {
+  clearInterval(pomTimer);
+  timerRunning = false;
+  timerMax = mins * 60;
+  timerVal = timerMax;
+  timerMode = mode;
+  document.getElementById('timer-play').innerHTML = '<i class="fa-solid fa-play"></i> Start';
+  updateTimerDisplay();
+}
+
+function toggleTimer() {
+  timerRunning = !timerRunning;
+  document.getElementById('timer-play').innerHTML = timerRunning ? '<i class="fa-solid fa-pause"></i> Pause' : '<i class="fa-solid fa-play"></i> Resume';
+  if(timerRunning) {
+    pomTimer = setInterval(() => {
+      timerVal--;
+      updateTimerDisplay();
+      if(timerVal <= 0) {
+        clearInterval(pomTimer);
+        timerRunning = false;
+        document.getElementById('timer-play').innerHTML = '<i class="fa-solid fa-play"></i> Start';
+        showToast('⏰ Timer complete! Take a break.');
+      }
+    }, 1000);
+  } else { clearInterval(pomTimer); }
+}
+
+function resetTimerDisplay() {
+  clearInterval(pomTimer);
+  timerRunning = false;
+  timerVal = timerMax;
+  document.getElementById('timer-play').innerHTML = '<i class="fa-solid fa-play"></i> Start';
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerVal/60).toString().padStart(2,'0');
+  const s = (timerVal%60).toString().padStart(2,'0');
+  document.getElementById('timer-display').textContent = m+':'+s;
+  document.getElementById('timer-mode').textContent = timerMode;
+  const pct = timerVal/timerMax*100;
+  document.getElementById('timer-ring').setAttribute('stroke-dasharray', `${pct} 100`);
+}
+
+// ═══════════════════════════════════════════
+//  PREMIUM MODAL
+// ═══════════════════════════════════════════
+function openPremium() { document.getElementById('premium-modal').classList.remove('hidden'); }
+function closePremium() { document.getElementById('premium-modal').classList.add('hidden'); }
+
+// ═══════════════════════════════════════════
+//  PROFILE EDIT
+// ═══════════════════════════════════════════
+function toggleEdit() {
+  const panel = document.getElementById('edit-panel');
+  panel.classList.toggle('hidden');
+  if(!panel.classList.contains('hidden')) panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function saveProfile() {
+  const name = document.getElementById('edit-name').value.trim();
+  const bio = document.getElementById('edit-bio').value.trim();
+  if(name) {
+    document.getElementById('profile-name-display').textContent = name;
+    document.getElementById('hdr-avatar').src = document.getElementById('profile-avatar-img').src;
+  }
+  if(bio) document.getElementById('profile-bio-display').textContent = bio;
+  toggleEdit();
+  showToast('✅ Profile updated successfully!');
+}
+
+// ═══════════════════════════════════════════
+//  ACCORDION
+// ═══════════════════════════════════════════
+function toggleAccordion(id) {
+  const el = document.getElementById(id);
+  const icon = document.getElementById(id+'-icon');
+  el.classList.toggle('hidden');
+  icon.style.transform = el.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+
+// ═══════════════════════════════════════════
+//  COURSE FILTERS
+// ═══════════════════════════════════════════
+function filterCourse(cat, btn) {
+  document.querySelectorAll('#course-filters .chip').forEach(c => { c.classList.remove('active-chip','text-brand-600'); c.classList.add('text-slate-600','dark:text-slate-400'); });
+  btn.classList.add('active-chip','text-brand-600');
+  showToast(cat==='all'?'📚 Showing all subjects':'📚 Filtered to '+cat+' courses');
+}
+
+// ═══════════════════════════════════════════
+//  DAILY CHALLENGE
+// ═══════════════════════════════════════════
+function dailyChallenge(answer) {
+  if(answer === 'B') { showToast('🎉 Correct! Article 31 guarantees Right to Education. +25 XP!'); }
+  else { showToast('❌ Incorrect! The answer is B — Article 31.', 'error'); }
+}
+
+// ═══════════════════════════════════════════
+//  COUNTDOWN CLOCK
+// ═══════════════════════════════════════════
+function updateCountdown() {
+  const now = new Date();
+  document.getElementById('cd-hrs').textContent = String(now.getHours()).padStart(2,'0');
+  document.getElementById('cd-min').textContent = String(now.getMinutes()).padStart(2,'0');
+}
+setInterval(updateCountdown, 30000);
+updateCountdown();
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  renderFeed();
+  renderMessages();
+  // Init test tabs
+  document.getElementById('iq-panel').classList.add('hidden');
+  document.getElementById('arena-panel').classList.add('hidden');
+  // Dismiss modals on backdrop click
+  ['flashcard-modal','timer-modal','premium-modal'].forEach(id => {
+    document.getElementById(id).addEventListener('click', function(e){ if(e.target===this) this.classList.add('hidden'); });
+  });
+});
+</script>
+</body>
+</html>
