@@ -39,7 +39,33 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
+        /* Apply to the whole site */
+        html, body {
+            scrollbar-gutter: stable; /* Forces the browser to keep space reserved for the scrollbar, preventing width jumps */
+            /*user-select: none;   Disables text selection across the UI */
+            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+        }
+        ::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+        }
+        /* Enable safe, native scrolling behavior across the app document */
+        html {
+            scrollbar-gutter: stable;
+            overscroll-behavior-y: none; /* Prevents whole-window webview background shifts */
+            height: 100%;
+        }
+
         body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            overflow-y: auto; /* Restores fully-native, responsive scrolling */
+            -webkit-overflow-scrolling: touch; /* Ensures high-performance inertial scrolling in app containers */
+            height: auto;
+            padding-top: 56px !important; /* Pushes the scrollable view beneath the top navbar */
+            padding-bottom: 70px !important; /* Keeps space open for the bottom navbar */
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -59,6 +85,10 @@
             transform: translateY(0);
             pointer-events: auto;
             display: block;
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+
         }
 
         /* Custom Scrollbars */
@@ -70,55 +100,61 @@
             50% { transform: translateY(-6px); }
         }
         .float-emoji { animation: float 3s ease-in-out infinite; }
-        /* Apply to the whole site */
-        html, body {
-            scrollbar-gutter: stable; /* Forces the browser to keep space reserved for the scrollbar, preventing width jumps */
-            user-select: none;  /* Disables text selection across the UI */
-            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
-            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+
+        /* Hard-anchor your top navbar completely out of any translation mechanics */
+        #top-nav {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 56px !important;
+            z-index: 9999 !important; /* Matches bottom nav layer to stay on top */
+            transform: translate3d(0, 0, 0) !important; /* Isolates onto its own GPU frame */
         }
-        ::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+
+        /* Hard-anchor your bottom navbar completely out of any translation mechanics */
+        #bottom-nav, .md\:hidden.fixed {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 9999 !important; /* Forces nav to float over all transforming components */
+            transform: translate3d(0, 0, 0) !important; /* Pin navbar explicitly to its own hardware plane */
         }
+        
 
-/* Enable safe, native scrolling behavior across the app document */
-html {
-    scrollbar-gutter: stable;
-    overscroll-behavior-y: none; /* Prevents whole-window webview background shifts */
-    height: 100%;
-}
-
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    overflow-x: hidden;
-    overflow-y: auto; /* Restores fully-native, responsive scrolling */
-    -webkit-overflow-scrolling: touch; /* Ensures high-performance inertial scrolling in app containers */
-    height: auto;
-    min-h-screen: 100vh;
-}
-
-/* Optimize the active sub-container for premium edge transformations */
-.page-view.active {
-    will-change: transform;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-}
-
-/* Hard-anchor your bottom navbar completely out of any translation mechanics */
-#bottom-nav, .md\:hidden.fixed {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 9999 !important; /* Forces nav to float over all transforming components */
-    transform: translate3d(0, 0, 0) !important; /* Pin navbar explicitly to its own hardware plane */
-}
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full select-none" >
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full" >
+        <!-- ==========================================
+         TOP NAVBAR
+         ========================================== -->
+    <div id="top-nav" class="fixed top-0 left-0 right-0 h-14 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-5 z-[9999] transition-colors duration-300">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-sm shadow-blue-500/20">
+                LS
+            </div>
+            <span class="text-sm font-black tracking-tight text-slate-800 dark:text-white">
+                LearnSewa
+            </span>
+        </div>
 
+        <div class="flex items-center gap-3">
+            <button class="relative w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                <i class="fa-regular fa-bell text-base"></i>
+                <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+            </button>
+            <button onclick="toggleDarkModeState()" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition focus:outline-none">
+                <svg id="nav-icon-sun" class="w-5 h-5 text-amber-500 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="5" fill="currentColor" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" />
+                </svg>
+                <svg id="nav-icon-moon" class="w-5 h-5 text-indigo-400 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+            </button>
+        </div>
+    </div>
     <!-- ==========================================
          DESKTOP SIDEBAR (Left Column on wide view)
          ========================================== -->
@@ -408,6 +444,140 @@ body {
                  TAB 2: SYLLABI & COURSES HUB
                  --------------------------------------- -->
             <section id="view-courses" class="page-view space-y-6">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
+                    <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
+                </div>
+
+                <!-- Active Syllabus Progress Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="courses-list-container">
+                    <!-- Dynamic courses will be populated by window.onload script -->
+                </div>
+
+                <!-- Additional Loksewa Libraries Grid -->
+                <div>
+                    <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Explore High-Yield Packages</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">SPECIALTY</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Foreign Service & Diplomatic Policy</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">12 Special modules, Treaty timelines, and UN bodies.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 text-left hover:border-blue-500 dark:hover:border-blue-500 transition cursor-pointer">
+                            <span class="text-[9px] font-bold bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-md">MATH & LOGIC</span>
+                            <h5 class="text-xs font-black text-slate-900 dark:text-white mt-2.5">Non-Verbal Pattern Mastery (IQ)</h5>
+                            <p class="text-[10px] text-slate-400 mt-1">350 Analytical spatial matrix patterns.</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex items-center justify-between">
                     <h3 class="text-base font-extrabold text-slate-950 dark:text-white">Loksewa Syllabi Core</h3>
                     <span class="text-[10px] bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold px-2.5 py-1 rounded-lg">6 Enrolled</span>
@@ -791,19 +961,30 @@ body {
                     </div>
 
                     <!-- Go Pro Advertisement Banner in Profile -->
-                    <div class="p-4 bg-gradient-to-br from-indigo-600 via-indigo-800 to-slate-950 rounded-2xl text-white relative overflow-hidden shadow-md">
-                        <div class="absolute right-4 bottom-2 text-white/5 opacity-20"><i class="fa-solid fa-crown text-6xl"></i></div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-3xl">💎</span>
-                            <div>
-                                <h4 class="text-xs font-black text-amber-400 uppercase tracking-widest">Upgrade to Scholar Pro</h4>
-                                <p class="text-[9px] text-slate-300 mt-0.5 leading-relaxed">Gain absolute access to Spatial IQ matrix builders, unlimited mock matchups, and advanced performance metrics!</p>
+                    <div class="bg-gradient-to-br from-indigo-600 via-indigo-800 to-slate-950 rounded-3xl p-5 flex items-center justify-between gap-4 shadow-lg shadow-blue-600/10 relative overflow-hidden">    
+                        <div class="flex items-start gap-3 flex-1 min-w-0">
+                            <span class="text-3xl mt- shrink-0">💎</span>
+                            <div class="space-y-1">
+                                <h3 class="text-xs font-black tracking-wider text-amber-400 uppercase">
+                                    Upgrade To Scholar Pro
+                                </h3>
+                                <p class="text-[9px] text-blue-100/80 leading-snug font-medium line-clamp-2">
+                                    Gain absolute access to Spatial IQ matrix builders, unlimited mock matchups, and metrics.
+                                </p>
                             </div>
+                        </div>                  
+
+                        <!-- Right button container (Completely prevents stretching!) -->
+                        <div class="shrink-0">
+                            <button onclick="openProPlansModal()" class="px-4 py-2.5 bg-white text-blue-600 font-extrabold text-xs rounded-xl shadow-md hover:bg-blue-50 active:scale-95 transition-all cursor-pointer">
+                                Explore Tiers
+                            </button>
                         </div>
-                        <button onclick="openProPlansModal()" class="mt-3.5 bg-white text-indigo-950 hover:bg-slate-100 font-black text-[10px] py-1.5 px-4 rounded-xl shadow-xs transition w-full">
-                            Explore Premium Tiers
-                        </button>
                     </div>
+
+
+
+                    
 
                     <!-- Action lists to edit profile/settings -->
                     <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-xs">
@@ -993,77 +1174,119 @@ body {
     <!-- ==========================================
          PRO PLAN COMPARATIVE PLANS MODAL
          ========================================== -->
-    <div id="pro-plans-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 max-w-lg w-full rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 relative overflow-y-auto max-h-[90vh] no-scrollbar">
-            <!-- Close Modal -->
-            <button onclick="closeProPlansModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
+         
+<div id="pro-plans-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-0 md:p-6 hidden">
+    
+    <div class="bg-white dark:bg-slate-900 w-[88vw] md:w-full md:max-w-5xl rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 md:p-8 relative overflow-y-auto max-h-[80vh] md:max-h-[90vh] no-scrollbar transition-all duration-300">
+        
+        <button onclick="closeProPlansModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer z-20">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
 
-            <div class="text-center space-y-2">
-                <span class="text-3xl float-emoji">💎</span>
-                <h3 class="text-lg font-black text-slate-900 dark:text-white">Upgrade Your Study Arsenal</h3>
-                <p class="text-xs text-slate-400">Unlock high-yield mnemonics, advanced spatial IQ grids, and adaptive feedback.</p>
-            </div>
+        <div class="text-center space-y-1.5 md:space-y-2 pr-6 pl-6">
+            <span class="text-2xl md:text-3xl inline-block animate-bounce duration-1000">💎</span>
+            <h3 class="text-base md:text-xl font-black text-slate-900 dark:text-white tracking-tight">Upgrade Your Study Arsenal</h3>
+            <p class="text-[11px] md:text-xs text-slate-400 max-w-md mx-auto leading-relaxed">Unlock high-yield mnemonics, advanced spatial IQ grids, and adaptive feedback engine systems.</p>
+        </div>
 
-            <!-- Billing Cycle Switcher -->
-            <div class="flex justify-center my-4">
-                <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl flex">
-                    <button onclick="toggleBillingCycle('monthly')" id="billing-monthly" class="px-3.5 py-1.5 text-[10px] font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-white">Monthly Billing</button>
-                    <button onclick="toggleBillingCycle('yearly')" id="billing-yearly" class="px-3.5 py-1.5 text-[10px] font-bold rounded-lg text-slate-500 dark:text-slate-400">Yearly Billing (Save 20%)</button>
-                </div>
-            </div>
-
-            <!-- Comparison Tier Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-                <!-- Free Tier -->
-                <div class="border border-slate-150 dark:border-slate-800 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-slate-50/50 dark:bg-slate-950/40">
-                    <div>
-                        <span class="text-[9px] font-black uppercase text-slate-400">Aspirant</span>
-                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Free Base</h4>
-                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white">Rs. 0</span>
-                    </div>
-                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Base GK Syllabus</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Public Lounge Access</li>
-                        <li><i class="fa-solid fa-xmark text-red-400 mr-1"></i> Pro IQ Matrix</li>
-                    </ul>
-                    <button onclick="closeProPlansModal(); showNotification('Active Free level retained!')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Active Plan</button>
-                </div>
-
-                <!-- Pro Scholar (Most Popular) -->
-                <div class="border-2 border-blue-500 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-white dark:bg-slate-900 relative shadow-md">
-                    <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-blue-500 text-white font-extrabold text-[7px] tracking-wider px-2 py-0.5 rounded-full">POPULAR</span>
-                    <div>
-                        <span class="text-[9px] font-black uppercase text-blue-600">Scholar</span>
-                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Pro Access</h4>
-                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white" id="pro-price">Rs. 499 / mo</span>
-                    </div>
-                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Unlimited GK Drills</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Full IQ Spatial Suites</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Mnemonic Wizardry</li>
-                    </ul>
-                    <button onclick="closeProPlansModal(); showNotification('Upgraded to Pro Access Tier! 🚀')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs">Upgrade Pro</button>
-                </div>
-
-                <!-- Ultimate Officer -->
-                <div class="border border-slate-150 dark:border-slate-800 p-3.5 rounded-2xl flex flex-col justify-between text-center bg-slate-50/50 dark:bg-slate-950/40">
-                    <div>
-                        <span class="text-[9px] font-black uppercase text-purple-600">Officer</span>
-                        <h4 class="text-xs font-black mt-1 text-slate-800 dark:text-white">Elite Officer</h4>
-                        <span class="text-sm font-black block mt-2 text-slate-800 dark:text-white" id="elite-price">Rs. 999 / mo</span>
-                    </div>
-                    <ul class="text-[9px] text-slate-400 text-left space-y-1.5 my-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Everything in Pro</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Dedicated AI Tutor</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Real Mock Evaluations</li>
-                    </ul>
-                    <button onclick="closeProPlansModal(); showNotification('Upgraded to Elite Officer Level! 👑')" class="w-full py-1 text-[9px] font-bold rounded-lg bg-purple-600 hover:bg-purple-500 text-white">Upgrade Elite</button>
-                </div>
+        <div class="flex justify-center my-3 md:my-5">
+            <div class="bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl flex items-center">
+                <button onclick="toggleBillingCycle('monthly')" id="billing-monthly" class="px-3 md:px-4 py-1.5 text-[10px] md:text-xs font-bold rounded-lg bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-white transition-all">Monthly Billing</button>
+                <button onclick="toggleBillingCycle('yearly')" id="billing-yearly" class="px-3 md:px-4 py-1.5 text-[10px] md:text-xs font-bold rounded-lg text-slate-500 dark:text-slate-400 transition-all">Yearly Billing (Save 20%)</button>
             </div>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-4 md:mt-8">
+            
+            <div class="group relative border border-slate-200 dark:border-slate-800/80 p-4 md:p-6 rounded-2xl bg-slate-50/50 dark:bg-slate-950/20 backdrop-blur-xs flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 md:hover:-translate-y-1">
+                <div class="flex flex-row md:flex-col justify-between items-center md:items-stretch gap-3 md:gap-0">
+                    <div class="flex-1 md:text-center min-w-0">
+                        <div class="inline-flex px-2.5 py-0.5 rounded-full bg-slate-200/60 dark:bg-slate-800 text-[9px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                            Aspirant
+                        </div>
+                        <h4 class="text-sm md:text-base font-black mt-1.5 md:mt-2 text-slate-800 dark:text-white tracking-tight">Free Base</h4>
+                        <div class="mt-1 md:mt-2 flex items-baseline md:justify-center gap-0.5">
+                            <span class="text-lg md:text-2xl font-black text-slate-900 dark:text-white">Rs. 0</span>
+                            <span class="text-[10px] md:text-xs text-slate-400 font-medium">/forever</span>
+                        </div>
+                    </div>
+                    
+                    <div class="h-10 w-px bg-slate-200 dark:bg-slate-800 md:hidden"></div>
+
+                    <div class="flex-1 md:w-full">
+                        <ul class="text-[11px] md:text-xs text-slate-500 dark:text-slate-400 space-y-2 md:my-5">
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500 text-xs shrink-0"></i> <span class="truncate">Base GK Syllabus</span></li>
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500 text-xs shrink-0"></i> <span class="truncate">Public Lounge Access</span></li>
+                            <li class="flex items-center gap-1.5 opacity-40"><i class="fa-solid fa-circle-xmark text-slate-300 dark:text-slate-700 text-xs shrink-0"></i> <span class="truncate line-through">Pro IQ Matrix</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <button onclick="closeProPlansModal(); showNotification('Active Free level retained!')" class="w-full mt-3 md:mt-0 py-2 text-xs font-bold rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 active:scale-98 transition-all duration-200 cursor-pointer">
+                    Active Plan
+                </button>
+            </div>
+
+            <div class="group relative border-2 border-blue-600 p-4 md:p-6 rounded-2xl bg-gradient-to-b from-blue-50/40 to-white dark:from-blue-950/10 dark:to-slate-900 flex flex-col justify-between transition-all duration-300 shadow-xl shadow-blue-500/5 dark:shadow-none hover:shadow-2xl hover:shadow-blue-500/10 md:-translate-y-1 md:hover:-translate-y-2 z-10">
+                <span class="absolute -top-2.5 left-4 md:left-1/2 md:-translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-[8px] tracking-widest px-2.5 py-0.5 rounded-full shadow-md">
+                    POPULAR
+                </span>
+                
+                <div class="flex flex-row md:flex-col justify-between items-center md:items-stretch gap-3 md:gap-0">
+                    <div class="flex-1 md:text-center min-w-0">
+                        <div class="inline-flex px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-[9px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            Scholar
+                        </div>
+                        <h4 class="text-sm md:text-base font-black mt-1.5 md:mt-2 text-slate-900 dark:text-white tracking-tight">Pro Access</h4>
+                        <div class="mt-1 md:mt-2 flex items-baseline md:justify-center gap-0.5">
+                            <span class="text-lg md:text-2xl font-black text-blue-600 dark:text-blue-400" id="pro-price">Rs. 499 / mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="h-10 w-px bg-slate-200 dark:bg-slate-800 md:hidden"></div>
+
+                    <div class="flex-1 md:w-full">
+                        <ul class="text-[11px] md:text-xs text-slate-600 dark:text-slate-300 space-y-2 md:my-5">
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-blue-500 text-xs shrink-0"></i> <span class="truncate font-semibold text-slate-700 dark:text-slate-200">Unlimited GK Drills</span></li>
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-blue-500 text-xs shrink-0"></i> <span class="truncate font-semibold text-slate-700 dark:text-slate-200">Full IQ Spatial Suites</span></li>
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-blue-500 text-xs shrink-0"></i> <span class="truncate font-semibold text-slate-700 dark:text-slate-200">Mnemonic Wizardry</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <button onclick="closeProPlansModal(); showNotification('Upgraded to Pro Access Tier! 🚀')" class="w-full mt-3 md:mt-0 py-2 text-xs font-black rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-500/20 active:scale-98 transition-all duration-200 cursor-pointer">
+                    Upgrade Pro
+                </button>
+            </div>
+
+            <div class="group relative border border-slate-200 dark:border-slate-800/80 p-4 md:p-6 rounded-2xl bg-slate-50/50 dark:bg-slate-950/20 backdrop-blur-xs flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:border-purple-300 dark:hover:border-purple-900 md:hover:-translate-y-1">
+                <div class="flex flex-row md:flex-col justify-between items-center md:items-stretch gap-3 md:gap-0">
+                    <div class="flex-1 md:text-center min-w-0">
+                        <div class="inline-flex px-2.5 py-0.5 rounded-full bg-purple-50 dark:bg-purple-950/50 text-[9px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400">
+                            Officer
+                        </div>
+                        <h4 class="text-sm md:text-base font-black mt-1.5 md:mt-2 text-slate-800 dark:text-white tracking-tight">Elite Officer</h4>
+                        <div class="mt-1 md:mt-2 flex items-baseline md:justify-center gap-0.5">
+                            <span class="text-lg md:text-2xl font-black text-purple-600 dark:text-purple-400" id="elite-price">Rs. 999 / mo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="h-10 w-px bg-slate-200 dark:bg-slate-800 md:hidden"></div>
+
+                    <div class="flex-1 md:w-full">
+                        <ul class="text-[11px] md:text-xs text-slate-500 dark:text-slate-400 space-y-2 md:my-5">
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-purple-500 text-xs shrink-0"></i> <span class="truncate">Everything in Pro</span></li>
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-purple-500 text-xs shrink-0"></i> <span class="truncate">Dedicated AI Tutor</span></li>
+                            <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-purple-500 text-xs shrink-0"></i> <span class="truncate">Real Mock Evaluations</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <button onclick="closeProPlansModal(); showNotification('Upgraded to Elite Officer Level! 👑')" class="w-full mt-3 md:mt-0 py-2 text-xs font-bold rounded-xl bg-purple-600 hover:bg-purple-500 text-white active:scale-98 transition-all duration-200 cursor-pointer">
+                    Upgrade Elite
+                </button>
+            </div>
+
+        </div>
     </div>
+</div>
 
     <!-- ==========================================
          GLOBAL FLOATING NOTIFICATIONS TOASTS
@@ -1418,6 +1641,42 @@ body {
                 showNotification("Light theme enabled! ☀️");
             }
         }
+
+        function syncNavbarThemeIcon() {
+            const isDarkNow = document.documentElement.classList.contains('dark');
+            const sunIcon = document.getElementById('nav-icon-sun');
+            const moonIcon = document.getElementById('nav-icon-moon');
+        
+            if (sunIcon && moonIcon) {
+                if (isDarkNow) {
+                    // Dark Mode Active -> Show Moon, Hide Sun
+                    sunIcon.classList.add('hidden');
+                    sunIcon.classList.remove('block');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                } else {
+                    // Light Mode Active -> Show Sun, Hide Moon
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.add('hidden');
+                    moonIcon.classList.remove('block');
+                }
+            }
+        }
+
+        // 1. Check state on fresh application boot
+        document.addEventListener('DOMContentLoaded', syncNavbarThemeIcon);
+
+        // 2. The Fix: Background Observer to automatically watch your internal setting changes
+        const themeObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    syncNavbarThemeIcon();
+                }
+            });
+        });
+        // Start monitoring the root html tag for class changes
+        themeObserver.observe(document.documentElement, { attributes: true });
 
         function toggleSoundSystemState() {
             APP_STATE.preferences.soundsOn = !APP_STATE.preferences.soundsOn;
@@ -2349,6 +2608,9 @@ document.addEventListener('DOMContentLoaded', () => {
         activeLayoutView.style.transform = 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)';
     });
 });
+</script>
+<script>
+
 </script>
 </body>
 </html>
