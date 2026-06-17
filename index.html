@@ -2311,7 +2311,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.cancelable) e.preventDefault();
 
             // Aggressive dampening curve so the stretch feels subtle and premium
-            const microDampenFactor = Math.pow(dragDeltaY, 0.42) * 0.1;
+            const microDampenFactor = Math.pow(dragDeltaY, 0.5) * 0.1;
             const stretchScaleValue = 1 + (microDampenFactor * 0.015);
             const translateShift = microDampenFactor * 1.2;
 
@@ -2327,7 +2327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.cancelable) e.preventDefault();
 
             const absoluteDeltaY = Math.abs(dragDeltaY);
-            const microDampenFactor = Math.pow(absoluteDeltaY, 0.8) * 0.2;
+            const microDampenFactor = Math.pow(absoluteDeltaY, 0.5) * 0.1;
             const stretchScaleValue = 1 + (microDampenFactor * 0.015);
             const translateShift = microDampenFactor * 1.2;
 
