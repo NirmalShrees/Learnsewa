@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrepVerse - Elite Loksewa & IQ Prep Center</title>
+    <title>Learnsewa - Elite Loksewa & IQ Prep Center</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -70,9 +70,20 @@
             50% { transform: translateY(-6px); }
         }
         .float-emoji { animation: float 3s ease-in-out infinite; }
+        /* Apply to the whole site */
+        html, body {
+            scrollbar-gutter: stable; /* Forces the browser to keep space reserved for the scrollbar, preventing width jumps */
+            user-select: none;  /* Disables text selection across the UI */
+            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+        }
+        ::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+        }
+
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row">
+<body class=" bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full select-none" >
 
     <!-- ==========================================
          DESKTOP SIDEBAR (Left Column on wide view)
@@ -131,22 +142,6 @@
          MAIN INTERACTION FLOW FRAME 
          ========================================== -->
     <main class="flex-1 flex flex-col min-w-0 max-w-6xl mx-auto w-full relative pb-28 md:pb-8">
-
-        <!-- ==========================================
-             SYSTEM TOP NAVIGATION HEADLINES
-             ========================================== -->
-        <header class="bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md px-5 py-4 sticky top-0 z-40 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-transparent md:border-slate-100 dark:md:border-slate-800/80">
-            <!-- Mobile System Clock Status Strip -->
-            <div class="flex justify-between items-center w-full md:hidden text-xs font-bold text-slate-700 dark:text-slate-300">
-                <span>9:41</span>
-                <!-- Dynamic Island Simulation -->
-                <div class="w-20 h-4 bg-black rounded-full absolute left-1/2 -translate-x-1/2 top-2"></div>
-                <div class="flex items-center gap-1.5">
-                    <i class="fa-solid fa-signal text-[9px]"></i>
-                    <i class="fa-solid fa-wifi text-[9px]"></i>
-                    <i class="fa-solid fa-battery-full text-xs"></i>
-                </div>
-            </div>
 
             <!-- Main Interactive Header Segment -->
             <div class="hidden md:flex items-center justify-between w-full">
@@ -410,7 +405,7 @@
             <!-- ---------------------------------------
                  TAB 3: INTERACTIVE TESTING SUITE & SIMULATOR
                  --------------------------------------- -->
-            <section id="view-tests" class="page-view space-y-6">
+            <section id="view-tests" class="page-view space-y-6 ">
                 <!-- User Accuracy Overview -->
                 <div class="bg-gradient-to-br from-indigo-900 to-indigo-950 text-white rounded-3xl p-5 shadow-md flex justify-between items-center">
                     <div>
@@ -933,33 +928,31 @@
         <!-- ==========================================
              MOBILE NAVIGATION BOTTOM DECK DOCK (Fixed on Mobile Viewports)
              ========================================== -->
-        <div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-6 py-3 flex justify-between items-center z-50 shadow-lg">
-            <!-- Nav Home Button -->
-            <button onclick="switchTab('home')" id="mob-nav-home" class="mob-btn flex flex-col items-center gap-1 text-blue-600 transition">
-                <i class="fa-solid fa-house text-base"></i>
-                <span class="text-[9px] font-bold">Home</span>
-            </button>
-            <!-- Nav Courses Button -->
-            <button onclick="switchTab('courses')" id="mob-nav-courses" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
-                <i class="fa-solid fa-book-open text-base"></i>
-                <span class="text-[9px] font-bold">Courses</span>
-            </button>
-            <!-- Nav Tests Button -->
-            <button onclick="switchTab('tests')" id="mob-nav-tests" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
-                <i class="fa-solid fa-clipboard-list text-base"></i>
-                <span class="text-[9px] font-bold">Tests</span>
-            </button>
-            <!-- Nav Community Button -->
-            <button onclick="switchTab('community')" id="mob-nav-community" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
-                <i class="fa-solid fa-users text-base"></i>
-                <span class="text-[9px] font-bold">Community</span>
-            </button>
-            <!-- Nav Profile Button -->
-            <button onclick="switchTab('profile')" id="mob-nav-profile" class="mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition">
-                <i class="fa-solid fa-user text-base"></i>
-                <span class="text-[9px] font-bold">Profile</span>
-            </button>
-        </div>
+<div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 grid grid-cols-5 items-center z-50 shadow-lg select-none">
+    <button onclick="switchTab('home')" id="mob-nav-home" class="mob-btn flex flex-col items-center justify-center gap-1 text-blue-600 transition py-3 w-[20vw] h-full shrink-0">
+        <i class="fa-solid fa-house text-base pointer-events-none"></i>
+        <span class="text-[9px] font-bold pointer-events-none">Home</span>
+    </button>
+    <button onclick="switchTab('courses')" id="mob-nav-courses" class="mob-btn flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0">
+        <i class="fa-solid fa-book-open text-base pointer-events-none"></i>
+        <span class="text-[9px] font-bold pointer-events-none">Courses</span>
+    </button>
+    <button onclick="switchTab('tests')" id="mob-nav-tests" class="mob-btn flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0">
+        <i class="fa-solid fa-clipboard-list text-base pointer-events-none"></i>
+        <span class="text-[9px] font-bold pointer-events-none">Tests</span>
+    </button>
+    <button onclick="switchTab('community')" id="mob-nav-community" class="mob-btn flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0">
+        <i class="fa-solid fa-users text-base pointer-events-none"></i>
+        <span class="text-[9px] font-bold pointer-events-none">Community</span>
+    </button>
+    <button onclick="switchTab('profile')" id="mob-nav-profile" class="mob-btn flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0">
+        <i class="fa-solid fa-user text-base pointer-events-none"></i>
+        <span class="text-[9px] font-bold pointer-events-none">Profile</span>
+    </button>
+</div>
+
+
+
 
     </main>
 
@@ -1280,11 +1273,11 @@
             }
 
             document.querySelectorAll('.mob-btn').forEach(btn => {
-                btn.className = "mob-btn flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition";
+                btn.className = "mob-btn flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0";
             });
             const mobBtn = document.getElementById(`mob-nav-${tabId}`);
             if (mobBtn) {
-                mobBtn.className = "mob-btn flex flex-col items-center gap-1 text-blue-600 transition";
+                mobBtn.className = "mob-btn flex flex-col items-center justify-center gap-1 text-blue-600 dark:text-slate-500 transition py-3 w-[20vw] h-full shrink-0";
             }
 
             if (tabId === 'profile') {
@@ -1292,6 +1285,26 @@
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Update the bottom navbar button visual states smoothly
+            const tabs = ['home', 'courses', 'tests', 'community', 'profile'];
+    
+            tabs.forEach(id => {
+                const btn = document.getElementById(`mob-nav-${id}`);
+                const icon = btn.querySelector('i');
+
+                if (id === tabId) {
+                    // ACTIVE STATE: Colorful text, soft pill background, scaled icon
+                    btn.classList.remove('text-slate-400', 'dark:text-slate-500');
+                    btn.classList.add('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded-xl');
+                    icon.classList.add('scale-110');
+                } else {
+                    // INACTIVE STATE: Muted grey text, clean transparent background
+                    btn.classList.remove('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded-xl');
+                    btn.classList.add('text-slate-400', 'dark:text-slate-500');
+                    icon.classList.remove('scale-110');
+                }
+            });
         }
 
         /* ==========================================
