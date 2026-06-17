@@ -83,7 +83,7 @@
 
     </style>
 </head>
-<body class=" bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full select-none" >
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col md:flex-row h-full select-none" >
 
     <!-- ==========================================
          DESKTOP SIDEBAR (Left Column on wide view)
@@ -928,7 +928,7 @@
         <!-- ==========================================
              MOBILE NAVIGATION BOTTOM DECK DOCK (Fixed on Mobile Viewports)
              ========================================== -->
-<div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 grid grid-cols-5 items-center z-50 shadow-lg select-none">
+<div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 grid grid-cols-5 items-center z-50 shadow-lg select-none overscroll-behavior-y-none touch-none">
     <button onclick="switchTab('home')" id="mob-nav-home" class="mob-btn flex flex-col items-center justify-center gap-1 text-blue-600 transition py-3 w-[20vw] h-full shrink-0">
         <i class="fa-solid fa-house text-base pointer-events-none"></i>
         <span class="text-[9px] font-bold pointer-events-none">Home</span>
@@ -1296,11 +1296,11 @@
                 if (id === tabId) {
                     // ACTIVE STATE: Colorful text, soft pill background, scaled icon
                     btn.classList.remove('text-slate-400', 'dark:text-slate-500');
-                    btn.classList.add('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded-xl');
+                    btn.classList.add('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded');
                     icon.classList.add('scale-110');
                 } else {
                     // INACTIVE STATE: Muted grey text, clean transparent background
-                    btn.classList.remove('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded-xl');
+                    btn.classList.remove('text-blue-600', 'bg-blue-50/50', 'dark:bg-blue-950/30', 'rounded');
                     btn.classList.add('text-slate-400', 'dark:text-slate-500');
                     icon.classList.remove('scale-110');
                 }
